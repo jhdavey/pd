@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Build;
+use App\Models\User;
+
+class BuildPolicy
+{
+    /**
+     * Determine whether the user can view any models.
+     */
+    public function edit(User $user, Build $build): bool
+    {
+        return $build->user->is($user);
+    }
+}
