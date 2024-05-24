@@ -9,6 +9,7 @@ use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\ProfileController;
 
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
@@ -26,6 +27,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [SessionController::class, 'store']);
 });
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');;
+Route::post('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');;
 
 // Password resets
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');

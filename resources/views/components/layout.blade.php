@@ -47,6 +47,8 @@
                         <a href="/login" class="hover:text-gray-500">Log In</a>
                     @endguest
                     @auth
+                        <a href="/profile/{{ $authUser->id }}" class="hover:text-gray-500">Profile</a>
+                        
                         <form method="POST" action="/logout">
                             @csrf
                             @method('DELETE')
