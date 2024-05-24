@@ -1,7 +1,7 @@
 # TODO
 
 ## Highest Priority
-* forgot username/password
+
 * Profile settings
 * Complete feedback database set up + name/email?
 

@@ -6,6 +6,12 @@
 
         <x-forms.input label="Password" id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
 
-        <x-forms.button>Login</x-forms.button>
+        <div class="flex items-center justify-between mt-4">
+            <x-forms.button>Login</x-forms.button>
+            <a href="{{ route('password.request') }}" class="text-sm text-white hover:text-gray-400">
+                Forgot password?
+            </a>
+        </div>
+
     </x-forms.form>
 </x-layout>
