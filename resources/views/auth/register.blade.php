@@ -2,6 +2,8 @@
     <x-forms.form method="POST" action="/register">
         @csrf
 
+        <x-page-heading>Sign Up</x-page-heading>
+
         <x-forms.input label="Username" id="name" class="block mt-1 w-full" type="text" name="name" required />
 
         <x-forms.input label="Email" id="email" class="block mt-1 w-full" type="email" name="email" required />

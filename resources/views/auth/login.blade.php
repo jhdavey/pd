@@ -2,6 +2,8 @@
     <x-forms.form method="POST" action="/login">
         @csrf
 
+        <x-page-heading>Log In</x-page-heading>
+
         <x-forms.input label="Email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
 
         <x-forms.input label="Password" id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />

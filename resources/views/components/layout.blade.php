@@ -40,7 +40,7 @@
 
                 <div class="hidden lg:flex space-x-6 items-center font-bold text-sm">
                     <x-forms.form action="/search">
-                        <x-forms.input class='h-4' :label="false" name="q" placeholder="Search Year/Make/Model"></x-forms.input>
+                        <x-forms.input :label="false" name="q" placeholder="Search builds..."></x-forms.input>
                     </x-forms.form>
                     @guest
                         <a href="/register" class="hover:text-gray-500">Sign Up</a>
