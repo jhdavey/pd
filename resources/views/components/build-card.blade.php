@@ -3,10 +3,11 @@
         <img class="w-full rounded-lg" src="{{ $build->image }}" alt="Build Feature Image">
         
         <div class="py-5">
-            <div class="text-sm">{{ $build->user->name }}'s</div>
+            <a href="{{ route('garage.show', $build->user->id) }}" class="text-sm">{{ $build->user->name }}'s</a>
             <h3 class="group-hover:text-gray-500 font-bold text-lg transition-colors duration-200">
-            {{ $build->year }} {{ $build->make }} {{ $build->model }} {{ $build->trim }}
+                {{ $build->year }} {{ $build->make }} {{ $build->model }} {{ $build->trim }}
             </h3>
+            <p>{{ $build->build_category }} Build</p>
         </div>
 
         <div>

@@ -1,3 +1,27 @@
+@php
+
+$build_categories = [
+    'Classic/Antique',
+    'Drag',
+    'Drift',
+    'Exotic',
+    'Hot rod/Rat rod',
+    'Lowrider',
+    'Luxury/VIP',
+    'Muscle',
+    'Offroad/Overlander',
+    'Rally',
+    'Restomod',
+    'Show',
+    'Sleeper',
+    'Stanced',
+    'Street/daily',
+    'Time attack',
+    'Track/circuit/road race',
+    'Other'
+];
+@endphp
+
 <x-layout>
     <x-page-heading>New Build</x-page-heading>
 
@@ -6,6 +30,8 @@
     <x-forms.input label="Make*" name="make" placeholder="Toyota" />
     <x-forms.input label="Model*" name="model" placeholder="Supra" />
     <x-forms.input label="Trim Level" name="trim" placeholder="GTS" />
+    <x-forms.select label="Category*" name="build_category" :options="$build_categories"/>
+
     
     <x-forms.divider />
 

@@ -16,7 +16,7 @@ class BuildSeeder extends Seeder
     {
         $tags = Tag::factory(3)->create();
 
-        Build::factory(2)->hasAttached($tags)->create(new Sequence([
+        Build::factory(3)->hasAttached($tags)->create(new Sequence([
             'featured' => false,
         ], [
             'featured' => true,

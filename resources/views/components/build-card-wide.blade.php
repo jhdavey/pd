@@ -11,10 +11,11 @@
                 <img class="w-full md:max-w-40 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Build Feature Image">                
 
                 <div class="w-full">
-                    <p class="text-center md:text-left font-bold text-2xl group-hover:text-gray-500 transition-colors duration-200">
-                        {{ $build->year }} {{ $build->make }} {{ $build->model }} {{ $build->trim }}
-                    </p>
-
+                    <div class="flex justify-between">
+                        <p class="text-center md:text-left font-bold text-2xl group-hover:text-gray-500 transition-colors duration-200">
+                            {{ $build->year }} {{ $build->make }} {{ $build->model }} {{ $build->trim }}</p>
+                        <p>{{$build->build_category}} Build</p>
+                    </div>
                     <div class="text-center md:text-left md:flex md:space-x-5 mt-4">
                         <ul class="list-none">
                             <li><span class="font-bold text-lg">Horsepower:</span> {{ $build['hp'] }}</li>

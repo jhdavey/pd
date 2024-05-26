@@ -1,3 +1,26 @@
+@php
+$build_categories = [
+    'Classic/Antique',
+    'Drag',
+    'Drift',
+    'Exotic',
+    'Hot rod/Rat rod',
+    'Lowrider',
+    'Luxury/VIP',
+    'Muscle',
+    'Offroad/Overlander',
+    'Rally',
+    'Restomod',
+    'Show',
+    'Sleeper',
+    'Stanced',
+    'Street/daily',
+    'Time attack',
+    'Track/circuit/road race',
+    'Other'
+];
+@endphp
+
 <x-layout>
     <x-page-heading>Edit Build: {{ $build->make }} {{ $build->model }}</x-page-heading>
 
@@ -8,6 +31,8 @@
         <x-forms.input label="Make*" name="make" placeholder="Toyota" value="{{ $build->make }}" />
         <x-forms.input label="Model*" name="model" placeholder="Supra" value="{{ $build->model }}" />
         <x-forms.input label="Trim Level" name="trim" placeholder="GTS" value="{{ $build->trim }}" />
+        <x-forms.select label="Category*" name="build_category" :options="$build_categories" value="{{ $build->build_category }}" />
+
 
         <x-forms.divider />
 

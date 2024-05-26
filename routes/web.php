@@ -5,11 +5,13 @@ use App\Http\Controllers\ModificationController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\GarageController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FollowController;
 
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
@@ -27,10 +29,14 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [SessionController::class, 'store']);
 });
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
-Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');;
-Route::post('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');;
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
+Route::post('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
-// Password resets
+// Followers
+Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+
+// Passwords
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
 Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
@@ -60,10 +66,12 @@ Route::delete('/mods/{modification}', [ModificationController::class, 'destroy']
 
 Route::delete('/modifications/{build}', [ModificationController::class, 'destroy']);
 
-// Other Views
+// Garage
 Route::get('/garage', [BuildController::class, 'garage'])->name('garage');
-// Using invokable controller
-Route::get('/search', SearchController::class);
+Route::get('/garage/{user}', [GarageController::class, 'show'])->name('garage.show');
+
+// Others -vusing invokable controllers
+Route::get('/search', SearchController::class)->name('search');
 Route::get('/tags/{tag:name}', TagController::class);
 Route::get('/feedback', function () {
     return view('feedback');

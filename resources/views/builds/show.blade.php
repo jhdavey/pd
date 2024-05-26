@@ -27,12 +27,14 @@
             </div>
     @endif
 
-    <div class="my-3">
+    <div class="my-3 flex justify-between">
         <div class="flex flex-wrap gap-2">
             @foreach($build->tags as $tag)
             <x-tag :$tag />
             @endforeach
         </div>
+        <p class="font-bold text-xl">{{ $build->build_category }} Build</p>
+
     </div>
 
     <div class="space-y-2">
@@ -42,10 +44,10 @@
                     <h2 class="font-bold text-xl">Vehicle Stats</h2>
 
                     <ul class="list-none space-y-2">
-                        <li>Horsepower: {{ $build['hp'] }}</li>
-                        <li>Wheel HP: {{ $build['whp'] }}</li>
-                        <li>Torque: {{ $build['torque'] }}</li>
-                        <li>Curb Weight: {{ $build['weight'] }}</li>
+                        <li><span class="font-bold">Horsepower:</span> {{ $build['hp'] }}</li>
+                        <li><span class="font-bold">Wheel HP:</span> {{ $build['whp'] }}</li>
+                        <li><span class="font-bold">Torque:</span> {{ $build['torque'] }}</li>
+                        <li><span class="font-bold">Curb Weight:</span> {{ $build['weight'] }}</li>
                     </ul>
                 </div>
 
@@ -53,9 +55,9 @@
                     <h2 class="font-bold text-xl mt-3 md:mt-0">Vehicle Performance</h2>
 
                     <ul class="list-none space-y-2">
-                        <li>0-60 Time: {{ $build['zeroSixty'] }}</li>
-                        <li>0-100 Time: {{ $build['zeroOneHundred'] }}</li>
-                        <li>1/4 Mile Time: {{ $build['quarterMile'] }}</li>
+                        <li><span class="font-bold">0-60 Time:</span> {{ $build['zeroSixty'] }}</li>
+                        <li><span class="font-bold">0-100 Time:,</span> {{ $build['zeroOneHundred'] }}</li>
+                        <li><span class="font-bold">1/4 Mile Time:</span> {{ $build['quarterMile'] }}</li>
                     </ul>
                 </div>
             </div>
@@ -67,18 +69,18 @@
                     <h2 class="font-bold text-xl">Vehicle Specs</h2>
 
                     <ul class="list-none space-y-2">
-                        <li>Platform Layout: {{ $build['vehicleLayout'] }}</li>
-                        <li>Engine Type: {{ $build['engineType'] }}</li>
-                        <li>Engine Code: {{ $build['engineCode'] }}</li>
-                        <li>Fuel Type: {{ $build['fuel'] }}</li>
+                        <li><span class="font-bold">Platform Layout:</span> {{ $build['vehicleLayout'] }}</li>
+                        <li><span class="font-bold">Engine Type:</span> {{ $build['engineType'] }}</li>
+                        <li><span class="font-bold">Engine Code:</span> {{ $build['engineCode'] }}</li>
+                        <li><span class="font-bold">Fuel Type:</span> {{ $build['fuel'] }}</li>
                     </ul>
                 </div>
 
                 <div>
                     <ul class="list-none space-y-2">
-                        <li>Transmission Type: {{ $build['trans'] }}</li>
-                        <li>Suspension Type: {{ $build['suspension'] }}</li>
-                        <li>Brake Setup: {{ $build['brakes'] }}</li>
+                        <li><span class="font-bold">Transmission Type:</span> {{ $build['trans'] }}</li>
+                        <li><span class="font-bold">Suspension Type:</span> {{ $build['suspension'] }}</li>
+                        <li><span class="font-bold">Brake Setup:</span> {{ $build['brakes'] }}</li>
                     </ul>
                 </div>
             </div>

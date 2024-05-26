@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('make');
             $table->string('model');
             $table->string('trim')->nullable();
+            $table->string('build_category');
             $table->string('image')->nullable();
             $table->string('additional_images')->nullable();
             $table->integer('hp')->nullable();

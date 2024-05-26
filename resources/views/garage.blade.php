@@ -1,6 +1,6 @@
 <x-layout>
     <div class="text-center md:text-left md:flex md:justify-between md:items-center">
-        <x-page-heading>{{ $name }}'s Garage</x-page-heading>
+        <x-page-heading>My Garage</x-page-heading>
 
         <!-- TODO: Can't get button to drop down away from heading for some reason - using br tag temporarily... -->
         <br /> 

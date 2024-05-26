@@ -13,19 +13,40 @@ use Illuminate\Support\Facades\Storage;
 
 class BuildController extends Controller
 {
-    public function index() {
-
+    public function index()
+    {
+        // Fetch builds and group by 'featured' status
         $builds = Build::latest()
-        ->with('tags')
-        ->get()
-        ->groupBy('featured');
+            ->with('tags')
+            ->get()
+            ->groupBy('featured');
 
-        return view('builds/index', [
-            'builds' => $builds[0],
-            'featuredBuilds' => $builds[1],
-            'tags' => Tag::all()
+        // Initialize an empty collection for following builds
+        $followingBuilds = collect();
+
+        // Check if the user is authenticated
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            // Get the IDs of users the current user is following
+            $followingIds = $user->follows->pluck('id');
+
+            // Fetch the builds created by the followed users
+            $followingBuilds = Build::whereIn('user_id', $followingIds)->latest()->get();
+        }
+
+        // Fetch unique build categories
+        $categories = Build::select('build_category')->distinct()->get();
+
+        return view('builds.index', [
+            'builds' => $builds[0] ?? collect(),  // Handle the case where there are no non-featured builds
+            'featuredBuilds' => $builds[1] ?? collect(),  // Handle the case where there are no featured builds
+            'tags' => Tag::all(),
+            'categories' => $categories,
+            'followingBuilds' => $followingBuilds
         ]);
     }
+
 
     public function filtered(Request $request)
     {
@@ -72,6 +93,7 @@ class BuildController extends Controller
             'make' => ['required'],
             'model' => ['required'],
             'trim' => ['nullable'],
+            'build_category' => ['required'],
             'hp' => ['nullable'],
             'whp' => ['nullable'],
             'torque' => ['nullable'],
@@ -104,6 +126,7 @@ class BuildController extends Controller
             'make' => request('make'),
             'model' => request('model'),
             'trim' => request('trim'),
+            'build_category' => request('build_category'),
             'hp' => request('hp'),
             'whp' => request('whp'),
             'torque' => request('torque'),
@@ -142,6 +165,7 @@ class BuildController extends Controller
             'make' => ['required'],
             'model' => ['required'],
             'trim' => ['nullable'],
+            'build_category' => ['required'],
             'hp' => ['nullable'],
             'whp' => ['nullable'],
             'torque' => ['nullable'],

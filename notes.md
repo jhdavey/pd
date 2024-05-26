@@ -2,17 +2,26 @@
 
 ## Highest Priority
 
-* Profile settings
-* Complete feedback database set up + name/email?
-
-## Mid level Priority
-
-* Build edit/delete/cancel alert confirmations
+### Garage view for guests
+- profile info 
+- social accounts
+- bio
+### Modification categories missing for other genres?
+### Edit / add tags to existing build not working
+### Complete feedback database set up + name/email?
+### Error handling/testing
+### Build edit/delete/cancel alert confirmations
 
 ## low Priority
 
-* Paginate/autoload scroll index and results pages
-* create user garage view for guests
+* Provide a spot for build sponsors to be listed 
+
+
+
+
+
+
+
 
 # Misc Notes
 

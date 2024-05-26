@@ -12,13 +12,24 @@ class SearchController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $builds = Build::query()
-        ->with('tags')
-        ->where('model', 'LIKE', '%'.request('q').'%')
-        ->orWhere('make', 'LIKE', '%'.request('q').'%')
-        ->orWhere('model', 'LIKE', '%'.request('q').'%')
-        ->orWhere('trim', 'LIKE', '%'.request('q').'%')
-        ->get();
+        $query = Build::query()->with('tags');
+
+        // Handle general search query
+        if ($request->has('q')) {
+            $query->where(function($q) use ($request) {
+                $q->where('model', 'LIKE', '%' . $request->input('q') . '%')
+                  ->orWhere('make', 'LIKE', '%' . $request->input('q') . '%')
+                  ->orWhere('trim', 'LIKE', '%' . $request->input('q') . '%')
+                  ->orWhere('build_category', 'LIKE', '%' . $request->input('q') . '%');
+            });
+        }
+
+        // Handle category filter
+        if ($request->has('build_category')) {
+            $query->where('build_category', $request->input('build_category'));
+        }
+
+        $builds = $query->get();
 
         return view('results', ['builds' => $builds]);
     }

@@ -31,7 +31,7 @@
                     </a>
                     @auth
                         <div class="hidden lg:flex text-lg transition-colors duration-200 space-x-6">
-                            <a href="/" class="hover:text-gray-500">Home</a>
+                            <a href="/" class="hover:text-gray-500">Browse</a>
                             <a href="/garage" class="hover:text-gray-500">Garage</a>
                             <a href="/feedback" class="hover:text-gray-500">Beta</a>
                         </div>
