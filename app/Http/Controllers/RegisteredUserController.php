@@ -20,7 +20,12 @@ class RegisteredUserController extends Controller
         $attributes = $request->validate([
             'name' => ['required', 'unique:users,name'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::min(6)]
+            'password' => ['required', 'confirmed', Password::min(6)],
+            'bio' => ['nullable'],
+            'instagram' => ['nullable'],
+            'facebook' => ['nullable'],
+            'tiktok' => ['nullable'],
+            'youtube' => ['nullable']
         ]);
 
         $attributes['password'] = Hash::make($attributes['password']);

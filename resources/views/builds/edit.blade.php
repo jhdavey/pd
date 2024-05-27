@@ -77,7 +77,7 @@ $build_categories = [
         
         <img class="width-['150px'] max-w-40 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Current Featured Image">
 
-        <x-forms.input label="Additional Images (max 6)" name="additional_images[]" type="file" multiple />
+        <x-forms.input label="Additional Images" name="additional_images[]" type="file" multiple />
 
         <!-- Existing images -->
         @if($build->images->isNotEmpty())

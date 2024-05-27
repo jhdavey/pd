@@ -19,6 +19,11 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'bio' => 'nullable|string|max:500',
+            'instagram' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'tiktok' => 'nullable|string',
+            'youtube' => 'nullable|string',
         ]);
 
         $user->name = $validated['name'];

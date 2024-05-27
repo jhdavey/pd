@@ -27,7 +27,9 @@ class SessionController extends Controller
 
         request()->session()->regenerate();
 
-        return redirect('/garage');
+        $userId = Auth::id();
+
+        return redirect()->route('garage.show', ['user' => $userId]);;
     }
 
     public function destroy()

@@ -17,32 +17,32 @@
     <img class="mx-auto w-full rounded-lg mt-5" src="/{{ $build['image'] }}" alt="Build Feature Image">
 
     @if($build->images->isNotEmpty())
-        <!-- Existing images -->
-            <div class="flex space-x-3 mt-2">
-                @foreach ($build->images as $image)
-                    <a href="{{ Storage::url($image->path) }}" data-lightbox="build-images" data-title="Additional Build Image">
-                        <img class="max-w-40 rounded-lg" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
-                    </a>
-                @endforeach
-            </div>
+    <!-- Existing images -->
+    <div class="flex space-x-3 mt-2">
+        @foreach ($build->images as $image)
+        <a href="{{ Storage::url($image->path) }}" data-lightbox="build-images" data-title="Additional Build Image">
+            <img class="max-w-40 rounded-lg" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
+        </a>
+        @endforeach
+    </div>
     @endif
 
-    <div class="my-3 flex justify-between">
-        <div class="flex flex-wrap gap-2">
-            @foreach($build->tags as $tag)
-            <x-tag :$tag />
-            @endforeach
-        </div>
-        <p class="font-bold text-xl">{{ $build->build_category }} Build</p>
+    <div class="my-3 flex flex-wrap gap-2">
+        @foreach($build->tags as $tag)
+        <x-tag :$tag />
+        @endforeach
+    </div>
 
+    <div class="px-2 my-2 flex justify-between">
+        <h2 class="font-bold text-xl">Vehicle Specs</h2>
+
+        <p class="font-bold text-xl">{{ $build->build_category }} Build</p>
     </div>
 
     <div class="space-y-2">
         <x-panel>
             <div class="md:grid md:grid-cols-2 md:gap-2">
                 <div>
-                    <h2 class="font-bold text-xl">Vehicle Stats</h2>
-
                     <ul class="list-none space-y-2">
                         <li><span class="font-bold">Horsepower:</span> {{ $build['hp'] }}</li>
                         <li><span class="font-bold">Wheel HP:</span> {{ $build['whp'] }}</li>
@@ -51,23 +51,17 @@
                     </ul>
                 </div>
 
-                <div>
-                    <h2 class="font-bold text-xl mt-3 md:mt-0">Vehicle Performance</h2>
-
-                    <ul class="list-none space-y-2">
-                        <li><span class="font-bold">0-60 Time:</span> {{ $build['zeroSixty'] }}</li>
-                        <li><span class="font-bold">0-100 Time:,</span> {{ $build['zeroOneHundred'] }}</li>
-                        <li><span class="font-bold">1/4 Mile Time:</span> {{ $build['quarterMile'] }}</li>
-                    </ul>
-                </div>
+                <ul class="list-none space-y-2">
+                    <li><span class="font-bold">0-60 Time:</span> {{ $build['zeroSixty'] }}</li>
+                    <li><span class="font-bold">0-100 Time:,</span> {{ $build['zeroOneHundred'] }}</li>
+                    <li><span class="font-bold">1/4 Mile Time:</span> {{ $build['quarterMile'] }}</li>
+                </ul>
             </div>
         </x-panel>
 
         <x-panel>
             <div class="md:grid md:grid-cols-2 md:gap-2">
                 <div>
-                    <h2 class="font-bold text-xl">Vehicle Specs</h2>
-
                     <ul class="list-none space-y-2">
                         <li><span class="font-bold">Platform Layout:</span> {{ $build['vehicleLayout'] }}</li>
                         <li><span class="font-bold">Engine Type:</span> {{ $build['engineType'] }}</li>
@@ -104,18 +98,18 @@
 
             @else
 
-            <h2 class="text-3xl font-bold mb-5">Modifications</h2>
+            <x-section-heading>Modifications</x-section-heading>
 
             @foreach($modificationsByCategory as $category => $modifications)
 
-            <x-section-heading>{{ $category }}</x-section-heading>
+            <h3 class="text-lg font-bold">{{ $category }}</h3>
 
             <div class="w-full space-y-3">
                 @foreach($modifications as $modification)
                 <a href="/mods/{{ $modification->id }}/edit">
                     <x-panel>
                         <div class="grid grid-cols-6">
-                            <p class="font-bold text-lg col-span-3">{{ $modification->brand }} {{ $modification->name }}</p>
+                            <p class="col-span-3">{{ $modification->brand }} {{ $modification->name }}</p>
                             @isset($modification->price)
                             <p>${{ $modification->price }}</p>
                             @endisset

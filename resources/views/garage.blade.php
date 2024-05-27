@@ -1,3 +1,6 @@
+<!-- Changed everyone to go to same garage.show view  -->
+
+
 <x-layout>
     <div class="text-center md:text-left md:flex md:justify-between md:items-center">
         <x-page-heading>My Garage</x-page-heading>

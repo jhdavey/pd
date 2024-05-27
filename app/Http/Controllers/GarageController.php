@@ -12,6 +12,9 @@ class GarageController extends Controller
     public function show(User $user)
     {
         $builds = $user->builds;
-        return view('garage.show', compact('user', 'builds'));
+
+        $followerCount = $user->followers()->count();
+
+        return view('garage.show', compact('user', 'builds', 'followerCount'));
     }
 }
