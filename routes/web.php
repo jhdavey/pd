@@ -64,15 +64,10 @@ Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name
 
 // Modifications
 Route::get('/mods/{build}/create', [ModificationController::class, 'create'])->middleware('auth');
-Route::post('/mods', [ModificationController::class, 'store']);
-Route::get('/mods/{modification}/edit', [ModificationController::class, 'edit'])
-->middleware('auth')
-// ->can('edit', 'modification')
-->name('mods.update');
-Route::patch('/mods/{modification}', [ModificationController::class, 'update']);
-Route::delete('/mods/{modification}', [ModificationController::class, 'destroy']);
-
-Route::delete('/modifications/{build}', [ModificationController::class, 'destroy']);
+Route::post('/mods/{build}', [ModificationController::class, 'store'])->middleware('auth')->name('mods.store');
+Route::get('/builds/{build}/mods/{modification}/edit', [ModificationController::class, 'edit'])->middleware('auth')->name('mods.edit');
+Route::patch('/mods/{modification}', [ModificationController::class, 'update'])->middleware('auth')->name('mods.update');
+Route::delete('/builds/{build}/mods/{modification}', [ModificationController::class, 'destroy'])->middleware('auth')->name('mods.destroy');
 
 // Garage
 Route::get('/garage/{user}', [GarageController::class, 'show'])->name('garage.show');

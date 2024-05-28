@@ -8,6 +8,8 @@
 
 ## Mid Priority
 
+### Walk users through next steps - edit profile/edit builds
+
 ### File uploads
 
 ## low Priority

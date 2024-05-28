@@ -47,7 +47,6 @@ class BuildController extends Controller
         ]);
     }
 
-
     public function filtered(Request $request)
     {
         // Start with a base query
@@ -150,7 +149,7 @@ class BuildController extends Controller
                 $build->tag(trim(strtolower($tag)));
             }
         }
-        return redirect('/garage');
+        return redirect()->route('builds.show', $build)->with('status', 'Build updated successfully!');
     }
 
     public function edit(Build $build) {

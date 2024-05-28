@@ -108,19 +108,28 @@
 
             <div class="w-full space-y-3">
                 @foreach($modifications as $modification)
-                <a href="/mods/{{ $modification->id }}/edit">
+                <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
                     <x-panel>
                         <div class="grid grid-cols-6">
                             <p class="col-span-3">{{ $modification->brand }} {{ $modification->name }}</p>
+
                             @isset($modification->price)
                             <p>${{ $modification->price }}</p>
                             @endisset
+
                             @isset($modification->part)
                             <p class="col-span-2">Part No: {{ $modification->part }}</p>
                             @endisset
                         </div>
+
                         @isset($modification->notes)
                         <p class="mt-3"><span class="font-bold">Notes:</span> {{ $modification->notes }}</p>
+                        @endisset
+
+                        @isset ($modification->image)
+                        <div class="mt-4">
+                            <img src="{{ Storage::url($modification->image) }}" alt="Modification Image" class="w-20 h-20 rounded">
+                        </div>
                         @endisset
                     </x-panel>
                 </a>

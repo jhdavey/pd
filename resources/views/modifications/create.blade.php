@@ -1,13 +1,11 @@
 @php
-$build = request()->route('build');
-
 $categories = [
     'Accessories',
     'Audio',
     'Body Kits',
     'Brakes',
     'Cooling',
-    'Electrical'
+    'Electrical',  // Missing comma added here
     'Engine Components',
     'Engine Management',
     'Exhaust',
@@ -26,23 +24,21 @@ $categories = [
 <x-layout>
     <x-page-heading>Add Modification</x-page-heading>
 
-    <x-forms.form method="POST" action="/mods/" enctype="multipart/form-data">
+    <x-forms.form method="POST" action="{{ route('mods.store', $build) }}" enctype="multipart/form-data">
         @csrf
 
-        <input type="hidden" name="build_id" value="{{ $build }}">
+        <input type="hidden" name="build_id" value="{{ $build->id }}">
 
         <x-forms.select label="Category*" name="category" :options="$categories" />
         <x-forms.input label="Brand*" name="brand" placeholder="Greddy" />
         <x-forms.input label="Name*" name="name" placeholder="Intercooler" />
-        <x-forms.input label="Price" name="price" placeholder="489.99" type="integer" />
-        <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="string" />
-        <x-forms.input label="Notes" name="notes" placeholder="GTS" type="textarea" />
+        <x-forms.input label="Price" name="price" placeholder="489.99" type="number" />
+        <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" />
+        <x-forms.input label="Notes" name="notes" placeholder="any notes about your modification can go here..." type="textarea" />
+        <x-forms.input label="Image" name="image" type="file" />
 
         <x-forms.divider />
 
-        <!-- <x-forms.checkbox label="Submit to be featured" name="featured" /> -->
-
         <x-forms.button>Save Modification</x-forms.button>
-
     </x-forms.form>
 </x-layout>
