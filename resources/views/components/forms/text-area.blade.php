@@ -1,7 +1,9 @@
 @props(['label', 'name', 'value' => '', 'rows' => 3, 'placeholder' => ''])
 
 <div class="mb-4">
-    <label for="{{ $name }}" class="block text-sm font-medium text-black">{{ $label }}</label>
+    <label for="{{ $name }}">
+        <span class="ml-1 w-2 h-2 bg-white inline-block"></span>
+    <label class="font-bold" for="{{ $name }}">{{ $label }}</label>
     <textarea 
         name="{{ $name }}" 
         id="{{ $name }}" 

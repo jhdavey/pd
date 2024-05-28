@@ -31,7 +31,7 @@ Route::middleware('guest')->group(function () {
 });
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
-Route::post('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+Route::patch('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 // Followers
 Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
@@ -75,7 +75,6 @@ Route::delete('/mods/{modification}', [ModificationController::class, 'destroy']
 Route::delete('/modifications/{build}', [ModificationController::class, 'destroy']);
 
 // Garage
-Route::get('/garage', [BuildController::class, 'garage'])->name('garage');
 Route::get('/garage/{user}', [GarageController::class, 'show'])->name('garage.show');
 
 // Others -vusing invokable controllers

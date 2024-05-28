@@ -9,19 +9,10 @@
 ## Mid Priority
 
 ### File uploads
-### Add profile image for users
 
 ## low Priority
 
 * Provide a spot for build sponsors to be listed 
-
-
-
-
-
-
-
-
 
 # Misc Notes
 

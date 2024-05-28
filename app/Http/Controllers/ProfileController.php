@@ -5,32 +5,51 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
     public function show(User $user)
     {
-        return view('profile', ['user' => $user]);
+        return view('profile', compact('user'));
+    }
+
+    public function edit(User $user)
+    {
+        return view('profile.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
-        $validated = $request->validate([
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
             'bio' => 'nullable|string|max:500',
             'instagram' => 'nullable|string',
             'facebook' => 'nullable|string',
             'tiktok' => 'nullable|string',
             'youtube' => 'nullable|string',
-        ]);
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
 
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
+        if ($request->filled('password')) {
+            $rules['password'] = 'nullable|string|min:8|confirmed';
+        }
 
-        if (!empty($validated['password'])) {
+        $validated = $request->validate($rules);
+
+        $user->fill($validated);
+
+        if ($request->filled('password')) {
             $user->password = Hash::make($validated['password']);
+        }
+
+        if ($request->hasFile('profile_image')) {
+            if ($user->profile_image) {
+                Storage::delete($user->profile_image);
+            }
+            $path = $request->file('profile_image')->store('profile_images', 'public');
+            $user->profile_image = $path;
         }
 
         $user->save();

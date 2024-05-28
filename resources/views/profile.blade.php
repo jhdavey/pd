@@ -1,30 +1,33 @@
 <x-layout>
-    <x-page-heading>My Profile</x-page-heading>
+    <x-status-message />
 
-    <x-forms.form method="POST" action="{{ route('profile.update', $user) }}">
-        @csrf
+    <x-page-heading>Edit Profile</x-page-heading>
+    <x-panel>
+        <form action="{{ route('profile.update', $user) }}" method="POST" enctype="multipart/form-data" class="mt-4 space-y-3">
+            @csrf
+            @method('PATCH')
 
-        <x-forms.input label="Username" name="name" value="{{ $user->name }}" />
+            <div class="flex space-x-4">
+                @if ($user->profile_image)
+                <div class="mt-4">
+                    <img src="{{ Storage::url($user->profile_image) }}" alt="Profile Image" class="w-20 h-20 rounded-full">
+                </div>
+                @endif
 
-        <x-forms.input label="Email" name="email" value="{{ $user->email }}" />
+                <x-forms.input label="Profile Image" name="profile_image" type="file" />
+            </div>
+            
+            <x-forms.input label="Username" name="name" value="{{ $user->name }}" required />
+            <x-forms.input label="Email" name="email" type="email" value="{{ $user->email }}" required />
+            <x-forms.text-area label="Bio" name="bio" value="{{ $user->bio }}" />
+            <x-forms.input label="Instagram" name="instagram" value="{{ $user->instagram }}" />
+            <x-forms.input label="Facebook" name="facebook" value="{{ $user->facebook }}" />
+            <x-forms.input label="TikTok" name="tiktok" value="{{ $user->tiktok }}" />
+            <x-forms.input label="YouTube" name="youtube" value="{{ $user->youtube }}" />
+            <x-forms.input label="Password" name="password" type="password" />
+            <x-forms.input label="Confirm Password" name="password_confirmation" type="password" />
 
-        <x-forms.divider />
-
-        <x-forms.input label="New Password (At least 8 characters)" name="password" placeholder="New password" type="password" />
-
-        <x-forms.input label="Confirm Password" name="password_confirmation" placeholder="Confirm new password" type="password" />
-
-        <p class="italic">Only enter a new password if you would like to update your existing password.</p>
-
-        <x-forms.divider />
-
-        <x-forms.button>Update Profile</x-forms.button>
-
-        @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-        @endif
-
-    </x-forms.form>
+            <x-forms.button type="submit">Update Profile</x-forms.button>
+        </form>
+    </x-panel>
 </x-layout>

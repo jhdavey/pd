@@ -3,7 +3,15 @@
     <x-panel>
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <h1 class="font-bold text-4xl">{{ $user->name }}'s Garage</h1>
+                <div class="flex space-x-6 items-center">
+                    @if ($user->profile_image)
+                    <div class="mt-2">
+                        <img src="{{ Storage::url($user->profile_image) }}" alt="Profile Image" class="w-20 h-20 rounded-full">
+                    </div>
+                    @endif
+                    <h1 class="font-bold text-4xl">{{ $user->name }}'s Garage</h1>
+                </div>
+
                 <p class="col-span-2 mt-6">{{ $user->bio }}</p>
             </div>
 
