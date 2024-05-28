@@ -5,7 +5,6 @@
 
     <ul class="my-6 space-y-3">
         <li>-Video, and file uploads</li>
-        <li>-Garage views for other users.</li>
         <li>-Build sheet exporting to pdf and excel files</li>
         <li>-Commenting on builds</li>
         <li>-Adding track times</li>

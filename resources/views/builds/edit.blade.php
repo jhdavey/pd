@@ -24,6 +24,12 @@ $build_categories = [
 <x-layout>
     <x-page-heading>Edit Build: {{ $build->make }} {{ $build->model }}</x-page-heading>
 
+    @if (session('status'))
+        <div id="status-message" class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <x-forms.form method="POST" action="/builds/{{ $build->id }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
@@ -32,7 +38,6 @@ $build_categories = [
         <x-forms.input label="Model*" name="model" placeholder="Supra" value="{{ $build->model }}" />
         <x-forms.input label="Trim Level" name="trim" placeholder="GTS" value="{{ $build->trim }}" />
         <x-forms.select label="Category*" name="build_category" :options="$build_categories" value="{{ $build->build_category }}" />
-
 
         <x-forms.divider />
 
@@ -74,28 +79,28 @@ $build_categories = [
         <x-forms.input label="Featured Image" name="image" type="file" />
 
         <p>Current Featured Image:</p>
-        
+
         <img class="width-['150px'] max-w-40 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Current Featured Image">
 
-        <x-forms.input label="Additional Images" name="additional_images[]" type="file" multiple />
+        <x-forms.input label="Additional Images (max 6)" name="additional_images[]" type="file" multiple />
 
         <!-- Existing images -->
         @if($build->images->isNotEmpty())
-            <p>Current Additional Images</p>
-            
-            <div class="flex space-x-3">
-                @foreach ($build->images as $image)
-                    <img class="max-w-40 rounded-lg" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
-                @endforeach
-            </div>
+        <p>Current Additional Images</p>
+
+        <div class="flex space-x-3">
+            @foreach ($build->images as $image)
+            <img class="max-w-40 rounded-lg" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
+            @endforeach
+        </div>
         @endif
 
-        <x-forms.input label="Tags (comma seperated)" name="tags" placeholder="JDM, Boosted, 1000hpclub" />
+        <x-forms.input label="Tags (comma separated)" name="tags" placeholder="JDM, Boosted, 1000hpclub" value="{{ $build->tags->pluck('name')->implode(', ') }}" />
 
         <!-- Delete, Cancel, Edit buttons -->
         <div class="flex justify-end items-center max-w-2xl mx-auto gap-x-6 mt-6">
-            <button form="delete-form" class="font-bold text-sm text-red-500">Delete</button>
-            <a href="{{ route('builds.show', $build) }}" type="button" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Cancel</a>
+            <button type="button" id="delete-button" class="font-bold text-sm text-red-500">Delete</button>
+            <a href="{{ route('builds.show', $build) }}" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Cancel</a>
             <x-forms.button type="submit">Update</x-forms.button>
         </div>
     </x-forms.form>
@@ -104,4 +109,47 @@ $build_categories = [
         @csrf
         @method('DELETE')
     </form>
+
+    <!-- Delete Modal -->
+    <div id="delete-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-black bg-opacity-75 p-6 rounded-lg shadow-lg">
+            <h2 class="text-lg font-bold mb-4">Confirm Delete</h2>
+            <p class="mb-4">Are you sure you want to delete this build? This action cannot be undone.</p>
+            <div class="flex justify-end space-x-4">
+                <button type="button" id="cancel-delete" class="px-4 py-2 bg-gray-200 text-black rounded-lg">Cancel</button>
+                <button type="button" id="confirm-delete" class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Status message timeout
+            var statusMessage = document.getElementById('status-message');
+            if (statusMessage) {
+                setTimeout(function() {
+                    statusMessage.style.display = 'none';
+                }, 5000); // 5 seconds
+            }
+
+            // Delete modal logic
+            var deleteButton = document.getElementById('delete-button');
+            var deleteModal = document.getElementById('delete-modal');
+            var cancelDelete = document.getElementById('cancel-delete');
+            var confirmDelete = document.getElementById('confirm-delete');
+            var deleteForm = document.getElementById('delete-form');
+
+            deleteButton.addEventListener('click', function() {
+                deleteModal.classList.remove('hidden');
+            });
+
+            cancelDelete.addEventListener('click', function() {
+                deleteModal.classList.add('hidden');
+            });
+
+            confirmDelete.addEventListener('click', function() {
+                deleteForm.submit();
+            });
+        });
+    </script>
 </x-layout>

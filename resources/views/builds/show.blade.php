@@ -1,5 +1,7 @@
 <x-layout>
 
+    <x-status-message />
+
     <div class="md:flex md:justify-between items-center mt-2">
         <h1 class="text-2xl font-bold">
             {{ $build->user->name }}'s {{ $build['year'] }} {{ $build['make'] }} {{ $build['model'] }} {{ $build['trim'] }}
@@ -130,4 +132,40 @@
 
     </section>
 
+    <x-forms.divider />
+
+    <!-- Comments Section -->
+    <div class="mt-6">
+        <x-section-heading>Comments</x-section-heading>
+
+        @foreach ($build->comments as $comment)
+        <div class="mt-4">
+            <x-panel class="break-words">
+                <p>{{ $comment->body }}</p>
+
+                <p>{{ $comment->updated_at ? 'Edited' : 'Posted' }} by {{ $comment->user->name }} {{ $comment->updated_at ? $comment->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $comment->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }} <span class="text-2xs italic">est</span></p>
+
+                @can('update', $comment)
+                <a href="{{ route('comments.edit', $comment) }}" class="text-blue-500">Edit</a>
+                @endcan
+
+                @can('delete', $comment)
+                <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-red-500">Delete</button>
+                </form>
+                @endcan
+            </x-panel>
+        </div>
+        @endforeach
+
+        @auth
+        <form action="{{ route('comments.store', $build) }}" method="POST" class="mt-6">
+            @csrf
+            <textarea name="body" rows="2" class="w-full break-words p-2 border rounded-md text-black bg-grey-100" placeholder="Be nice..." required></textarea>
+            <button type="submit" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Comment</button>
+        </form>
+        @endauth
+    </div>
 </x-layout>

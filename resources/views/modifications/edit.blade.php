@@ -2,21 +2,24 @@
 $build = request()->route('build');
 
 $categories = [
-    'Engine',
-    'Cooling',
-    'Suspension',
-    'Brakes',
-    'Fuel',
-    'Transmission',
-    'Exhaust',
-    'Interior',
-    'Exterior',
-    'Electrical',
-    'Tires & Wheels',
-    'Body Kits',
-    'Lighting',
+    'Accessories',
     'Audio',
-    'Performance'
+    'Body Kits',
+    'Brakes',
+    'Cooling',
+    'Electrical'
+    'Engine Components',
+    'Engine Management',
+    'Exhaust',
+    'Exterior',
+    'Fuel',
+    'Interior',
+    'Lighting',
+    'Performance',
+    'Suspension',
+    'Tires & Wheels',
+    'Transmission',
+    'Other'
 ];
 @endphp
 

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 
 Route::fallback(function () {
@@ -53,6 +54,13 @@ Route::get('/builds/{build}/edit', [buildController::class, 'edit'])
 ->name('builds.update');
 Route::patch('/builds/{build}', [buildController::class, 'update']);
 Route::delete('/builds/{build}', [buildController::class, 'destroy']);
+
+// Comments
+Route::post('builds/{build}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+Route::patch('comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
 
 // Modifications
 Route::get('/mods/{build}/create', [ModificationController::class, 'create'])->middleware('auth');

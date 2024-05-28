@@ -36,4 +36,10 @@ class Build extends Model
     {
         return $this->hasMany(BuildImage::class);
     }
+
+    public function comments()
+{
+    return $this->hasMany(Comment::class);
+}
+
 }

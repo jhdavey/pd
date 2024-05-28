@@ -154,8 +154,9 @@ class BuildController extends Controller
     }
 
     public function edit(Build $build) {
+        $tags = Tag::all();
         
-        return view('builds/edit', ['build' => $build]);
+        return view('builds.edit', compact('build', 'tags'));
     }
 
     public function update(Request $request, Build $build)
@@ -202,6 +203,20 @@ class BuildController extends Controller
         // Update the build details
         $build->update($validated);
 
+        // Handle tags
+        if ($request->has('tags')) {
+            $tagNames = explode(',', $request->input('tags'));
+            $tagIds = [];
+            foreach ($tagNames as $tagName) {
+                $tagName = trim($tagName);
+                if ($tagName) {
+                    $tag = Tag::firstOrCreate(['name' => $tagName]);
+                    $tagIds[] = $tag->id;
+                }
+            }
+            $build->tags()->sync($tagIds);
+        }
+
         // Handle additional images
         if ($request->hasFile('additional_images')) {
             foreach ($request->file('additional_images') as $file) {
@@ -225,11 +240,15 @@ class BuildController extends Controller
         return redirect()->route('builds.show', $build)->with('status', 'Build updated successfully!');
     }
 
-    public function destroy(Build $build) {
+    public function destroy(Build $build, User $user) {
  
         $build->delete();
 
-        return redirect('/garage');
+        $builds = $user->builds;
+
+        $followerCount = $user->followers()->count();
+
+        return view('garage.show', compact('user', 'builds', 'followerCount'));
     }
     
     public function garage() {
