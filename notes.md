@@ -2,6 +2,7 @@
 
 ## Highest Priority
 
+### Mod price input takes Int only, vertical scroll on focus?
 ### Images for modifications
 ### Complete feedback database set up + name/email?
 ### Error handling/testing

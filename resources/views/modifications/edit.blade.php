@@ -26,7 +26,7 @@ $categories = [
 <x-layout>
     <x-page-heading>Edit Modification</x-page-heading>
 
-    <x-forms.form method="POST" action="{{ route('mods.update', ['modification' => $modification->id]) }}" enctype="multipart/form-data">
+    <x-forms.form method="POST" action="{{ route('mods.update', ['build' => $modification->build_id, 'modification' => $modification->id]) }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 
@@ -38,17 +38,25 @@ $categories = [
         <x-forms.input label="Price" name="price" placeholder="489.99" type="number" value="{{ $modification->price }}" />
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" value="{{ $modification->part }}" />
         <x-forms.text-area label="Notes" name="notes" placeholder="GTS" value="{{ $modification->notes }}" />
-        <x-forms.input label="Image" name="image" type="file" />
+        <x-forms.input label="Images" name="images[]" type="file" multiple />
 
-        @if ($modification->image)
-        <div class="mt-4">
-            <img src="{{ Storage::url($modification->image) }}" alt="Modification Image" class="w-20 h-20 rounded">
+        @if ($modification->images->isNotEmpty())
+        <div class="mt-4 grid grid-cols-6 gap-4">
+            @foreach ($modification->images as $image)
+            <div class="relative">
+                <img src="{{ Storage::url($image->image_path) }}" alt="Modification Image" class="w-full h-auto rounded">
+                <form action="{{ route('mods.deleteImage', $image->id) }}" method="POST" class="absolute top-0 right-0">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 text-white p-1 rounded">X</button>
+                </form>
+            </div>
+            @endforeach
         </div>
         @endif
 
         <x-forms.divider />
 
-        <!-- Delete, Cancel, Edit buttons -->
         <div class="flex justify-end items-center max-w-2xl mx-auto gap-x-6 mt-6">
             <button form="delete-form" class="font-bold text-sm text-red-500">Delete</button>
             <a href="{{ route('builds.show', $build) }}" type="button" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Cancel</a>
@@ -61,3 +69,4 @@ $categories = [
         @method('DELETE')
     </form>
 </x-layout>
+

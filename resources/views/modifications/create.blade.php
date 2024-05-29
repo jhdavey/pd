@@ -35,8 +35,7 @@ $categories = [
         <x-forms.input label="Price" name="price" placeholder="489.99" type="number" />
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" />
         <x-forms.input label="Notes" name="notes" placeholder="any notes about your modification can go here..." type="textarea" />
-        <x-forms.input label="Image" name="image" type="file" />
-
+        <x-forms.input label="Images" name="images[]" type="file" multiple />
         <x-forms.divider />
 
         <x-forms.button>Save Modification</x-forms.button>

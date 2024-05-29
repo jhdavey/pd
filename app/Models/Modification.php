@@ -11,7 +11,13 @@ class Modification extends Model
 
     protected $guarded = [];
 
-    public function build() {
+    public function build()
+    {
         return $this->belongsTo(Build::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ModificationImage::class);
     }
 }

@@ -6,42 +6,16 @@ use App\Models\Build;
 use App\Models\Modification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ModificationImage;
 
 class ModificationController extends Controller
 {
-    public function create(Build $build) {
+    public function create(Build $build)
+    {
         return view('modifications.create', compact('build'));
     }
 
-    public function store(Request $request, Build $build) {
-        $validated = $request->validate([
-            'category' => ['required'],
-            'name' => ['required'],
-            'brand' => ['required'],
-            'price' => ['nullable', 'numeric'],
-            'part' => ['nullable', 'string'],
-            'notes' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-        ]);
-    
-        $modification = new Modification($validated);
-        $modification->build_id = $build->id;
-    
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('mod_images', 'public');
-            $modification->image = $path;
-        }
-    
-        $modification->save();
-    
-        return redirect()->route('builds.show', $build)->with('status', 'Modification added successfully!');
-    }
-
-    public function edit(Build $build, Modification $modification) {
-        return view('modifications.edit', compact('build', 'modification'));
-    }
-
-    public function update(Request $request, Modification $modification)
+    public function store(Request $request, Build $build)
     {
         $validated = $request->validate([
             'category' => ['required'],
@@ -50,23 +24,76 @@ class ModificationController extends Controller
             'price' => ['nullable', 'numeric'],
             'part' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($modification->image) {
-                Storage::delete($modification->image);
+        // Create the modification
+        $modification = new Modification([
+            'category' => $validated['category'],
+            'name' => $validated['name'],
+            'brand' => $validated['brand'],
+            'price' => $validated['price'],
+            'part' => $validated['part'],
+            'notes' => $validated['notes'],
+            'build_id' => $build->id,
+        ]);
+        $modification->save();
+
+        // Handle the image uploads
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('mod_images', 'public');
+                ModificationImage::create([
+                    'modification_id' => $modification->id,
+                    'image_path' => $path,
+                ]);
             }
-            $path = $request->file('image')->store('mod_images', 'public');
-            $validated['image'] = $path;
         }
 
+        return redirect()->route('builds.show', $build)->with('status', 'Modification added successfully!');
+    }
+
+    public function edit(Build $build, Modification $modification)
+    {
+        return view('modifications.edit', compact('build', 'modification'));
+    }
+
+    public function update(Request $request, Build $build, Modification $modification)
+    {
+        $validated = $request->validate([
+            'category' => ['required'],
+            'name' => ['required'],
+            'brand' => ['required'],
+            'price' => ['nullable', 'numeric'],
+            'part' => ['nullable', 'string'],
+            'notes' => ['nullable', 'string'],
+            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+        ]);
+
         $modification->update($validated);
+
+        if ($request->hasFile('images')) {
+            foreach ($modification->images as $image) {
+                Storage::delete($image->image_path);
+                $image->delete();
+            }
+
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('mod_images', 'public');
+                ModificationImage::create([
+                    'modification_id' => $modification->id,
+                    'image_path' => $path,
+                ]);
+            }
+        }
 
         return redirect()->route('builds.show', $modification->build_id)->with('status', 'Modification updated successfully!');
     }
 
-    public function destroy(Build $build, Modification $modification) {
+
+
+    public function destroy(Build $build, Modification $modification)
+    {
         if ($modification->image) {
             Storage::delete($modification->image);
         }
@@ -74,5 +101,18 @@ class ModificationController extends Controller
         $modification->delete();
 
         return redirect()->route('builds.show', $build)->with('status', 'Modification deleted successfully!');
+    }
+
+    public function deleteImage($imageId)
+    {
+        $image = ModificationImage::findOrFail($imageId);
+
+        // Delete the image file from storage
+        Storage::delete($image->image_path);
+
+        // Delete the image record from the database
+        $image->delete();
+
+        return back()->with('status', 'Image deleted successfully!');
     }
 }
