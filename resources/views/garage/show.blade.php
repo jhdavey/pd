@@ -17,48 +17,52 @@ $socialMedia = [
     @endauth
 
     <x-panel>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <div class="flex space-x-6 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Top Row: Profile Image, Title, Followers, and Follow/Unfollow Button -->
+            <div class="flex flex-col md:flex-row md:space-x-6 items-center justify-between md:col-span-2">
+                <div class="flex items-center space-x-4">
                     @if ($user->profile_image)
-                    <div class="mt-2">
+                    <div class="mt-2 md:mt-0">
                         <img src="{{ Storage::url($user->profile_image) }}" alt="Profile Image" class="w-20 h-20 rounded-full">
                     </div>
                     @endif
-                    <h1 class="font-bold text-4xl">{{ $user->name }}'s Garage</h1>
+
+                    <h1 class="font-bold text-3xl">{{ $user->name }}'s Garage</h1>
                 </div>
 
-                <p class="col-span-2 mt-6">{{ $user->bio }}</p>
+                <div class="text-center md:text-end mt-4 md:mt-0">
+                    <p class="text-sm">{{ $followerCount }} followers</p>
+                    @auth
+                    @if (Auth::id() !== $user->id)
+                    @if (Auth::user()->follows->contains($user->id))
+                    <form action="{{ route('unfollow', $user->id) }}" method="POST" class="inline-block">
+                        @csrf
+                        <button class="text-xl font-bold mt-2 md:mt-0" type="submit">Unfollow</button>
+                    </form>
+                    @else
+                    <form action="{{ route('follow', $user->id) }}" method="POST" class="inline-block">
+                        @csrf
+                        <button class="text-xl font-bold mt-2 md:mt-0" type="submit">Follow</button>
+                    </form>
+                    @endif
+                    @endif
+                    @endauth
+                </div>
             </div>
 
-            <div class="text-end my-auto">
-                <p class="text-sm">{{ $followerCount }} followers</p>
-                <!-- Do not show follow button for personal garage views -->
-                @auth
-                @if (Auth::id() !== $user->id)
-                @if (Auth::user()->follows->contains($user->id))
-                <form action="{{ route('unfollow', $user->id) }}" method="POST">
-                    @csrf
-                    <button class="text-xl font-bold" type="submit">Unfollow</button>
-                </form>
-                @else
-                <form action="{{ route('follow', $user->id) }}" method="POST">
-                    @csrf
-                    <button class="text-xl font-bold" type="submit">Follow</button>
-                </form>
-                @endif
-                @endif
-                @endauth
+            <!-- Bottom Row: Bio and Social Media Links -->
+            <div>
+                <p class="ml-2">{{ $user->bio }}</p>
+            </div>
 
-                <div class="mt-6">
-                    <ul class="space-y-2">
-                        @foreach ($socialMedia as $media)
-                        @if (!empty($media['property']))
-                        <li>{{ $media['label'] }}: <a href="{{ $media['url'] . $media['property'] }}" target="_blank" class="text-blue-300">{{ $media['property'] }}</a></li>
-                        @endif
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="text-center md:text-end">
+                <ul class="space-y-2">
+                    @foreach ($socialMedia as $media)
+                    @if (!empty($media['property']))
+                    <li>{{ $media['label'] }}: <a href="{{ $media['url'] . $media['property'] }}" target="_blank" class="text-blue-300">{{ $media['property'] }}</a></li>
+                    @endif
+                    @endforeach
+                </ul>
             </div>
         </div>
     </x-panel>
