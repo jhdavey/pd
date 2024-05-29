@@ -45,17 +45,17 @@
             <div class="md:grid md:grid-cols-2 md:gap-2">
                 <div>
                     <ul class="list-none space-y-2">
-                        <li><span class="font-bold">Horsepower:</span> {{ $build->hp }}</li>
-                        <li><span class="font-bold">Wheel HP:</span> {{ $build->whp }}</li>
-                        <li><span class="font-bold">Torque:</span> {{ $build->torque }}</li>
-                        <li><span class="font-bold">Curb Weight:</span> {{ $build->weight }}</li>
+                        @if ($build->hp)<li><span class="font-bold">Horsepower:</span> {{ $build->hp }}</li>@endif
+                        @if ($build->whp)<li><span class="font-bold">Wheel HP:</span> {{ $build->whp }}</li>@endif
+                        @if ($build->torque)<li><span class="font-bold">Torque:</span> {{ $build->torque }}</li>@endif
+                        @if ($build->weight)<li><span class="font-bold">Curb Weight:</span> {{ $build->weight }}</li>@endif
                     </ul>
                 </div>
 
                 <ul class="list-none space-y-2">
-                    <li><span class="font-bold">0-60 Time:</span> {{ $build->zeroSixty }}</li>
-                    <li><span class="font-bold">0-100 Time:</span> {{ $build->zeroOneHundred }}</li>
-                    <li><span class="font-bold">1/4 Mile Time:</span> {{ $build->quarterMile }}</li>
+                @if ($build->zeroSixty)<li><span class="font-bold">0-60 Time:</span> {{ $build->zeroSixty }}</li>@endif
+                @if ($build->zeroOneHundred)<li><span class="font-bold">0-100 Time:</span> {{ $build->zeroOneHundred }}</li>@endif
+                @if ($build->quarterMile)<li><span class="font-bold">1/4 Mile Time:</span> {{ $build->quarterMile }}</li>@endif
                 </ul>
             </div>
         </x-panel>
@@ -64,18 +64,18 @@
             <div class="md:grid md:grid-cols-2 md:gap-2">
                 <div>
                     <ul class="list-none space-y-2">
-                        <li><span class="font-bold">Platform Layout:</span> {{ $build->vehicleLayout }}</li>
-                        <li><span class="font-bold">Engine Type:</span> {{ $build->engineType }}</li>
-                        <li><span class="font-bold">Engine Code:</span> {{ $build->engineCode }}</li>
-                        <li><span class="font-bold">Fuel Type:</span> {{ $build->fuel }}</li>
+                    @if ($build->vehicleLayout)<li><span class="font-bold">Platform Layout:</span> {{ $build->vehicleLayout }}</li>@endif
+                    @if ($build->engineType)<li><span class="font-bold">Engine Type:</span> {{ $build->engineType }}</li>@endif
+                    @if ($build->engineCode)<li><span class="font-bold">Engine Code:</span> {{ $build->engineCode }}</li>@endif
+                    @if ($build->fuel)<li><span class="font-bold">Fuel Type:</span> {{ $build->fuel }}</li>@endif
                     </ul>
                 </div>
 
                 <div>
                     <ul class="list-none space-y-2">
-                        <li><span class="font-bold">Transmission Type:</span> {{ $build->trans }}</li>
-                        <li><span class="font-bold">Suspension Type:</span> {{ $build->suspension }}</li>
-                        <li><span class="font-bold">Brake Setup:</span> {{ $build->brakes }}</li>
+                    @if ($build->trans)<li><span class="font-bold">Transmission Type:</span> {{ $build->trans }}</li>@endif
+                    @if ($build->suspension)<li><span class="font-bold">Suspension Type:</span> {{ $build->suspension }}</li>@endif
+                    @if ($build->brakes)<li><span class="font-bold">Brake Setup:</span> {{ $build->brakes }}</li>@endif
                     </ul>
                 </div>
             </div>

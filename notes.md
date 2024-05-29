@@ -2,8 +2,8 @@
 
 ## Highest Priority
 
+### Build required fields error handling - currently just refreshes page on submit with errors - no alert
 ### Mod price input takes Int only, vertical scroll on focus?
-### Images for modifications
 ### Complete feedback database set up + name/email?
 ### Error handling/testing
 
