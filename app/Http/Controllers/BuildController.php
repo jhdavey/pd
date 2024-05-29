@@ -239,15 +239,20 @@ class BuildController extends Controller
         return redirect()->route('builds.show', $build)->with('status', 'Build updated successfully!');
     }
 
-    public function destroy(Build $build, User $user) {
- 
+    public function destroy(Build $build)
+    {
+        if ($build->image) {
+            Storage::delete($build->image);
+        }
+
+        foreach ($build->images as $image) {
+            Storage::delete($image->path);
+            $image->delete();
+        }
+
         $build->delete();
 
-        $builds = $user->builds;
-
-        $followerCount = $user->followers()->count();
-
-        return view('garage.show', compact('user', 'builds', 'followerCount'));
+        return redirect()->route('garage.show', ['user' => $build->user_id])->with('status', 'Build deleted successfully!');
     }
     
     public function garage() {

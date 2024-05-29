@@ -1,5 +1,21 @@
+@php
+$socialMedia = [
+'instagram' => ['label' => 'IG', 'url' => 'https://instagram.com/', 'property' => $user->instagram],
+'facebook' => ['label' => 'FB', 'url' => 'https://facebook.com/', 'property' => $user->facebook],
+'tiktok' => ['label' => 'TikTok', 'url' => 'https://tiktok.com/@', 'property' => $user->tiktok],
+'youtube' => ['label' => 'YT', 'url' => 'https://youtube.com/', 'property' => $user->youtube],
+];
+@endphp
+
 <x-layout>
     <x-status-message />
+
+    @auth
+    <div class="w-full text-end mb-1">
+        <a href="/profile/{{ $authUser->id }}" class="hover:text-gray-500">Edit Profile</a>
+    </div>
+    @endauth
+
     <x-panel>
         <div class="grid grid-cols-2 gap-4">
             <div>
@@ -36,10 +52,11 @@
 
                 <div class="mt-6">
                     <ul class="space-y-2">
-                        <li>IG: <a href="https://instagram.com/{{ $user->instagram }}" target="_blank" class="text-blue-300">{{ $user->instagram }}</a></li>
-                        <li>FB: <a href="https://facebook.com/{{ $user->facebook }}" target="_blank" class="text-blue-300">{{ $user->facebook }}</a></li>
-                        <li>TikTok: <a href="https://tiktok.com/@{{ $user->tiktok }}" target="_blank" class="text-blue-300">{{ $user->tiktok }}</a></li>
-                        <li>YT: <a href="https://youtube.com/{{ $user->youtube }}" target="_blank" class="text-blue-300">{{ $user->youtube }}</a></li>
+                        @foreach ($socialMedia as $media)
+                        @if (!empty($media['property']))
+                        <li>{{ $media['label'] }}: <a href="{{ $media['url'] . $media['property'] }}" target="_blank" class="text-blue-300">{{ $media['property'] }}</a></li>
+                        @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>
