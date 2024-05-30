@@ -2,7 +2,7 @@
 
 ## Highest Priority
 
-### Build required fields error handling - currently just refreshes page on submit with errors - no alert
+### Edit Build page required fields error handling - currently just refreshes page on submit with errors - no alert
 ### Mod price input takes Int only, vertical scroll on focus?
 ### Complete feedback database set up + name/email?
 ### Error handling/testing
@@ -20,5 +20,3 @@
 # Misc Notes
 
 * php artisan serve = start dev server (if applicable)
-
-* For handling images - "The everything episode"

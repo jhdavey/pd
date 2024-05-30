@@ -23,7 +23,7 @@ $socialMedia = [
                 <div class="flex items-center space-x-4">
                     @if ($user->profile_image)
                     <div class="mt-2 md:mt-0">
-                        <img src="{{ Storage::url($user->profile_image) }}" alt="Profile Image" class="w-20 h-20 rounded-full">
+                        <img src="{{ Storage::url($user->profile_image) }}" alt="Profile Image" class="h-20 w-20 rounded-full object-cover">
                     </div>
                     @endif
 
@@ -52,7 +52,7 @@ $socialMedia = [
 
             <!-- Bottom Row: Bio and Social Media Links -->
             <div>
-                <p class="ml-2">{{ $user->bio }}</p>
+                <p class="ml-2 text-center md:text-start">{{ $user->bio }}</p>
             </div>
 
             <div class="text-center md:text-end">

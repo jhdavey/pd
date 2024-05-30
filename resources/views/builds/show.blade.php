@@ -19,17 +19,17 @@
     <img class="mx-auto w-full rounded-lg mt-5" src="{{ Storage::url($build->image) }}" alt="Build Feature Image">
 
     @if($build->images->isNotEmpty())
-    <div class="flex space-x-3 mt-2">
+    <div class="p-2 w-full grid grid-cols-2 place-items-center md:grid md:grid-cols-5 gap-3">
         @foreach ($build->images as $image)
         <a href="{{ Storage::url($image->path) }}" data-lightbox="build-images" data-title="Additional Build Image">
-            <img class="max-w-40 rounded-lg" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
+            <img class="w-full md:max-w-44 rounded-lg" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
         </a>
         @endforeach
     </div>
     @endif
 
     <div class="my-3 flex flex-wrap gap-2">
-        @foreach($build->tags as $tag)
+        @foreach($build->tags as $tag) 
         <x-tag :tag="$tag" />
         @endforeach
     </div>
