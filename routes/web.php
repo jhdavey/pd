@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\BetaController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
@@ -22,6 +23,10 @@ Route::fallback(function () {
 // Beta 
 Route::get('/beta', [BetaController::class, 'create'])->name('beta');
 Route::post('/beta/signup', [BetaController::class, 'store'])->name('beta.store');
+
+// Feedback
+Route::get('/feedback', [FeedbackController::class, 'create'])->name('feedback');
+Route::post('/feedback/submit', [FeedbackController::class, 'store'])->name('feedback.store');
 
 // Index
 Route::get('/', [BuildController::class, 'index']);
@@ -82,7 +87,3 @@ Route::get('/garage/{user}', [GarageController::class, 'show'])->name('garage.sh
 Route::get('/search', SearchController::class)->name('search');
 
 Route::get('/tags/{tag:name}', TagController::class);
-
-Route::get('/feedback', function () {
-    return view('feedback');
-})->name('feedback');

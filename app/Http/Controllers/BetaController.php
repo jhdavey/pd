@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\BetaSignup;
 
 class BetaController extends Controller
 {
-
     public function create()
     {
         return view('beta');
@@ -17,20 +17,13 @@ class BetaController extends Controller
         // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:beta_signups,email',
         ]);
-
-        // Handle the form submission (e.g., save to the database, send email, etc.)
-        // For demonstration purposes, we'll just flash a message to the session
-        // and redirect back to the beta sign-up page.
-
-        // Example: Store the beta sign-up in the database (create a BetaSignup model)
-        // \App\Models\BetaSignup::create($request->all());
-
-        // Flash a success message to the session
-        session()->flash('success', 'Thank you for signing up for beta access!');
-
+    
+        // Store the beta sign-up in the database
+        BetaSignup::create($request->only('name', 'email'));
+        
         // Redirect back to the beta sign-up page
-        return redirect()->route('beta');
+        return redirect()->route('beta')->with('status', 'Thank you. You will receive an email once you have been approved.');
     }
 }

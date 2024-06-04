@@ -1,4 +1,7 @@
 <x-layout>
+
+    <x-status-message />
+
     <x-page-heading>Welcome to the Beta Version of Passion Driven!</x-page-heading>
 
     <p class="my-6">We are constantly adding and improving features, but there is still a lot of work to do and some bugs to fix. Here are some exciting features we are currently working on:</p>
@@ -16,6 +19,11 @@
 
     <p class="my-6">Thank you for being part of our community!</p>
 
-    <x-forms.input label="Feedback" name="feedback" placeholder="What are your thoughts?" type="textarea" />
+    <x-forms.divider />
 
+    <x-forms.form action="{{ route('feedback.store') }}" method="POST">
+        @csrf
+        <x-forms.input label="Feedback" name="feedback" placeholder="Share your feedback..." required />
+        <x-forms.button type="submit">Share Feedback</x-forms.button>
+    </x-forms.form>
 </x-layout>

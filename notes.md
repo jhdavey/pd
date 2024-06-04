@@ -2,7 +2,7 @@
 
 ## Highest Priority
 
-### Set up beta sign up form + Complete feedback database set up + name/email?
+### Complete feedback database set up + name/email?
 
 ### Edit Build page required fields error handling - currently just refreshes page on submit with errors - no alert
 
