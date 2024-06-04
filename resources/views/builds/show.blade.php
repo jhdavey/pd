@@ -111,7 +111,7 @@
             <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
                 <x-panel>
                     <div class="grid grid-cols-6">
-                        <p class="col-span-3">{{ $modification->brand }} {{ $modification->name }}</p>
+                        <p class="col-span-3 text-lg font-bold">{{ $modification->brand }} {{ $modification->name }}</p>
 
                         @isset($modification->price)
                         <p>${{ $modification->price }}</p>
