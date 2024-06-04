@@ -2,45 +2,50 @@
 $build = request()->route('build');
 
 $categories = [
-    'Accessories',
-    'Audio',
-    'Body Kits',
-    'Brakes',
-    'Cooling',
-    'Electrical',  // Missing comma added here
-    'Engine Components',
-    'Engine Management',
-    'Exhaust',
-    'Exterior',
-    'Fuel',
-    'Interior',
-    'Lighting',
-    'Performance',
-    'Suspension',
-    'Tires & Wheels',
-    'Transmission',
-    'Other'
+'Accessories',
+'Audio',
+'Body Kits',
+'Brakes',
+'Cooling',
+'Electrical',
+'Engine Components',
+'Engine Management',
+'Exhaust',
+'Exterior',
+'Fuel',
+'Interior',
+'Lighting',
+'Performance',
+'Suspension',
+'Tires & Wheels',
+'Transmission',
+'Other'
 ];
 @endphp
 
 <x-layout>
     <x-page-heading>Edit Modification</x-page-heading>
 
-    <x-forms.form method="POST" action="{{ route('mods.update', ['build' => $modification->build_id, 'modification' => $modification->id]) }}" enctype="multipart/form-data">
-        @csrf
-        @method('PATCH')
+    @if (session('status'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{{ session('status') }}</span>
+    </div>
+    @endif
 
-        <input type="hidden" name="build_id" value="{{ $build->id }}">
+    @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Whoops!</strong> There were some problems with your input.
+        <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
-        <x-forms.select label="Category*" name="category" :options="$categories" value="{{ $modification->category }}" />
-        <x-forms.input label="Brand*" name="brand" placeholder="Greddy" value="{{ $modification->brand }}" />
-        <x-forms.input label="Name*" name="name" placeholder="Intercooler" value="{{ $modification->name }}" />
-        <x-forms.input label="Price" name="price" placeholder="489.99" type="number" value="{{ $modification->price }}" />
-        <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" value="{{ $modification->part }}" />
-        <x-forms.text-area label="Notes" name="notes" placeholder="GTS" value="{{ $modification->notes }}" />
-        <x-forms.input label="Images" name="images[]" type="file" multiple />
-
-        @if ($modification->images->isNotEmpty())
+    @if ($modification->images->isNotEmpty())
+    <div class="max-w-2xl mx-auto">
+        <x-section-heading>Current Images</x-section-heading>
         <div class="mt-4 grid grid-cols-6 gap-4">
             @foreach ($modification->images as $image)
             <div class="relative">
@@ -53,7 +58,23 @@ $categories = [
             </div>
             @endforeach
         </div>
-        @endif
+    </div>
+    @endif
+
+    <x-forms.form method="POST" action="{{ route('mods.update', ['build' => $modification->build_id, 'modification' => $modification->id]) }}" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
+
+        <input type="hidden" name="build_id" value="{{ $build->id }}">
+
+        <x-forms.select label="Category*" name="category" :options="$categories" value="{{ old('category', $modification->category) }}" />
+        <x-forms.input label="Brand*" name="brand" placeholder="Greddy" value="{{ old('brand', $modification->brand) }}" />
+        <x-forms.input label="Name*" name="name" placeholder="Intercooler" value="{{ old('name', $modification->name) }}" />
+        <x-forms.input label="Price" name="price" placeholder="489.99" type="number" value="{{ old('price', $modification->price) }}" />
+        <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" value="{{ old('part', $modification->part) }}" />
+        <x-forms.text-area label="Notes" name="notes" placeholder="GTS" value="{{ old('notes', $modification->notes) }}" />
+        <x-forms.input label="Add Images" name="images[]" type="file" multiple />
+
 
         <x-forms.divider />
 
@@ -68,5 +89,5 @@ $categories = [
         @csrf
         @method('DELETE')
     </form>
-</x-layout>
 
+</x-layout>

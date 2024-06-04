@@ -60,6 +60,7 @@ class ModificationController extends Controller
 
     public function update(Request $request, Build $build, Modification $modification)
     {
+        // Validate non-image data
         $validated = $request->validate([
             'category' => ['required'],
             'name' => ['required'],
@@ -67,17 +68,18 @@ class ModificationController extends Controller
             'price' => ['nullable', 'numeric'],
             'part' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
-            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
-
+    
+        // Update the modification with validated data
         $modification->update($validated);
-
+    
+        // Validate and handle images separately
         if ($request->hasFile('images')) {
-            foreach ($modification->images as $image) {
-                Storage::delete($image->image_path);
-                $image->delete();
-            }
-
+            $request->validate([
+                'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            ]);
+    
+            // Store new images
             foreach ($request->file('images') as $image) {
                 $path = $image->store('mod_images', 'public');
                 ModificationImage::create([
@@ -86,10 +88,10 @@ class ModificationController extends Controller
                 ]);
             }
         }
-
+    
         return redirect()->route('builds.show', $modification->build_id)->with('status', 'Modification updated successfully!');
     }
-
+    
 
 
     public function destroy(Build $build, Modification $modification)

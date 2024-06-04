@@ -5,7 +5,7 @@
     <x-page-heading>Get early access and help us improve the platform</x-page-heading>
 
     <p class="my-6">
-        This project began in May 2024. The goal is to create a platform that allows car enthusiasts of all types to come together and enjoy a shared passion. The platform will allow you to:
+        This project began in May 2024. The goal is to create a platform that allows car enthusiasts of all types to track and share their builds with fellow enthusiasts. The platform will allow you to:
         <br />
         <ul>
             <li>- List your builds in your garage</li>

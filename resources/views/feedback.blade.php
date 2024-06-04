@@ -15,7 +15,7 @@
         <li>-Plus bug fixes, and much much more</li>
     </ul>
 
-    <p class="my-6">We want to hear from you! This platform is designed for car enthusiasts to track and share their builds. Please share any feedback you have, and let us know what features you would like to see.</p>
+    <p class="my-6">We want to hear from you! This platform is designed to allows car enthusiasts of all types to track and share their builds with fellow enthusiasts. Please share any feedback you have, and let us know what features you would like to see.</p>
 
     <p class="my-6">Thank you for being part of our community!</p>
 

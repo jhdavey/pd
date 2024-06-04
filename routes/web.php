@@ -78,8 +78,7 @@ Route::post('/mods/{build}', [ModificationController::class, 'store'])->middlewa
 Route::get('/builds/{build}/mods/{modification}/edit', [ModificationController::class, 'edit'])->middleware('auth')->name('mods.edit');
 Route::patch('/builds/{build}/mods/{modification}', [ModificationController::class, 'update'])->name('mods.update');
 Route::delete('/builds/{build}/mods/{modification}', [ModificationController::class, 'destroy'])->middleware('auth')->name('mods.destroy');
-Route::delete('/mod_images/{image}', [ModificationController::class, 'deleteImage'])->name('mods.deleteImage');
-
+Route::delete('/mods/image/{image}', [ModificationController::class, 'deleteImage'])->name('mods.deleteImage');
 // Garage
 Route::get('/garage/{user}', [GarageController::class, 'show'])->name('garage.show');
 
