@@ -10,6 +10,7 @@ use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\BetaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
@@ -17,6 +18,10 @@ use App\Http\Controllers\FollowController;
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
+
+// Beta 
+Route::get('/beta', [BetaController::class, 'create'])->name('beta');
+Route::post('/beta/signup', [BetaController::class, 'store'])->name('beta.store');
 
 // Index
 Route::get('/', [BuildController::class, 'index']);
@@ -73,9 +78,11 @@ Route::delete('/mod_images/{image}', [ModificationController::class, 'deleteImag
 // Garage
 Route::get('/garage/{user}', [GarageController::class, 'show'])->name('garage.show');
 
-// Others -vusing invokable controllers
+// Others -Invokable controllers
 Route::get('/search', SearchController::class)->name('search');
+
 Route::get('/tags/{tag:name}', TagController::class);
+
 Route::get('/feedback', function () {
     return view('feedback');
 })->name('feedback');
