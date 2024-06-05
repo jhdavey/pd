@@ -74,7 +74,11 @@ $categories = [
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" value="{{ old('part', $modification->part) }}" />
         <x-forms.text-area label="Notes" name="notes" placeholder="GTS" value="{{ old('notes', $modification->notes) }}" />
         <x-forms.input label="Add Images" name="images[]" type="file" multiple />
-        <p class="text-sm italic text-white">6 image limit</p>
+        <p class="text-sm italic text-white">You can upload up to 6 images for this modification.</p>
+
+        @if ($errors->has('images'))
+        <p class="text-red-500 text-sm mt-2">{{ $errors->first('images') }}</p>
+        @endif
 
         <x-forms.divider />
 
@@ -89,5 +93,4 @@ $categories = [
         @csrf
         @method('DELETE')
     </form>
-
 </x-layout>

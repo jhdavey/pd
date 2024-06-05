@@ -5,7 +5,7 @@ $categories = [
     'Body Kits',
     'Brakes',
     'Cooling',
-    'Electrical',  // Missing comma added here
+    'Electrical',
     'Engine Components',
     'Engine Management',
     'Exhaust',
@@ -35,8 +35,13 @@ $categories = [
         <x-forms.input label="Price" name="price" placeholder="489.99" type="number" />
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" />
         <x-forms.input label="Notes" name="notes" placeholder="any notes about your modification can go here..." type="textarea" />
+
         <x-forms.input label="Images" name="images[]" type="file" multiple />
-        <p class="text-sm italic text-white">6 image limit</p>
+        <p class="text-sm italic text-white">You can upload up to 6 images for this modification.</p>
+
+        @if ($errors->has('images'))
+            <p class="text-red-500 text-sm mt-2">{{ $errors->first('images') }}</p>
+        @endif
 
         <x-forms.divider />
 

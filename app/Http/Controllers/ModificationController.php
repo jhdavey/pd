@@ -27,6 +27,12 @@ class ModificationController extends Controller
             'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
+        if ($request->hasFile('images')) {
+            if (count($request->file('images')) > 6) {
+                return redirect()->back()->withErrors(['images' => 'You can only upload up to 6 images per modification.'])->withInput();
+            }
+        }
+
         // Create the modification
         $modification = new Modification([
             'category' => $validated['category'],
@@ -69,17 +75,26 @@ class ModificationController extends Controller
             'part' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
         ]);
-    
-        // Update the modification with validated data
-        $modification->update($validated);
-    
-        // Validate and handle images separately
+
+        // Validate image uploads
         if ($request->hasFile('images')) {
+            $existingImageCount = $modification->images()->count();
+            $newImageCount = count($request->file('images'));
+
+            if ($existingImageCount + $newImageCount > 6) {
+                return redirect()->back()->withErrors(['images' => 'You can only upload a total of 6 images per modification.'])->withInput();
+            }
+
             $request->validate([
                 'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             ]);
-    
-            // Store new images
+        }
+
+        // Update the modification with validated data
+        $modification->update($validated);
+
+        // Handle image uploads
+        if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('mod_images', 'public');
                 ModificationImage::create([
@@ -88,11 +103,9 @@ class ModificationController extends Controller
                 ]);
             }
         }
-    
+
         return redirect()->route('builds.show', $modification->build_id)->with('status', 'Modification updated successfully!');
     }
-    
-
 
     public function destroy(Build $build, Modification $modification)
     {

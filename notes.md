@@ -4,7 +4,7 @@
 
 ### Image upload limits, character limits on form inputs, pagination/load scrolling?
 
-### Mod price input takes Int only, vertical scroll on focus?
+### Mod price input takes unlimited decimal points
 
 ### Host site through Forge/Digital Ocean - connect passiondrivenbuilds.com
 
