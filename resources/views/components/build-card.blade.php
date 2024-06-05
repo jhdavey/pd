@@ -1,6 +1,12 @@
+@props(['build'])
+
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
 <x-panel class="flex flex-col text-center">
     <a href="/builds/{{ $build['id'] }}">
-        <img class="w-full rounded-lg" src="{{ $build->image }}" alt="Build Feature Image">
+        <img class="w-full rounded-lg" src="{{ Storage::url($build->image) }}" alt="Build Feature Image">
         
         <div class="py-5">
             <a href="{{ route('garage.show', $build->user->id) }}" class="text-sm">{{ $build->user->name }}'s</a>

@@ -36,6 +36,8 @@ $categories = [
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" />
         <x-forms.input label="Notes" name="notes" placeholder="any notes about your modification can go here..." type="textarea" />
         <x-forms.input label="Images" name="images[]" type="file" multiple />
+        <p class="text-sm italic text-white">6 image limit</p>
+
         <x-forms.divider />
 
         <x-forms.button>Save Modification</x-forms.button>
