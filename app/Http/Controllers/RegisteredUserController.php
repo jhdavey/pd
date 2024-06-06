@@ -18,14 +18,9 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'name' => ['required', 'unique:users,name'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'name' => ['required', 'unique:users,name', 'max:100'],
+            'email' => ['required', 'email', 'unique:users,email','max:255'],
             'password' => ['required', 'confirmed', Password::min(6)],
-            'bio' => ['nullable'],
-            'instagram' => ['nullable'],
-            'facebook' => ['nullable'],
-            'tiktok' => ['nullable'],
-            'youtube' => ['nullable']
         ]);
 
         $attributes['password'] = Hash::make($attributes['password']);

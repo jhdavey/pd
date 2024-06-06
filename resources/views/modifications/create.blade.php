@@ -32,7 +32,7 @@ $categories = [
         <x-forms.select label="Category*" name="category" :options="$categories" />
         <x-forms.input label="Brand*" name="brand" placeholder="Greddy" />
         <x-forms.input label="Name*" name="name" placeholder="Intercooler" />
-        <x-forms.input label="Price" name="price" placeholder="489.99" type="number" />
+        <x-forms.input label="Price" name="price" placeholder="489.99" type="number" step="0.01" />
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" />
         <x-forms.input label="Notes" name="notes" placeholder="any notes about your modification can go here..." type="textarea" />
 

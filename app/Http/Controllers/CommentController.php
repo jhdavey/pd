@@ -16,7 +16,7 @@ class CommentController extends Controller
     public function store(Request $request, Build $build)
     {
         $request->validate([
-            'body' => 'required'
+            'body' => ['required', 'string', 'max:1000']
         ]);
 
         $build->comments()->create([
@@ -39,7 +39,7 @@ class CommentController extends Controller
         $this->authorize('update', $comment);
 
         $request->validate([
-            'body' => 'required'
+            'body' => ['required', 'string', 'max:1000']
         ]);
 
         $comment->update($request->only('body'));

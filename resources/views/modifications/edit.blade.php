@@ -70,7 +70,7 @@ $categories = [
         <x-forms.select label="Category*" name="category" :options="$categories" value="{{ old('category', $modification->category) }}" />
         <x-forms.input label="Brand*" name="brand" placeholder="Greddy" value="{{ old('brand', $modification->brand) }}" />
         <x-forms.input label="Name*" name="name" placeholder="Intercooler" value="{{ old('name', $modification->name) }}" />
-        <x-forms.input label="Price" name="price" placeholder="489.99" type="number" value="{{ old('price', $modification->price) }}" />
+        <x-forms.input label="Price" name="price" placeholder="489.99" type="number" step="0.01" value="{{ old('price', $modification->price) }}" />
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" value="{{ old('part', $modification->part) }}" />
         <x-forms.text-area label="Notes" name="notes" placeholder="GTS" value="{{ old('notes', $modification->notes) }}" />
         <x-forms.input label="Add Images" name="images[]" type="file" multiple />

@@ -7,6 +7,7 @@ use App\Models\Modification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ModificationImage;
+use App\Rules\DecimalPlaces;
 
 class ModificationController extends Controller
 {
@@ -19,11 +20,11 @@ class ModificationController extends Controller
     {
         $validated = $request->validate([
             'category' => ['required'],
-            'name' => ['required'],
-            'brand' => ['required'],
-            'price' => ['nullable', 'numeric'],
-            'part' => ['nullable', 'string'],
-            'notes' => ['nullable', 'string'],
+            'name' => ['required', 'string', 'max:100'],
+            'brand' => ['required', 'string', 'max:100'],
+            'price' => ['nullable', 'numeric', new DecimalPlaces(2)], 
+            'part' => ['nullable', 'string', 'string', 'max:255'],
+            'notes' => ['nullable', 'string', 'string', 'max:1000'],
             'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
@@ -69,11 +70,11 @@ class ModificationController extends Controller
         // Validate non-image data
         $validated = $request->validate([
             'category' => ['required'],
-            'name' => ['required'],
-            'brand' => ['required'],
-            'price' => ['nullable', 'numeric'],
-            'part' => ['nullable', 'string'],
-            'notes' => ['nullable', 'string'],
+            'name' => ['required', 'string', 'max:100'],
+            'brand' => ['required', 'string', 'max:100'],
+            'price' => ['nullable', 'numeric', new DecimalPlaces(2)], 
+            'part' => ['nullable', 'string', 'string', 'max:255'],
+            'notes' => ['nullable', 'string', 'string', 'max:1000'],
         ]);
 
         // Validate image uploads
