@@ -74,6 +74,8 @@ $categories = [
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" value="{{ old('part', $modification->part) }}" />
         <x-forms.text-area label="Notes" name="notes" placeholder="GTS" value="{{ old('notes', $modification->notes) }}" />
         <x-forms.input label="Add Images" name="images[]" type="file" multiple />
+        <p class="italic text-sm">Max size 50MB</p>
+
         <p class="text-sm italic text-white">You can upload up to 6 images for this modification.</p>
 
         @if ($errors->has('images'))

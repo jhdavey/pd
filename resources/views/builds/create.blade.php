@@ -71,7 +71,11 @@ $build_categories = [
     <x-forms.divider />
 
     <x-forms.input label="Featured Image*" name="image" type="file" />
-    <p class="italic">Add additional images on the edit build view</p>
+    <p class="italic text-sm">
+        Max size 50MB
+        <br />
+        Add additional images on the edit build view
+    </p>
 
     <x-forms.input label="Tags (comma seperated)" name="tags" placeholder="JDM, Boosted, 1000hpclub" />
 
