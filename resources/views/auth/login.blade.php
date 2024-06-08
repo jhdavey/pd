@@ -1,4 +1,7 @@
 <x-layout>
+
+    <x-status-message />
+
     <x-forms.form method="POST" action="/login">
         @csrf
 

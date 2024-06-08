@@ -2,14 +2,8 @@
 
 ## Highest Priority
 
-### Host site through Forge/Digital Ocean - connect passiondrivenbuilds.com
-
-
-
 
 ## Mid Priority
-
-### Walk users through next steps - edit profile/edit builds
 
 ### File uploads
 

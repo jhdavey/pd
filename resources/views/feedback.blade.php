@@ -9,7 +9,6 @@
     <ul class="my-6 space-y-3">
         <li>-Video, and file uploads</li>
         <li>-Build sheet exporting to pdf and excel files</li>
-        <li>-Commenting on builds</li>
         <li>-Adding track times</li>
         <li>-iOS, Android apps coming soon</li>
         <li>-Plus bug fixes, and much much more</li>
