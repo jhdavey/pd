@@ -74,12 +74,12 @@ $build_categories = [
     <p class="italic text-sm">
         Max size 50MB
         <br />
-        Add additional images on the edit build view
+        Add additional images in the edit build view
     </p>
 
     <x-forms.input label="Tags (comma seperated)" name="tags" placeholder="JDM, Boosted, 1000hpclub" />
 
-    <p class="italic">Next, add your custom modifications in the edit view.</p>
+    <p class="italic">Add modifications in the edit view.</p>
 
     <!-- <x-forms.checkbox label="Submit to be featured" name="featured" /> -->
     
