@@ -16,9 +16,11 @@ class CustomMail extends Mailable
     public $actionUrl;
     public $outroLines;
     public $salutation;
+    public $subject;
 
-    public function __construct($greeting, $introLines, $actionText, $actionUrl, $outroLines, $salutation)
+    public function __construct($subject, $greeting, $introLines, $actionText, $actionUrl, $outroLines, $salutation)
     {
+        $this->subject = $subject;
         $this->greeting = $greeting;
         $this->introLines = $introLines;
         $this->actionText = $actionText;
@@ -30,6 +32,7 @@ class CustomMail extends Mailable
     public function build()
     {
         return $this->view('emails.custom')
+            ->subject($this->subject)
             ->with([
                 'greeting' => $this->greeting,
                 'introLines' => $this->introLines,

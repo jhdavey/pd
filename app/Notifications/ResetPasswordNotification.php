@@ -3,8 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Auth\Notifications\ResetPassword as BaseResetPasswordNotification;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomMail;
 
 class ResetPasswordNotification extends BaseResetPasswordNotification
@@ -17,8 +15,9 @@ class ResetPasswordNotification extends BaseResetPasswordNotification
         $actionUrl = url(route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false));
         $outroLines = ["This password reset link will expire in 60 minutes.", "If you did not request a password reset, no further action is required."];
         $salutation = "Regards,\n" . config('app.name');
+        $subject = "Your Password Reset Link";
 
-        return (new CustomMail($greeting, $introLines, $actionText, $actionUrl, $outroLines, $salutation))
+        return (new CustomMail($subject, $greeting, $introLines, $actionText, $actionUrl, $outroLines, $salutation))
             ->to($notifiable->email);
     }
 }
