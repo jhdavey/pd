@@ -2,11 +2,11 @@
 <html>
 <head>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-background font-sans">
     <div class="max-w-lg mx-auto my-8 bg-white p-8 rounded-lg shadow">
         <div class="text-center">
             <a href="{{ config('app.url') }}">
-                <img src="{{ Vite::asset('resources/images/logoFull.png') }}" alt="{{ config('app.name') }}" class="h-12 mx-auto">
+                <img src="{{ Vite::asset('resources/images/logoSmall.png') }}" alt="{{ config('app.name') }}" class="h-12 mx-auto">
             </a>
         </div>
         <div class="mt-4">
