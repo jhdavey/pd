@@ -180,7 +180,7 @@ class BuildController extends Controller
             'trans' => ['nullable', 'string', 'max:100'],
             'suspension' => ['nullable', 'string', 'max:100'],
             'brakes' => ['nullable', 'string', 'max:100'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp'],
             'modifications' => ['nullable', 'array'],
             'additional_images' => ['nullable', 'array'],
             'additional_images.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp'],
