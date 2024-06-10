@@ -2,7 +2,6 @@
 
 ## Highest Priority
 
-### Image upload error handling: Build create/edit, mod create/edit
 ### Delete additional build images
 
 ## Mid Priority

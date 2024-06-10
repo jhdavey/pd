@@ -80,7 +80,7 @@
                 <div class="pt-4 pb-2 space-y-1">
 
                     <x-forms.form action="/search">
-                        <x-forms.input class="h-4 w-full sm:w-['100px']" :label="false" name="q" placeholder="Search Year/Make/Model"></x-forms.input>
+                        <x-forms.input class="w-full sm:w-['100px']" :label="false" name="q" placeholder="Search Year/Make/Model"></x-forms.input>
                     </x-forms.form>
 
                     @auth
