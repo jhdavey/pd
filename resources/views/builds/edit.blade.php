@@ -77,14 +77,14 @@ $build_categories = [
         <x-forms.divider />
 
         <x-forms.input label="Featured Image" name="image" type="file" />
-        <p class="italic text-sm">Max size 50MB</p>
+        <p class="italic text-sm">Max size 10MB</p>
 
         <p>Current Featured Image:</p>
 
         <img class="width-['150px'] max-w-40 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Current Featured Image">
 
         <x-forms.input label="Additional Images (max 6)" name="additional_images[]" type="file" multiple />
-        <p class="italic text-sm">Max size 50MB</p>
+        <p class="italic text-sm">Max size 10MB</p>
 
         <!-- Existing images -->
         @if($build->images->isNotEmpty())

@@ -37,7 +37,7 @@ $categories = [
         <x-forms.input label="Notes" name="notes" placeholder="any notes about your modification can go here..." type="textarea" />
 
         <x-forms.input label="Images" name="images[]" type="file" multiple />
-        <p class="italic text-sm">Max size 50MB</p>
+        <p class="italic text-sm">Max size 10MB</p>
         <p class="text-sm italic">You can upload up to 6 images for this modification.</p>
 
         @if ($errors->has('images'))
