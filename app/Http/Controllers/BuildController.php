@@ -160,6 +160,16 @@ class BuildController extends Controller
     public function update(Request $request, Build $build)
 {
     try {
+
+        $messages = [
+            'image.image' => 'The selected file must be an image.',
+            'image.mimes' => 'The image must be a file of type: jpg, jpeg, png, webp.',
+            'image.max' => 'The image may not be greater than 2MB.',
+            'additional_images.*.image' => 'Each additional image must be an image.',
+            'additional_images.*.mimes' => 'Each additional image must be a file of type: jpg, jpeg, png, webp.',
+            'additional_images.*.max' => 'Each additional image may not be greater than 2MB.',
+        ];
+        
         $validated = $request->validate([
             'year' => ['required', 'string', 'max:4'],
             'make' => ['required', 'string', 'max:100'],
@@ -185,7 +195,7 @@ class BuildController extends Controller
             'modifications' => ['nullable', 'array'],
             'additional_images' => ['nullable', 'array'],
             'additional_images.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-        ]);
+        ], $messages);
 
         // Handle the main image upload
         if ($request->hasFile('image')) {
