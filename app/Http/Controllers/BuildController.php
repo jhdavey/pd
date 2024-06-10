@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Build;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\Storage;
@@ -157,7 +158,8 @@ class BuildController extends Controller
     }
 
     public function update(Request $request, Build $build)
-    {
+{
+    try {
         $validated = $request->validate([
             'year' => ['required', 'string', 'max:4'],
             'make' => ['required', 'string', 'max:100'],
@@ -187,14 +189,19 @@ class BuildController extends Controller
 
         // Handle the main image upload
         if ($request->hasFile('image')) {
-            // Delete the old image if exists
-            if ($build->image) {
-                Storage::delete($build->image);
-            }
+            try {
+                // Delete the old image if exists
+                if ($build->image) {
+                    Storage::delete($build->image);
+                }
 
-            // Store the new image
-            $imagePath = $request->file('image')->store('public/builds');
-            $validated['image'] = $imagePath;
+                // Store the new image
+                $imagePath = $request->file('image')->store('public/builds');
+                $validated['image'] = $imagePath;
+            } catch (\Exception $e) {
+                Log::error('Failed to upload main image: ' . $e->getMessage());
+                return back()->withErrors(['image' => 'Image failed to upload.'])->withInput();
+            }
         }
 
         // Update the build details
@@ -217,8 +224,13 @@ class BuildController extends Controller
         // Handle additional images
         if ($request->hasFile('additional_images')) {
             foreach ($request->file('additional_images') as $file) {
-                $path = $file->store('builds', 'public');
-                $build->images()->create(['path' => $path]);
+                try {
+                    $path = $file->store('builds', 'public');
+                    $build->images()->create(['path' => $path]);
+                } catch (\Exception $e) {
+                    Log::error('Failed to upload additional image: ' . $e->getMessage());
+                    return back()->withErrors(['additional_images' => 'Additional images failed to upload.'])->withInput();
+                }
             }
         }
 
@@ -235,7 +247,11 @@ class BuildController extends Controller
         }
 
         return redirect()->route('builds.show', $build)->with('status', 'Build updated successfully!');
+    } catch (\Exception $e) {
+        Log::error('Build update failed: ' . $e->getMessage());
+        return back()->withErrors(['general' => 'Build update failed.'])->withInput();
     }
+}
 
     public function destroy(Build $build)
     {
