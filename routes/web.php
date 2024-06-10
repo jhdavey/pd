@@ -55,15 +55,14 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('p
 
 
 // Builds
+Route::get('/builds', [BuildController::class, 'index']);
 Route::get('/builds/create', [BuildController::class, 'create'])->middleware('auth');
 Route::post('/builds', [BuildController::class, 'store'])->middleware('auth');
 Route::get('/builds/{build}', [BuildController::class, 'show'])->name('builds.show');
-Route::get('/builds/{build}/edit', [buildController::class, 'edit'])
-->middleware('auth')
-->can('edit', 'build')
-->name('builds.update');
-Route::patch('/builds/{build}', [buildController::class, 'update']);
-Route::delete('/builds/{build}', [buildController::class, 'destroy']);
+Route::get('/builds/{build}/edit', [BuildController::class, 'edit'])->middleware('auth')->can('edit', 'build')->name('builds.edit');
+Route::patch('/builds/{build}', [BuildController::class, 'update'])->middleware('auth');
+Route::delete('/builds/{build}', [BuildController::class, 'destroy'])->middleware('auth');
+
 
 // Comments
 Route::post('builds/{build}/comments', [CommentController::class, 'store'])->name('comments.store');
