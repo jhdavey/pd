@@ -183,7 +183,7 @@ class BuildController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'modifications' => ['nullable', 'array'],
             'additional_images' => ['nullable', 'array'],
-            'additional_images.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'additional_images.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp'],
         ]);
 
         // Handle the main image upload
