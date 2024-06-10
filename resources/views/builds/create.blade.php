@@ -26,6 +26,8 @@ $build_categories = [
     <x-page-heading>New Build</x-page-heading>
 
     <x-forms.form method="POST" action="/builds" enctype="multipart/form-data">
+        @csrf
+        
     <x-forms.input label="Year*" name="year" placeholder="1995" />
     <x-forms.input label="Make*" name="make" placeholder="Toyota" />
     <x-forms.input label="Model*" name="model" placeholder="Supra" />
