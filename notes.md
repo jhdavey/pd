@@ -2,7 +2,10 @@
 
 ## Highest Priority
 
+### Create build 403 forbidden nginx error???
 ### Image upload error handling: Build create/edit, mod create/edit
+### Delete additional build images
+
 ## Mid Priority
 
 ### File uploads

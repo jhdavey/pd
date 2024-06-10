@@ -55,6 +55,7 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('p
 
 
 // Builds
+Route::get('/builds', [BuildController::class, 'index']);
 Route::get('/builds/create', [BuildController::class, 'create'])->middleware('auth');
 Route::post('/builds', [BuildController::class, 'store'])->middleware('auth');
 Route::get('/builds/{build}', [BuildController::class, 'show'])->name('builds.show');
