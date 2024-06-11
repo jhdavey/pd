@@ -101,7 +101,7 @@
 
         @foreach($modificationsByCategory as $category => $modifications)
         <div x-data="{ open: false }" class="mb-4">
-            <div class="flex justify-between items-center cursor-pointer p-2 bg-gray-100 rounded-lg shadow-md" @click="open = !open">
+            <div class="flex justify-between items-center cursor-pointer p-2 rounded-lg shadow-md" @click="open = !open">
                 <h3 class="text-lg font-bold">{{ $category }}</h3>
                 <svg class="w-6 h-6 transition-transform transform" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
