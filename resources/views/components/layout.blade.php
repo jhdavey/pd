@@ -105,7 +105,7 @@
         </nav>
 
         <!-- Expandable Beta Message -->
-        <div x-data="{ open: false }" class="p-4 rounded-lg mt-4">
+        <div x-data="{ open: false }" class="bg-white/10 px-4 py-2 rounded mt-1">
             <div class="flex justify-between items-center cursor-pointer" @click="open = !open">
                 <h2 class="text-lg text-red-500 italic">Welcome to the Beta Version of Passion Driven!</h2>
                 <svg class="w-6 h-6 transition-transform transform" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="red">
