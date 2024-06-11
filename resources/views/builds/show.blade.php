@@ -100,39 +100,46 @@
         </div>
 
         @foreach($modificationsByCategory as $category => $modifications)
-        <h3 class="text-lg font-bold">{{ $category }}</h3>
-        <div class="w-full space-y-3">
-            @foreach($modifications as $modification)
-            <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
-                <x-panel class="mb-4 p-4 bg-gray-100 rounded-lg shadow-md">
-                    <div class="grid grid-cols-6 gap-4">
-                        <p class="col-span-3 text-lg">{{ $modification->brand }} {{ $modification->name }}</p>
+        <div x-data="{ open: false }" class="mb-4">
+            <div class="flex justify-between items-center cursor-pointer bg-gray-200 p-2 rounded" @click="open = !open">
+                <h3 class="text-lg font-bold">{{ $category }}</h3>
+                <svg class="w-6 h-6 transition-transform transform" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+            <div x-show="open" x-transition class="w-full space-y-3 mt-3">
+                @foreach($modifications as $modification)
+                <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
+                    <x-panel class="mb-4 p-4 bg-gray-100 rounded-lg shadow-md">
+                        <div class="grid grid-cols-6 gap-4">
+                            <p class="col-span-3 text-lg">{{ $modification->brand }} {{ $modification->name }}</p>
 
-                        @isset($modification->price)
-                        <p>${{ $modification->price }}</p>
+                            @isset($modification->price)
+                            <p>${{ $modification->price }}</p>
+                            @endisset
+
+                            @isset($modification->part)
+                            <p class="col-span-2">Part No: {{ $modification->part }}</p>
+                            @endisset
+                        </div>
+
+                        @isset($modification->notes)
+                        <p class="mt-3"><span class="font-bold">Notes:</span> {{ $modification->notes }}</p>
                         @endisset
 
-                        @isset($modification->part)
-                        <p class="col-span-2">Part No: {{ $modification->part }}</p>
-                        @endisset
-                    </div>
-
-                    @isset($modification->notes)
-                    <p class="mt-3"><span class="font-bold">Notes:</span> {{ $modification->notes }}</p>
-                    @endisset
-
-                    @if ($modification->images->isNotEmpty())
-                    <div class="flex space-x-3 mt-4">
-                        @foreach ($modification->images as $image)
-                        <a href="{{ Storage::url($image->image_path) }}" data-lightbox="mod-images-{{ $modification->id }}" data-title="Modification Image">
-                            <img src="{{ Storage::url($image->image_path) }}" alt="Modification Image" class="h-20 rounded">
-                        </a>
-                        @endforeach
-                    </div>
-                    @endif
-                </x-panel>
-            </a>
-            @endforeach
+                        @if ($modification->images->isNotEmpty())
+                        <div class="flex space-x-3 mt-4">
+                            @foreach ($modification->images as $image)
+                            <a href="{{ Storage::url($image->image_path) }}" data-lightbox="mod-images-{{ $modification->id }}" data-title="Modification Image">
+                                <img src="{{ Storage::url($image->image_path) }}" alt="Modification Image" class="h-20 rounded">
+                            </a>
+                            @endforeach
+                        </div>
+                        @endif
+                    </x-panel>
+                </a>
+                @endforeach
+            </div>
         </div>
         @endforeach
         @endif
