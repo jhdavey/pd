@@ -104,6 +104,29 @@
             </div>
         </nav>
 
+        <!-- Expandable Beta Message -->
+        <div x-data="{ open: false }" class="p-4 rounded-lg mt-4">
+            <div class="flex justify-between items-center cursor-pointer" @click="open = !open">
+                <h2 class="text-lg text-red-500 italic">Welcome to the Beta Version of Passion Driven!</h2>
+                <svg class="w-6 h-6 transition-transform transform" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="red">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+            <div x-show="open" x-transition class="mt-4">
+                <p class="my-6">I began this project in May 2024. My goal is to create a platform that allows car enthusiasts of all types to track and share their builds with fellow enthusiasts. I am constantly adding and improving features, but there is still a lot of work to do and some bugs to fix. The platform allows you to:</p>
+                <ul class="my-6 space-y-3">
+                    <li>- List your builds in your garage</li>
+                    <li>- Track your builds including modifications, specs, and performance</li>
+                    <li>- Follow your favorite builds</li>
+                    <li>- Explore new builds across any genre</li>
+                    <li>- Share thoughts, questions, and words of encouragement with other builders</li>
+                    <li>- And enjoy a community of gear heads like you!</li>
+                </ul>
+                <p class="my-6">I want to hear from you! This platform is designed to allow car enthusiasts of all types to track and share their builds with fellow enthusiasts. Please share any feedback you have, and let me know what features you would like to see by navigating to the <a href='/feedback' class="text-blue-500 underline italic">Beta Page</a></p>
+                <p class="my-6">Thank you for being part of the community!</p>
+            </div>
+        </div>
+
         <main class="mt-10 max-w-[986px] mx-auto">
             {{ $slot }}
         </main>

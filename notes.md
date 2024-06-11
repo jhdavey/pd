@@ -1,20 +1,12 @@
 # TODO
 
-## Highest Priority
+### Fix mod y-space issue with mods with images??
 
-### Delete additional build images
-
-## Mid Priority
+### Make each mod category a dropdown??
 
 ### File uploads
 
-
-
-
-## low Priority
-
 ### Provide a spot for build sponsors to be listed 
-
 
 
 
