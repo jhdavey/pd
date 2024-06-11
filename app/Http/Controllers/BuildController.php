@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Build;
+use App\Models\BuildImage;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -259,5 +260,18 @@ class BuildController extends Controller
         $builds = Build::where('user_id', $userId)->get();
         $name = Auth::user()->name;
             return view('/garage', ['builds' => $builds, 'name' => $name]);
+    }
+
+    public function deleteImage($imageId)
+    {
+        $image = BuildImage::findOrFail($imageId);
+
+        // Delete the image file from storage
+        Storage::delete($image->path);
+
+        // Delete the image record from the database
+        $image->delete();
+
+        return back()->with('status', 'Image deleted successfully!');
     }
 }

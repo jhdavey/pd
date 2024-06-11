@@ -1,23 +1,23 @@
 @php
 $build_categories = [
-    'Classic/Antique',
-    'Drag',
-    'Drift',
-    'Exotic',
-    'Hot rod/Rat rod',
-    'Lowrider',
-    'Luxury/VIP',
-    'Muscle',
-    'Offroad/Overlander',
-    'Rally',
-    'Restomod',
-    'Show',
-    'Sleeper',
-    'Stanced',
-    'Street/daily',
-    'Time attack',
-    'Track/circuit/road race',
-    'Other'
+'Classic/Antique',
+'Drag',
+'Drift',
+'Exotic',
+'Hot rod/Rat rod',
+'Lowrider',
+'Luxury/VIP',
+'Muscle',
+'Offroad/Overlander',
+'Rally',
+'Restomod',
+'Show',
+'Sleeper',
+'Stanced',
+'Street/daily',
+'Time attack',
+'Track/circuit/road race',
+'Other'
 ];
 @endphp
 
@@ -25,9 +25,9 @@ $build_categories = [
     <x-page-heading>Edit Build: {{ $build->make }} {{ $build->model }}</x-page-heading>
 
     @if (session('status'))
-        <div id="status-message" class="alert alert-success">
-            {{ session('status') }}
-        </div>
+    <div id="status-message" class="alert alert-success">
+        {{ session('status') }}
+    </div>
     @endif
 
     <x-forms.form method="POST" action="/builds/{{ $build->id }}" enctype="multipart/form-data">
@@ -76,26 +76,15 @@ $build_categories = [
 
         <x-forms.divider />
 
-        <x-forms.input label="Featured Image" name="image" type="file" />
-        <p class="italic text-sm">Max size 10MB</p>
-
-        <p>Current Featured Image:</p>
+        <h1 class="text-lg font-bold">Current Featured Image:</h1>
 
         <img class="width-['150px'] max-w-40 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Current Featured Image">
 
-        <x-forms.input label="Additional Images (max 6)" name="additional_images[]" type="file" multiple />
+        <x-forms.input label="Update Featured Image" name="image" type="file" />
         <p class="italic text-sm">Max size 10MB</p>
 
-        <!-- Existing images -->
-        @if($build->images->isNotEmpty())
-        <p>Current Additional Images</p>
-
-        <div class="flex space-x-3">
-            @foreach ($build->images as $image)
-            <img class="max-w-40 rounded-lg" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
-            @endforeach
-        </div>
-        @endif
+        <x-forms.input label="Additional Images (max 6)" name="additional_images[]" type="file" multiple />
+        <p class="italic text-sm">Max size 10MB</p>
 
         <x-forms.input label="Tags (comma separated)" name="tags" placeholder="JDM, Boosted, 1000hpclub" value="{{ $build->tags->pluck('name')->implode(', ') }}" />
 
@@ -112,7 +101,28 @@ $build_categories = [
         @method('DELETE')
     </form>
 
-    <!-- Delete Modal -->
+    <div>
+        @if($build->images->isNotEmpty())
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-lg font-bold">Current Additional Images</h1>
+            <div class="mt-4 grid grid-cols-6 gap-4">
+                @foreach ($build->images as $image)
+                <div class="relative">
+                    <img class="w-full h-auto rounded" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
+                    <form action="{{ route('builds.deleteImage', $image->id) }}" method="POST" class="absolute top-0 right-0">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-500 text-white p-1 rounded">X</button>
+                    </form>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+    </div>
+
+
+    <!-- Delete Build Modal -->
     <div id="delete-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-black bg-opacity-75 p-6 rounded-lg shadow-lg">
             <h2 class="text-lg font-bold mb-4">Confirm Delete</h2>

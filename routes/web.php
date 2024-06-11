@@ -61,6 +61,7 @@ Route::get('/builds/{build}', [BuildController::class, 'show'])->name('builds.sh
 Route::get('/builds/{build}/edit', [BuildController::class, 'edit'])->middleware('auth')->can('edit', 'build')->name('builds.edit');
 Route::patch('/builds/{build}', [BuildController::class, 'update'])->middleware('auth');
 Route::delete('/builds/{build}', [BuildController::class, 'destroy'])->middleware('auth');
+Route::delete('/builds/image/{image}', [BuildController::class, 'deleteImage'])->name('builds.deleteImage');
 
 
 // Comments
