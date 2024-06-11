@@ -110,7 +110,7 @@
             <div x-show="open" x-transition class="w-full space-y-3 mt-3">
                 @foreach($modifications as $modification)
                 <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
-                    <x-panel>
+                    <x-panel class="mb-4">
                         <div class="grid grid-cols-6 gap-4">
                             <p class="col-span-3 text-lg">{{ $modification->brand }} {{ $modification->name }}</p>
 
