@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passion Driven</title>
@@ -31,6 +30,18 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CMMJM3RYNE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-CMMJM3RYNE');
+    </script>
 </head>
 
 <body class="bg-background text-white font-sans pb-12">
@@ -132,7 +143,6 @@
             {{ $slot }}
         </main>
     </div>
-    @include('analytics')
 </body>
 
 </html>
