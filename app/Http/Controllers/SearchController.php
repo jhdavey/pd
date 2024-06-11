@@ -20,8 +20,7 @@ class SearchController extends Controller
                 $q->where('model', 'LIKE', '%' . $request->input('q') . '%')
                   ->orWhere('make', 'LIKE', '%' . $request->input('q') . '%')
                   ->orWhere('trim', 'LIKE', '%' . $request->input('q') . '%')
-                  ->orWhere('build_category', 'LIKE', '%' . $request->input('q') . '%')
-                  ->orWhere('tags', 'LIKE', '%' . $request->input('q') . '%');
+                  ->orWhere('build_category', 'LIKE', '%' . $request->input('q') . '%');
 
             });
         }
