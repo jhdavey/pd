@@ -115,8 +115,8 @@
             <div x-show="open" x-transition class="mt-4">
                 <p class="my-6">I began this project in May 2024. My goal is to create a platform that allows car enthusiasts of all types to track and share their builds with fellow enthusiasts. I am constantly adding and improving features, but there is still a lot of work to do and some bugs to fix. The platform allows you to:</p>
                 <ul class="my-6 space-y-3">
-                    <li>- List your builds in your garage</li>
-                    <li>- Track your builds including modifications, specs, and performance</li>
+                    <li>- Create a profile</li>
+                    <li>- List your builds including specs, performance, and modifications</li>
                     <li>- Follow your favorite builds</li>
                     <li>- Explore new builds across any genre</li>
                     <li>- Share thoughts, questions, and words of encouragement with other builders</li>
