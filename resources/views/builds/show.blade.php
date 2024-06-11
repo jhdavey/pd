@@ -101,12 +101,12 @@
 
         @foreach($modificationsByCategory as $category => $modifications)
         <h3 class="text-lg font-bold">{{ $category }}</h3>
-        <div class="w-full space-y-3"> <!-- Ensure space between modifications -->
+        <div class="w-full space-y-3">
             @foreach($modifications as $modification)
             <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
                 <x-panel class="mb-4 p-4 bg-gray-100 rounded-lg shadow-md">
                     <div class="grid grid-cols-6 gap-4">
-                        <p class="col-span-3 text-lg font-bold">{{ $modification->brand }} {{ $modification->name }}</p>
+                        <p class="col-span-3 text-lg">{{ $modification->brand }} {{ $modification->name }}</p>
 
                         @isset($modification->price)
                         <p>${{ $modification->price }}</p>
