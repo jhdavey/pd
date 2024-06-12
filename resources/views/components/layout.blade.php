@@ -86,7 +86,7 @@
 
                     @auth
                     <a href="/" class="block px-4 py-2 text-sm font-semibold hover:bg-white/10">Home</a>
-                    <a href="/garage" class="block px-4 py-2 text-sm font-semibold hover:bg-white/10">Garage</a>
+                    <a href="{{ route('garage.show', $authUser->id) }}" class="block px-4 py-2 text-sm font-semibold hover:bg-white/10">Garage</a>
                     <a href="/feedback" class="block px-4 py-2 text-sm font-semibold hover:bg-white/10">Beta</a>
                     @endauth
 
