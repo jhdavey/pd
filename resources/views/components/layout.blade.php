@@ -36,7 +36,7 @@
 <body class="bg-background text-white font-sans pb-12">
     <div class="px-10">
         <nav x-data="{ open: false }" class="border-b border-white/10 py-4">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center px-2">
                 <div class="flex items-center space-x-6">
                     <a href="/">
                         <img class="h-[50px] mr-10" src="{{ Vite::asset('resources/images/logoFull.png') }}" />
