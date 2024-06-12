@@ -50,7 +50,7 @@
                     @endauth
                 </div>
 
-                <div class="hidden lg:flex space-x-6 items-center font-bold text-sm">
+                <div class="hidden lg:flex space-x-6 items-center text-sm">
                     <x-forms.form action="/search">
                         <x-forms.input :label="false" name="q" placeholder="Search builds..."></x-forms.input>
                     </x-forms.form>
