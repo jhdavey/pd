@@ -169,7 +169,7 @@ class BuildController extends Controller
             'hp' => ['nullable', 'string', 'max:10'],
             'whp' => ['nullable', 'string', 'max:10'],
             'torque' => ['nullable', 'string', 'max:10'],
-            'weight' => ['nullable', 'string', 'max:100'],
+            'weight' => ['nullable', 'string', 'max:10'],
             'vehicleLayout' => ['nullable', 'string', 'max:100'],
             'fuel' => ['nullable', 'string', 'max:100'],
             'zeroSixty' => ['nullable', 'string', 'max:10'],

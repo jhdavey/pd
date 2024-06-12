@@ -4,9 +4,9 @@
 
 ### File uploads
 
-### Provide a spot for build sponsors to be listed 
+### Provide a spot for build sponsors to be listed?
 
-### User build posts? - in comments?
+### User build posts/notes? - in comments?
 
 
 

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('hp')->nullable();
             $table->integer('whp')->nullable();
             $table->integer('torque')->nullable();
-            $table->integer('weight')->nullable();
+            $table->string('weight')->nullable();
             $table->string('vehicleLayout')->nullable();
             $table->string('fuel')->nullable();
             $table->string('zeroSixty')->nullable();
