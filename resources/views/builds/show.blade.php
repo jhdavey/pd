@@ -96,6 +96,9 @@
         @else
         <div class="w-full flex justify-between items-center">
             <x-section-heading>Modifications</x-section-heading>
+            @can('edit', $build)
+            <a href="/mods/{{ $build->id }}/create" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Add mod</a>
+            @endcan
         </div>
 
         @foreach($modificationsByCategory as $category => $modifications)
