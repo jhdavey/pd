@@ -46,7 +46,7 @@
         <section>
             <p>Browse by tag:</p>
             <div class="flex flex-wrap gap-2 mt-2">
-                @foreach($tags->slice(0, 15) as $tag)
+                @foreach($tags->slice(0, 25) as $tag)
                     <x-tag :$tag />
                 @endforeach
             </div>
