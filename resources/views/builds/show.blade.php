@@ -1,4 +1,5 @@
 <x-layout>
+
     <x-status-message />
 
     <div class="md:flex md:justify-between items-center mt-2">
