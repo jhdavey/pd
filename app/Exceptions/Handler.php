@@ -4,8 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -15,7 +14,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        // ...
+        //
     ];
 
     /**
@@ -51,21 +50,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($this->isHttpException($exception)) {
-            $statusCode = $exception->getStatusCode();
-            if (view()->exists("errors.{$statusCode}")) {
-                return response()->view("errors.{$statusCode}", [], $statusCode);
-            }
-        } else {
-            if (config('app.debug')) {
-                return parent::render($request, $exception);
+        if ($exception instanceof HttpException) {
+            if ($exception->getStatusCode() == 404) {
+                return response()->view('errors.404', [], 404);
             }
 
-            // Log the exception for debugging
-            \Log::error($exception);
-            
-            // Show custom 500 error page
-            return response()->view('errors.500', [], 500);
+            if ($exception->getStatusCode() == 500) {
+                return response()->view('errors.500', [], 500);
+            }
         }
 
         return parent::render($request, $exception);
