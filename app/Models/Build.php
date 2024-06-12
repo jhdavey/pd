@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Build extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
 
     public function user()
@@ -37,9 +37,13 @@ class Build extends Model
         return $this->hasMany(BuildImage::class);
     }
 
-    public function comments()
-{
-    return $this->hasMany(Comment::class);
-}
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

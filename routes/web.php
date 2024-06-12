@@ -15,6 +15,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\NoteController;
 
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
@@ -63,6 +64,11 @@ Route::patch('/builds/{build}', [BuildController::class, 'update'])->middleware(
 Route::delete('/builds/{build}', [BuildController::class, 'destroy'])->middleware('auth');
 Route::delete('/builds/image/{image}', [BuildController::class, 'deleteImage'])->name('builds.deleteImage');
 
+// Build Notes
+Route::post('builds/{build}/notes', [NoteController::class, 'store'])->name('notes.store');
+Route::get('notes/{note}/edit', [NoteController::class, 'edit'])->name('notes.edit');
+Route::patch('notes/{note}', [NoteController::class, 'update'])->name('notes.update');
+Route::delete('notes/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');
 
 // Comments
 Route::post('builds/{build}/comments', [CommentController::class, 'store'])->name('comments.store');
