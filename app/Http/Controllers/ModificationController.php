@@ -16,20 +16,6 @@ class ModificationController extends Controller
         return view('modifications.create', compact('build'));
     }
 
-    public function show($buildId)
-    {
-        $build = Build::with('modifications')->findOrFail($buildId);
-
-        // Group modifications by category and sort the categories alphabetically
-        $modificationsByCategory = $build->modifications->groupBy('category')->sortKeys();
-
-        $modificationsByCategory = $modificationsByCategory->sortKeys();
-
-        $modificationsByCategory = $modificationsByCategory->sortKeys();
-
-        return view('builds.show', compact('build', 'modificationsByCategory'));
-    }
-
     public function store(Request $request, Build $build)
     {
         $validated = $request->validate([

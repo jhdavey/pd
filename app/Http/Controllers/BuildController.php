@@ -76,11 +76,13 @@ class BuildController extends Controller
         return view('builds.create');
     }
 
-    public function show($buildId) {
+    public function show($buildId)
+    {
         $build = Build::with('modifications')->findOrFail($buildId);
-
-        $modificationsByCategory = $build->modifications->groupBy('category');
-
+    
+        // Group modifications by category and sort the categories alphabetically
+        $modificationsByCategory = $build->modifications->groupBy('category')->sortKeys();
+    
         return view('builds.show', compact('build', 'modificationsByCategory'));
     }
 
