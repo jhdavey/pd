@@ -6,6 +6,8 @@
 
 ### Provide a spot for build sponsors to be listed 
 
+### User build posts? - in comments?
+
 
 
 # Misc Notes

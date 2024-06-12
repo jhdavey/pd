@@ -6,15 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passion Driven</title>
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CMMJM3RYNE"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-CMMJM3RYNE');
-</script>
+    @include('analytics');
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
@@ -140,6 +132,9 @@
             {{ $slot }}
         </main>
     </div>
+    <!-- <footer class="w-full py-2 absolute bottom-0 text-center mt-5">
+        <p>&copy; passiondrivenbuilds.com 2024</p>
+    </footer> -->
 </body>
 
 </html>
