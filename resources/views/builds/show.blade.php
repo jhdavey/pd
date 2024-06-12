@@ -34,7 +34,7 @@
         @endforeach
     </div>
 
-    <div class="px-2 my-2 flex justify-between">
+    <div class="px-2 my-2 md:flex md:justify-between items-center">
         <x-section-heading>Vehicle Specs</x-section-heading>
 
         <p class="text-lg">{{ $build->build_category }} Build</p>
