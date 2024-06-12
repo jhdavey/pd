@@ -123,7 +123,7 @@
                     <li>- Share thoughts, questions, and words of encouragement with other builders</li>
                     <li>- And enjoy a community of gear heads like you!</li>
                 </ul>
-                <p class="my-6">I want to hear from you! This platform is designed to allow car enthusiasts of all types to track and share their builds with fellow enthusiasts. Please share any feedback you have, and let me know what features you would like to see by navigating to the <a href='/feedback' class="text-blue-500 underline italic">Beta Page</a></p>
+                <p class="my-6">Please share any feedback you have, and let me know what features you would like to see by navigating to the <a href='/feedback' class="text-blue-500 underline italic">Beta Page</a>.</p>
                 <p class="my-6">Thank you for being part of the community!</p>
             </div>
         </div>

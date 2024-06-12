@@ -8,13 +8,16 @@
 
     <ul class="my-6 space-y-3">
         <li>-Video, and file uploads</li>
-        <li>-Build sheet exporting to pdf and excel files</li>
         <li>-Adding track times</li>
-        <li>-iOS, Android apps coming soon</li>
-        <li>-Plus bug fixes, and much much more</li>
+        <li>-Build notes section</li>
+        <li>-Build sheet exporting to pdf and excel files</li>
+        <li>-Maintenance tracking</li>
+        <li>-Communty forums</li>
+        <li>-iOS, Android apps</li>
+        <li>-Bug fixes, and much much more!</li>
     </ul>
 
-    <p class="my-6">I want to hear from you! This platform is designed to allows car enthusiasts of all types to track and share their builds with fellow enthusiasts. Please share any feedback you have, and let me know what features you would like to see.</p>
+    <p class="my-6">I want to hear from you! Please share any feedback you have, and let me know what features you would like to see.</p>
 
     <p class="my-6">Thank you for being part of the community!</p>
 

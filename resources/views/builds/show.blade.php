@@ -107,7 +107,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
             </div>
-            <div x-show="open" x-transition class="w-full mt-3 space-y-4"> <!-- Adjusted spacing here -->
+            <div x-show="open" x-transition class="w-full mt-3 space-y-4">
                 @foreach($modifications as $modification)
                 <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
                     <x-panel class="mb-4">
