@@ -35,7 +35,7 @@
     </div>
 
     <div class="px-2 my-2 flex justify-between">
-        <h2 class="font-bold text-xl">Vehicle Specs</h2>
+        <x-section-heading>Vehicle Specs</x-section-heading>
 
         <p class="text-lg">{{ $build->build_category }} Build</p>
     </div>
