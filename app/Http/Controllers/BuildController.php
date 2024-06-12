@@ -182,7 +182,6 @@ class BuildController extends Controller
             'suspension' => ['nullable', 'string', 'max:100'],
             'brakes' => ['nullable', 'string', 'max:100'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp'],
-            'modifications' => ['nullable', 'array'],
             'additional_images' => ['nullable', 'array'],
             'additional_images.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp'],
         ]);
@@ -221,18 +220,6 @@ class BuildController extends Controller
             foreach ($request->file('additional_images') as $file) {
                 $path = $file->store('builds', 'public');
                 $build->images()->create(['path' => $path]);
-            }
-        }
-
-        // Clear existing modifications
-        $build->modifications()->delete();
-
-        // Create new modifications
-        if ($request->has('modifications')) {
-            foreach ($request->input('modifications') as $modificationData) {
-                if ($modificationData !== null && is_array($modificationData)) {
-                    $build->modifications()->create($modificationData);
-                }
             }
         }
 
