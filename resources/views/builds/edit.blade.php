@@ -56,12 +56,12 @@ $build_categories = [
 
         <h1 class="text-lg font-bold">SPECS</h1>
 
-        <x-forms.input label="HP" name="hp" placeholder="345" value="{{ $build->hp }}" />
-        <x-forms.input label="Wheel HP" name="whp" placeholder="320" value="{{ $build->whp }}" />
-        <x-forms.input label="Torque (lb-ft)" name="torque" placeholder="335" value="{{ $build->torque }}" />
-        <x-forms.input label="Curb Weight (lbs)" name="weight" placeholder="3550" value="{{ $build->weight }}" />
+        <x-forms.input label="HP" name="hp" placeholder="numbers only" value="{{ $build->hp }}" />
+        <x-forms.input label="Wheel HP" name="whp" placeholder="numbers only" value="{{ $build->whp }}" />
+        <x-forms.input label="Torque (lb-ft)" name="torque" placeholder="numbers only" value="{{ $build->torque }}" />
+        <x-forms.input label="Curb Weight (lbs)" name="weight" placeholder="numbers only, no commas" value="{{ $build->weight }}" />
         <x-forms.input label="Vehicle Layout" name="vehicleLayout" placeholder="Front Engine RWD" value="{{ $build->vehicleLayout }}" />
-        <x-forms.input label="Fuel Type" name="fuel" placeholder="93" value="{{ $build->fuel }}" />
+        <x-forms.input label="Fuel Type" name="fuel" placeholder="numbers only" value="{{ $build->fuel }}" />
 
         <x-forms.divider />
 

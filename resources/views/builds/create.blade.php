@@ -51,12 +51,12 @@ $build_categories = [
 
         <h1 class="font-bold text-lg">SPECS</h1>
 
-        <x-forms.input label="HP" name="hp" placeholder="345" />
-        <x-forms.input label="Wheel HP" name="whp" placeholder="320" />
-        <x-forms.input label="Torque (lb-ft)" name="torque" placeholder="335" />
-        <x-forms.input label="Curb Weight (lbs)" name="weight" placeholder="3550" />
+        <x-forms.input label="HP" name="hp" placeholder="numbers only" />
+        <x-forms.input label="Wheel HP" name="whp" placeholder="numbers only" />
+        <x-forms.input label="Torque (lb-ft)" name="torque" placeholder="numbers only" />
+        <x-forms.input label="Curb Weight (lbs)" name="weight" placeholder="numbers only, no commas" />
         <x-forms.input label="Vehicle Layout" name="vehicleLayout" placeholder="Front Engine RWD" /> <!-- Change to select input -->
-        <x-forms.input label="Fuel Type" name="fuel" placeholder="93" />
+        <x-forms.input label="Fuel Type" name="fuel" placeholder="numbers only" />
 
         <x-forms.divider />
 
