@@ -20,10 +20,6 @@ Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
 
-Route::fallback(function () {
-    return response()->view('errors.404', [], 500);
-});
-
 // Beta 
 Route::get('/beta', [BetaController::class, 'create'])->name('beta');
 Route::post('/beta/signup', [BetaController::class, 'store'])->name('beta.store');

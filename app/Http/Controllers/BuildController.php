@@ -72,11 +72,13 @@ class BuildController extends Controller
         return view('builds.filtered', compact('builds'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('builds.create');
     }
 
-    public function show($buildId) {
+    public function show($buildId)
+    {
         $build = Build::with('modifications')->findOrFail($buildId);
 
         $modificationsByCategory = $build->modifications->groupBy('category');
@@ -84,7 +86,8 @@ class BuildController extends Controller
         return view('builds.show', compact('build', 'modificationsByCategory'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $imagePath = null;
 
         $attributes = request()->validate([
@@ -112,13 +115,20 @@ class BuildController extends Controller
             'tags' => ['nullable', 'string', 'max:50']
         ]);
 
+        // Can remove featured from create and edit controllers???
         $attributes['featured'] = $request->has('featured');
+
+        // Remove commas from numeric fields
+        $attributes['weight'] = str_replace(',', '', $attributes['weight']);
+        $attributes['hp'] = str_replace(',', '', $attributes['hp']);
+        $attributes['whp'] = str_replace(',', '', $attributes['whp']);
+        $attributes['torque'] = str_replace(',', '', $attributes['torque']);
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public/builds');
             $attributes['image'] = str_replace('public/', '', $imagePath);
         };
-    
+
         $build = Build::create([
             'user_id' => Auth::id(),
             'year' => request('year'),
@@ -152,9 +162,10 @@ class BuildController extends Controller
         return redirect()->route('builds.show', $build)->with('status', 'Build updated successfully!');
     }
 
-    public function edit(Build $build) {
+    public function edit(Build $build)
+    {
         $tags = Tag::all();
-        
+
         return view('builds.edit', compact('build', 'tags'));
     }
 
@@ -186,6 +197,12 @@ class BuildController extends Controller
             'additional_images' => ['nullable', 'array'],
             'additional_images.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp'],
         ]);
+
+        // Remove commas from numeric fields
+        $validated['weight'] = str_replace(',', '', $validated['weight']);
+        $validated['hp'] = str_replace(',', '', $validated['hp']);
+        $validated['whp'] = str_replace(',', '', $validated['whp']);
+        $validated['torque'] = str_replace(',', '', $validated['torque']);
 
         // Handle the main image upload
         if ($request->hasFile('image')) {
@@ -254,12 +271,13 @@ class BuildController extends Controller
 
         return redirect()->route('garage.show', ['user' => $build->user_id])->with('status', 'Build deleted successfully!');
     }
-    
-    public function garage() {
+
+    public function garage()
+    {
         $userId = Auth::id();
         $builds = Build::where('user_id', $userId)->get();
         $name = Auth::user()->name;
-            return view('/garage', ['builds' => $builds, 'name' => $name]);
+        return view('/garage', ['builds' => $builds, 'name' => $name]);
     }
 
     public function deleteImage($imageId)
