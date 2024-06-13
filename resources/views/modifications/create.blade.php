@@ -27,7 +27,7 @@ $categories = [
     <x-forms.form method="POST" action="{{ route('mods.store', $build) }}" enctype="multipart/form-data">
         @csrf
 
-        @include('errors.validation-errors');
+        @include('errors.validation-errors')
 
         <input type="hidden" name="build_id" value="{{ $build->id }}">
 
