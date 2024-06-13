@@ -101,9 +101,3 @@ $build_categories = [
 
     </x-forms.form>
 </x-layout>
-
-<!-- -Social media handles - user signup?
-    -PERFORMANCE: track times - input track, and time dynamically
-    -SUSPENSION/BRAKES: Suspension type, brake type Front/Rear
-    -DIMENSIONS: Wheelbase, L/W/H, Ground Clearance
--->

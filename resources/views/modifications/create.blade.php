@@ -1,23 +1,23 @@
 @php
 $categories = [
-    'Accessories',
-    'Audio',
-    'Body Kits',
-    'Brakes',
-    'Cooling',
-    'Electrical',
-    'Engine Components',
-    'Engine Management',
-    'Exhaust',
-    'Exterior',
-    'Fuel',
-    'Interior',
-    'Lighting',
-    'Performance',
-    'Suspension',
-    'Tires & Wheels',
-    'Transmission',
-    'Other'
+'Accessories',
+'Audio',
+'Body Kits',
+'Brakes',
+'Cooling',
+'Electrical',
+'Engine Components',
+'Engine Management',
+'Exhaust',
+'Exterior',
+'Fuel',
+'Interior',
+'Lighting',
+'Performance',
+'Suspension',
+'Tires & Wheels',
+'Transmission',
+'Other'
 ];
 @endphp
 
@@ -26,6 +26,18 @@ $categories = [
 
     <x-forms.form method="POST" action="{{ route('mods.store', $build) }}" enctype="multipart/form-data">
         @csrf
+
+        <!-- Display Validation Errors -->
+        @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Whoops!</strong> There were some problems with your input.
+            <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
         <input type="hidden" name="build_id" value="{{ $build->id }}">
 
@@ -41,7 +53,7 @@ $categories = [
         <p class="text-sm italic">You can upload up to 6 images for this modification.</p>
 
         @if ($errors->has('images'))
-            <p class="text-red-500 text-sm mt-2">{{ $errors->first('images') }}</p>
+        <p class="text-red-500 text-sm mt-2">{{ $errors->first('images') }}</p>
         @endif
 
         <x-forms.divider />
