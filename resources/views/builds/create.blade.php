@@ -28,7 +28,7 @@ $build_categories = [
     <x-forms.form method="POST" action="/builds" enctype="multipart/form-data">
         @csrf
 
-        @include('errors.validation-errors');
+        @include('errors.validation-errors')
 
         <x-forms.input label="Year*" name="year" placeholder="1995" />
         <x-forms.input label="Make*" name="make" placeholder="Toyota" />

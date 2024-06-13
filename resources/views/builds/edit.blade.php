@@ -34,7 +34,7 @@ $build_categories = [
         @csrf
         @method('PATCH')
 
-        @include('errors.validation-errors');
+        @include('errors.validation-errors')
 
         <x-forms.input label="Year*" name="year" placeholder="1995" value="{{ $build->year }}" />
         <x-forms.input label="Make*" name="make" placeholder="Toyota" value="{{ $build->make }}" />

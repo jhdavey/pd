@@ -32,7 +32,7 @@ $categories = [
     </div>
     @endif
 
-    @include('errors.validation-errors');
+    @include('errors.validation-errors')
 
     @if ($modification->images->isNotEmpty())
     <div class="max-w-2xl mx-auto">
