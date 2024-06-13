@@ -34,7 +34,7 @@
 </head>
 
 <body class="bg-background text-white font-sans pb-12">
-    <div class="px-10">
+    <div class="px-3 md:px-6">
         <nav x-data="{ open: false }" class="border-b border-white/10 py-4">
             <div class="flex justify-between items-center px-2">
                 <div class="flex items-center space-x-6">

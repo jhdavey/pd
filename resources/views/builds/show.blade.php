@@ -111,35 +111,33 @@
             </div>
             <div x-show="open" x-transition class="w-full mt-3 space-y-4">
                 @foreach($modifications as $modification)
-                <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
-                    <x-panel class="mb-4">
-                        <div class="grid grid-cols-6 gap-4">
-                            <p class="col-span-3 text-lg">{{ $modification->brand }} {{ $modification->name }}</p>
+                <x-panel class="mb-4">
+                    <div class="space-y-2 md:flex md:justify-between">
+                        <p class="text-lg font-bold">{{ $modification->brand }} {{ $modification->name }}</p>
 
-                            @isset($modification->price)
-                            <p>${{ $modification->price }}</p>
-                            @endisset
-
-                            @isset($modification->part)
-                            <p class="col-span-2">Part No: {{ $modification->part }}</p>
-                            @endisset
-                        </div>
-
-                        @isset($modification->notes)
-                        <p class="mt-3"><span class="font-bold">Notes:</span> {{ $modification->notes }}</p>
+                        @isset($modification->part)
+                        <p>Part No: {{ $modification->part }} | @isset($modification->price)${{ $modification->price }}</p>@endisset
                         @endisset
+                    </div>
 
-                        @if ($modification->images->isNotEmpty())
-                        <div class="flex space-x-3 mt-4">
-                            @foreach ($modification->images as $image)
-                            <a href="{{ Storage::url($image->image_path) }}" data-lightbox="mod-images-{{ $modification->id }}" data-title="Modification Image">
-                                <img src="{{ Storage::url($image->image_path) }}" alt="Modification Image" class="h-20 rounded">
-                            </a>
-                            @endforeach
-                        </div>
-                        @endif
-                    </x-panel>
-                </a>
+                    @isset($modification->notes)
+                    <p class="mt-3"><span class="font-bold">Notes:</span> {{ $modification->notes }}</p>
+                    @endisset
+
+                    @if ($modification->images->isNotEmpty())
+                    <div class="mt-4 w-full grid grid-cols-2 place-items-center md:grid md:grid-cols-5 gap-3">
+                        @foreach ($modification->images as $image)
+                        <a href="{{ Storage::url($image->image_path) }}" data-lightbox="mod-images-{{ $modification->id }}" data-title="Modification Image" class="w-full">
+                            <img src="{{ Storage::url($image->image_path) }}" alt="Modification Image" class="md:max-w-44 rounded">
+                        </a>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
+                        <p class="text-sm text-end mt-4">edit mod</p>
+                    </a>
+                </x-panel>
                 @endforeach
             </div>
         </div>
