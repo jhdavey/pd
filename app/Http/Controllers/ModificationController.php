@@ -25,7 +25,7 @@ class ModificationController extends Controller
             'price' => ['nullable', 'numeric', new DecimalPlaces(2)], 
             'part' => ['nullable', 'string', 'string', 'max:255'],
             'notes' => ['nullable', 'string', 'string', 'max:1000'],
-            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif'],
+            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp'],
         ]);
 
         if ($request->hasFile('images')) {
@@ -87,7 +87,7 @@ class ModificationController extends Controller
             }
 
             $request->validate([
-                'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif'],
+                'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp'],
             ]);
         }
 
