@@ -116,7 +116,7 @@
                         <p class="text-lg font-bold">{{ $modification->brand }} {{ $modification->name }}</p>
 
                         @isset($modification->part)
-                        <p>Part No: {{ $modification->part }} | @isset($modification->price)${{ $modification->price }}</p>@endisset
+                        <p>Part No: {{ $modification->part }} @isset($modification->price)$| {{ $modification->price }}</p>@endisset
                         @endisset
                     </div>
 
