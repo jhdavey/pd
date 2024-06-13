@@ -159,10 +159,10 @@
             <x-panel class="break-words">
                 <p>{{ $note->body }}</p>
                 <p class="text-sm">{{ $note->updated_at ? 'Edited' : 'Posted' }} by {{ $note->user->name }} {{ $note->updated_at ? $note->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $note->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}</p>
-                @can('edit', $build)
+                @can('update', $note)
                 <a href="{{ route('notes.edit', $note) }}" class="text-blue-500">Edit</a>
                 @endcan
-                @can('edit', $build)
+                @can('delete', $note)
                 <form action="{{ route('notes.destroy', $note) }}" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
