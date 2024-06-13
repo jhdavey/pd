@@ -110,7 +110,7 @@ class BuildController extends Controller
             'trans' => ['nullable', 'string', 'max:100'],
             'suspension' => ['nullable', 'string', 'max:100'],
             'brakes' => ['nullable', 'string', 'max:100'],
-            'image' => ['required', File::types(['png', 'jpg', 'webp'])],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp'],
             'tags' => ['nullable', 'string', 'max:50']
         ]);
 

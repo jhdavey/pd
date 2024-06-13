@@ -27,7 +27,7 @@ $build_categories = [
 
     <x-forms.form method="POST" action="/builds" enctype="multipart/form-data">
         @csrf
-        
+
         @include('errors.validation-errors');
 
         <x-forms.input label="Year*" name="year" placeholder="1995" />
@@ -76,7 +76,7 @@ $build_categories = [
 
         <x-forms.input label="Featured Image*" name="image" type="file" />
         <p class="italic text-sm">
-            Max size 10MB
+            Max size 10MB, 
             <br />
             Add additional images in the edit build view
         </p>
