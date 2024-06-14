@@ -73,6 +73,9 @@
                 No builds found...
             </div>
             @else
+
+            <x-section-heading>Recently Updated</x-section-heading>
+
             <div class="grid lg:grid-cols-3 gap-8 mt-6">
                 @foreach($builds as $build)
                 <x-build-card :$build />
