@@ -16,7 +16,7 @@ class BuildController extends Controller
     public function index()
     {
         // Fetch builds and group by 'featured' status
-        $builds = Build::latest()
+        $builds = Build::orderBy('updated_at', 'desc')
             ->with('tags')
             ->get()
             ->groupBy('featured');
