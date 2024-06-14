@@ -54,6 +54,6 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect()->route('profile.show', $user)->with('status', 'Profile updated successfully!');
+        return redirect()->route('garage.show', $user)->with('status', 'Profile updated successfully!');
     }
 }
