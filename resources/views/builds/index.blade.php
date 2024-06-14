@@ -4,7 +4,7 @@
         <section>
             <x-section-heading>Featured Builds</x-section-heading>
 
-            <div class="grid lg:grid-cols-3 gap-8 mt-6">
+            <div class="grid lg:grid-cols-3 gap-4 mt-6">
                 @foreach($featuredBuilds->slice(0, 3) as $build)
                 <x-build-card :$build />
                 @endforeach
@@ -19,7 +19,7 @@
             <p>You are not following any users with builds yet.</p>
         @else
             <ul>
-            <div class="grid lg:grid-cols-3 gap-8 mt-6">
+            <div class="grid lg:grid-cols-3 gap-4 mt-6">
                 @foreach($followingBuilds as $build)
                 <x-build-card :$build />
                 @endforeach
@@ -53,7 +53,7 @@
         </section>
 
         <!-- Filter Form -->
-        <form method="GET" action="{{ route('filtered') }}" class="md:flex justify-between items-end space-y-2">
+        <form method="GET" action="{{ route('filtered') }}" class="md:flex justify-between items-end">
             <x-forms.input type="text" name="year" label="Year" id="year" value="{{ request('year') }}" />
 
             <x-forms.input type="text" name="make" label="Make" id="make" value="{{ request('make') }}" />
@@ -76,7 +76,7 @@
 
             <x-section-heading>Recently Updated</x-section-heading>
 
-            <div class="grid lg:grid-cols-3 gap-8 mt-6">
+            <div class="grid lg:grid-cols-3 gap-4 mt-6">
                 @foreach($builds as $build)
                 <x-build-card :$build />
                 @endforeach
