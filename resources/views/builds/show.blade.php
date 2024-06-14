@@ -30,7 +30,7 @@
 
     <!-- Image Modal Structure -->
     <div id="image-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-        <div class="relative bg-white p-4 rounded-lg max-w-full max-h-full">
+        <div class="relative bg-white p-4 rounded-lg max-w-full max-h-full md:max-w-3xl md:max-h-3xl">
             <button id="close-modal" class="absolute top-2 right-2 text-black bg-white rounded-full p-1">X</button>
             <img id="modal-image" src="" alt="Full Size Image" class="max-w-full max-h-full">
         </div>
