@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passion Driven</title>
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @include('analytics')
 
     <!-- Favicon -->
@@ -22,7 +23,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Alpine.js -->
     <script src="//unpkg.com/alpinejs" defer></script>
@@ -132,6 +132,7 @@
             {{ $slot }}
         </main>
     </div>
+
     <!-- <footer class="w-full py-2 absolute bottom-0 text-center mt-5">
         <p>&copy; passiondrivenbuilds.com 2024</p>
     </footer> -->

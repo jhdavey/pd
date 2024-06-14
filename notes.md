@@ -2,6 +2,8 @@
 
 ### Add cancel button to edit profile, add mod
 
+## Notes/Comments text editor style 
+
 ## Edit Auth on all forms (can manually type url /profile/x and access any profile edit page)
 
 ## Edit profile - redirect to garage on success

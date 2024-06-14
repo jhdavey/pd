@@ -8,8 +8,8 @@
 
     <ul class="my-6 space-y-3">
         <li>-Video, and file uploads</li>
+        <li>-Improved build notes editor</li>
         <li>-Adding track times</li>
-        <li>-Build notes section</li>
         <li>-Build sheet exporting to pdf and excel files</li>
         <li>-Maintenance tracking</li>
         <li>-Communty forums</li>

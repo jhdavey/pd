@@ -7,7 +7,6 @@ use App\Models\Build;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Policies\NotePolicy;
 
 class NoteController extends Controller
 {
@@ -39,7 +38,7 @@ class NoteController extends Controller
         $this->authorize('update', $note);
 
         $request->validate([
-            'body' => ['required', 'string', 'max:1000']
+            'body' => ['required', 'string', 'max:10000']
         ]);
 
         $note->update($request->only('body'));
@@ -54,5 +53,20 @@ class NoteController extends Controller
         $note->delete();
 
         return redirect()->route('builds.show', $note->build)->with('status', 'Note deleted successfully!');
+    }
+
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+
+            $request->file('upload')->move(public_path('images'), $fileName);
+
+            $url = asset('images/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
+        }
     }
 }
