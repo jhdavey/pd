@@ -136,6 +136,17 @@
     <!-- <footer class="w-full py-2 absolute bottom-0 text-center mt-5">
         <p>&copy; passiondrivenbuilds.com 2024</p>
     </footer> -->
+
+    <!-- Lightbox image viewer modal config -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true,
+            'alwaysShowNavOnTouchDevices': true
+        });
+    });
+</script>
 </body>
 
 </html>
