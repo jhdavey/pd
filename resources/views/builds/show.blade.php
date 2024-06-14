@@ -21,12 +21,20 @@
     @if($build->images->isNotEmpty())
     <div class="p-2 w-full grid grid-cols-2 place-items-center md:grid md:grid-cols-5 gap-3">
         @foreach ($build->images as $image)
-        <a href="{{ Storage::url($image->path) }}" data-lightbox="build-images" data-title="Additional Build Image">
+        <a href="#" class="image-link" data-image-url="{{ Storage::url($image->path) }}">
             <img class="w-full md:max-w-44 rounded-lg" src="{{ Storage::url($image->path) }}" alt="Additional Build Image">
         </a>
         @endforeach
     </div>
     @endif
+
+    <!-- Image Modal Structure -->
+    <div id="image-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="relative bg-white p-4 rounded-lg max-w-full max-h-full">
+            <button id="close-modal" class="absolute top-2 right-2 text-black bg-white rounded-full p-1">X</button>
+            <img id="modal-image" src="" alt="Full Size Image" class="max-w-full max-h-full">
+        </div>
+    </div>
 
     <div class="my-3 flex flex-wrap gap-2">
         @foreach($build->tags as $tag)
@@ -257,4 +265,35 @@
             textarea.style.height = (textarea.scrollHeight) + 'px';
         }
     });
+</script>
+
+<!-- Image modal view -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const closeModalButton = document.getElementById('close-modal');
+    const imageLinks = document.querySelectorAll('.image-link');
+
+    imageLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            const imageUrl = this.getAttribute('data-image-url');
+            modalImage.setAttribute('src', imageUrl);
+            modal.classList.remove('hidden');
+        });
+    });
+
+    closeModalButton.addEventListener('click', function () {
+        modal.classList.add('hidden');
+    });
+
+    // Close modal on clicking outside the image
+    modal.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+});
+
 </script>
