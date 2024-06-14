@@ -197,7 +197,13 @@
         <div class="mt-4">
             <x-panel class="break-words">
                 <p>{{ $comment->body }}</p>
-                <p class="text-sm">{{ $comment->updated_at ? 'Edited' : 'Posted' }} by {{ $comment->user->name }} {{ $comment->updated_at ? $comment->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $comment->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}</p>
+                <p class="text-sm">
+                    {{ $comment->updated_at ? 'Edited' : 'Posted' }} by
+                    <a href="{{ route('garage.show', $comment->user->id) }}" class="text-blue-500">
+                        {{ $comment->user->name }}
+                    </a>
+                    {{ $comment->updated_at ? $comment->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $comment->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}
+                </p>
                 @can('update', $comment)
                 <a href="{{ route('comments.edit', $comment) }}" class="text-blue-500">Edit</a>
                 @endcan
@@ -210,6 +216,7 @@
                 @endcan
             </x-panel>
         </div>
+
         @endforeach
         @else
         <p>No comments on this build yet...</p>
