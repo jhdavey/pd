@@ -13,7 +13,7 @@
             <h3 class="group-hover:text-gray-500 font-bold text-lg transition-colors duration-200">
                 {{ $build->year }} {{ $build->make }} {{ $build->model }} {{ $build->trim }}
             </h3>
-            <p>{{ $build->build_category }} Build</p>
+            <p>Build type: {{ $build->build_category }}</p>
         </div>
 
         <div>

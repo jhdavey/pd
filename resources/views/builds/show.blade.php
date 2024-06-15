@@ -45,7 +45,7 @@
     <div class="px-2 my-2 md:flex md:justify-between items-center">
         <x-section-heading>Vehicle Specs</x-section-heading>
 
-        <p class="text-lg">{{ $build->build_category }} Build</p>
+        <p class="text-lg">Build type: {{ $build->build_category }}</p>
     </div>
 
     <div class="space-y-2">

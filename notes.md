@@ -2,13 +2,11 @@
 
 ### Add cancel button to edit profile, add mod
 
-## Notes/Comments text editor style 
+### Notes/Comments text editor style 
 
-## Edit Auth on all forms (can manually type url /profile/x and access any profile edit page)
+### Edit Auth on all forms (can manually type url /profile/x and access any profile edit page)
 
-## Edit profile - redirect to garage on success
-
-## Add images/text editor to build notes
+### Add images/text editor to build notes
 
 ### Ability to add builds to multiple categories?
 
@@ -19,7 +17,6 @@
 ### Provide a spot for build sponsors to be listed?
 
 ### User build posts/notes? - in comments?
-
 
 ### Email confirmations
 
