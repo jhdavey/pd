@@ -27,7 +27,11 @@
             <x-forms.input label="Password" name="password" type="password" />
             <x-forms.input label="Confirm Password" name="password_confirmation" type="password" />
 
-            <x-forms.button type="submit">Update Profile</x-forms.button>
+            <div class="flex justify-end items-center mx-auto gap-x-6 mt-6">
+                <a href="{{ route('garage.show', $user->id) }}" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Cancel</a>
+                
+                <x-forms.button type="submit">Update Profile</x-forms.button>
+            </div>
         </form>
     </x-panel>
 </x-layout>

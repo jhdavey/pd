@@ -18,12 +18,21 @@
                     </div>
                     <div class="text-center md:text-left md:flex md:space-x-5 mt-4">
                         <ul class="list-none">
-                            <li><span class="font-bold text-lg">Horsepower:</span> {{ $build['hp'] }}</li>
-                            <li><span class="font-bold text-lg">Wheel HP:</span> {{ $build['whp'] }}</li>
+                            @isset($build['hp'])
+                                <li><span class="font-bold text-lg">Horsepower:</span> {{ $build['hp'] }}</li>
+                            @endisset
+                            @isset($build['whp'])
+                                <li><span class="font-bold text-lg">Wheel HP:</span> {{ $build['whp'] }}</li>
+                            @endisset
+                            
                         </ul>
                         <ul class="list-none">
-                            <li><span class="font-bold text-lg">Torque:</span> {{ $build['torque'] }} lb-ft</li>
-                            <li><span class="font-bold text-lg">Curb weight:</span> {{ $build['weight'] }} lbs</li>
+                            @isset($build['torque'])
+                                <li><span class="font-bold text-lg">Torque:</span> {{ $build['torque'] }} lb-ft</li>
+                            @endisset
+                            @isset($build['weight'])
+                                <li><span class="font-bold text-lg">Curb weight:</span> {{ $build['weight'] }} lbs</li>
+                            @endisset
                         </ul>
                     </div>
 

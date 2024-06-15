@@ -47,7 +47,10 @@ $categories = [
         @endif
 
         <x-forms.divider />
+        
+        <div class="flex justify-end items-center mx-auto gap-x-6 mt-6">
+            <a href="{{ route('builds.show', $build) }}" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Cancel</a>
 
-        <x-forms.button>Save Modification</x-forms.button>
+            <x-forms.button>Save Modification</x-forms.button>
     </x-forms.form>
 </x-layout>

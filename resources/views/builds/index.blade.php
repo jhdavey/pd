@@ -60,7 +60,7 @@
 
             <x-forms.input type="text" name="model" label="Model" id="model" value="{{ request('model') }}" />
 
-            <button type="submit" class="font-bold px-8 py-2 mb-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">
+            <button type="submit" class="font-bold px-8 py-2 my-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">
                 Filter
             </button>
         </form>
