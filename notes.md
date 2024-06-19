@@ -2,21 +2,25 @@
 
 ## Edit Auth on all forms (can manually type url /profile/x and access any profile edit page)
 
-## Notes/Comments rich text editor 
+## Notes/Comments rich text editor (make sure formatting sticks)
 
-### Ability to add builds to multiple categories
+### Add categories - steering, utilities, recovery, etc
 
 ### File uploads
 
 ### Video uploads 
 
+### Community Forums
+
 ### Provide a spot for build sponsors to be listed?
 
 ### Email confirmations
 
-### Community Forums
+### Ability to add builds to multiple categories
 
 ### View followers
+
+### Make sure double saving builds not possible **
 
 
 # Misc Notes
