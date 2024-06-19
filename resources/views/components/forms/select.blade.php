@@ -8,11 +8,11 @@
     ];
 @endphp
 
-<x-forms.field :$label :$name>
-    <select {{ $attributes($defaults) }}>
+<x-forms.field :$label :$name> 
+    <select {{ $attributes->merge($defaults) }}>
         <option value="" class="bg-background">Select a category</option>
         @foreach ($options as $option)
-            <option class="bg-background" value="{{ $option }}" {{ $option == $value ? 'selected' : '' }}>{{ $option }}</option>
+            <option class="bg-background" value="{{ $option }}" {{ (string)$option === (string)$value ? 'selected' : '' }}>{{ $option }}</option>
         @endforeach
     </select>
 </x-forms.field>

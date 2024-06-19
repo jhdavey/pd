@@ -58,7 +58,7 @@ $categories = [
 
         <input type="hidden" name="build_id" value="{{ $build->id }}">
 
-        <x-forms.select label="Category*" name="category" :options="$categories" value="{{ old('category', $modification->category) }}" />
+        <x-forms.select label="Category*" name="category" :options="$categories" :value="old('category', $modification->category)" />
         <x-forms.input label="Brand*" name="brand" placeholder="Greddy" value="{{ old('brand', $modification->brand) }}" />
         <x-forms.input label="Name*" name="name" placeholder="Intercooler" value="{{ old('name', $modification->name) }}" />
         <x-forms.input label="Price" name="price" placeholder="489.99" type="number" step="0.01" value="{{ old('price', $modification->price) }}" />
