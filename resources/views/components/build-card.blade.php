@@ -6,7 +6,7 @@
 
 <x-panel class="flex flex-col text-center">
     <a href="/builds/{{ $build['id'] }}">
-        <img class="w-full max-h-80 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Build Feature Image">
+        <img class="w-auto max-h-80 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Build Feature Image">
         
         <div class="py-5">
             <a href="{{ route('garage.show', $build->user->id) }}" class="text-lg font-bold">{{ $build->user->name }}'s</a>
