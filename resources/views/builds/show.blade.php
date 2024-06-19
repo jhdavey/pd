@@ -129,7 +129,7 @@
                     </div>
 
                     @isset($modification->notes)
-                    <p class="mt-3"><span class="font-bold">Notes:</span> {{ $modification->notes }}</p>
+                    <p class="mt-3"><span class="font-bold">Notes:</span> {{!! $modification->notes !!}}</p>
                     @endisset
 
                     @if ($modification->images->isNotEmpty())
