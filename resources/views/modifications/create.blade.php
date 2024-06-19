@@ -30,7 +30,7 @@ $categories = [
         @include('errors.validation-errors')
 
         <input type="hidden" name="build_id" value="{{ $build->id }}">
-
+        <x-forms.select label="Category*" name="category" :options="$categories" />
         <x-forms.select label="Category*" name="category" :options="$categories" />
         <x-forms.input label="Brand*" name="brand" placeholder="Greddy" />
         <x-forms.input label="Name*" name="name" placeholder="Intercooler" />

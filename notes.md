@@ -2,7 +2,7 @@
 
 ## Edit Auth on all forms (can manually type url /profile/x and access any profile edit page)
 
-## Notes/Comments rich text editor (make sure formatting sticks)
+## Notes/Comments rich text editor (adding images***)
 
 ### Add categories - steering, utilities, recovery, etc
 

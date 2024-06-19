@@ -143,7 +143,7 @@
                     @endif
 
                     <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
-                        <p class="text-sm text-end mt-4">edit mod</p>
+                    @can('edit', $build)<p class="text-sm text-end mt-4">edit mod</p>@endcan
                     </a>
                 </x-panel>
                 @endforeach
@@ -185,7 +185,7 @@
         @can('edit', $build)
         <form action="{{ route('notes.store', $build) }}" method="POST" class="mt-6">
             @csrf
-            <textarea name="body" rows="2" class="w-full break-words border rounded-md bg-white/10 border-white/10 px-4 py-2 placeholder:text-white/10 resize-none overflow-hidden" placeholder="When using the oil drain in the cs racing kit, can get too hot and melt..." required>{{ old('body') }}</textarea>
+            <textarea name="body" rows="2" class="w-full break-words border rounded-md bg-white/10 border-white/10 px-4 py-2 placeholder:text-white/10 resize-none overflow-hidden" placeholder="New note..." required></textarea>
             @error('body')
             <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
             @enderror
