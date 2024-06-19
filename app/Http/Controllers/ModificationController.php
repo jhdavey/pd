@@ -22,9 +22,9 @@ class ModificationController extends Controller
             'category' => ['required'],
             'name' => ['required', 'string', 'max:100'],
             'brand' => ['required', 'string', 'max:100'],
-            'price' => ['nullable', 'numeric', new DecimalPlaces(2)], 
-            'part' => ['nullable', 'string', 'string', 'max:255'],
-            'notes' => ['nullable', 'string', 'string', 'max:1000'],
+            'price' => ['nullable', 'numeric', new DecimalPlaces(2)],
+            'part' => ['nullable', 'string', 'max:255'],
+            'notes' => ['nullable', 'string', 'max:10000'],
             'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp'],
         ]);
 
@@ -72,9 +72,9 @@ class ModificationController extends Controller
             'category' => ['required'],
             'name' => ['required', 'string', 'max:100'],
             'brand' => ['required', 'string', 'max:100'],
-            'price' => ['nullable', 'numeric', new DecimalPlaces(2)], 
-            'part' => ['nullable', 'string', 'string', 'max:255'],
-            'notes' => ['nullable', 'string', 'string', 'max:1000'],
+            'price' => ['nullable', 'numeric', new DecimalPlaces(2)],
+            'part' => ['nullable', 'string', 'max:255'],
+            'notes' => ['nullable', 'string', 'max:10000'], // Increase max length for rich text
         ]);
 
         // Validate image uploads
@@ -107,6 +107,7 @@ class ModificationController extends Controller
 
         return redirect()->route('builds.show', $modification->build_id)->with('status', 'Modification updated successfully!');
     }
+
 
     public function destroy(Build $build, Modification $modification)
     {
