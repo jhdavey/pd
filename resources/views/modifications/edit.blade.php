@@ -63,7 +63,7 @@ $categories = [
         <x-forms.input label="Name*" name="name" placeholder="Intercooler" value="{{ old('name', $modification->name) }}" />
         <x-forms.input label="Price" name="price" placeholder="489.99" type="number" step="0.01" value="{{ old('price', $modification->price) }}" />
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" value="{{ old('part', $modification->part) }}" />
-        <x-forms.text-area label="Notes" name="notes" placeholder="GTS" value="{{ old('notes', $modification->notes) }}" />
+        <x-forms.text-area label="Notes" name="notes" placeholder="notes..." value="{{!! old('notes', $modification->notes) !!}}" />
         <x-forms.input label="Add Images" name="images[]" type="file" multiple />
         <p class="italic text-sm">Max size 10MB</p>
 
