@@ -11,10 +11,10 @@ class ProfileController extends Controller
 {
     public function show(User $user)
     {
-        if (Auth::check()) {
-            $user = Auth::user();
-
-            return view('profile', compact('user'));
+        if (Auth::check() && Auth::id() === $user->id) {
+            return view('profile.edit', compact('user'));
+        } else {
+            abort(403, 'Unauthorized action.');
         }
     }
 
