@@ -52,7 +52,7 @@ $socialMedia = [
 
             <!-- Bottom Row: Bio and Social Media Links -->
             <div>
-                <p class="ml-2 text-center md:text-start">{{ $user->bio }}</p>
+                <p class="ml-2 text-center md:text-start">{!! $user->bio !!}</p>
             </div>
 
             <div class="text-center md:text-end">
