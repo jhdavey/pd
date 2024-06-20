@@ -22,6 +22,7 @@
 
 ### Make sure double saving builds not possible **
 
+### Notifications/emails for comments?
 
 # Misc Notes
 
