@@ -157,13 +157,14 @@
 
     <!-- Build Notes Section -->
     <div class="mt-6">
+        <!-- View build notes -->
         <x-section-heading>Build Notes</x-section-heading>
 
         @if ($build->notes->isNotEmpty())
         @foreach ($build->notes as $note)
         <div class="mt-4">
             <x-panel class="break-words">
-                <p>{{ $note->body }}</p>
+                <p>{!! $note->body !!}</p>
                 <p class="text-sm">{{ $note->updated_at ? 'Edited' : 'Posted' }} by {{ $note->user->name }} {{ $note->updated_at ? $note->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $note->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}</p>
                 @can('update', $note)
                 <a href="{{ route('notes.edit', $note) }}" class="text-blue-500">Edit</a>
@@ -182,13 +183,17 @@
         <p>No notes on this build yet...</p>
         @endif
 
+        <!-- Add build note -->
         @can('edit', $build)
         <form action="{{ route('notes.store', $build) }}" method="POST" class="mt-6">
             @csrf
-            <textarea name="body" rows="2" class="w-full break-words border rounded-md bg-white/10 border-white/10 px-4 py-2 placeholder:text-white/10 resize-none overflow-hidden" placeholder="New note..." required></textarea>
+
+            <x-forms.text-area label="Add a Note" name="body" placeholder="notes..." />
+
             @error('body')
             <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
             @enderror
+
             <button type="submit" class="mt-4 font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Note</button>
         </form>
         @endcan
@@ -230,6 +235,7 @@
         <p>No comments on this build yet...</p>
         @endif
 
+        <!-- Add a comment -->
         @auth
         <form action="{{ route('comments.store', $build) }}" method="POST" class="mt-6">
             @csrf

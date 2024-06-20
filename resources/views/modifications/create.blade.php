@@ -36,7 +36,7 @@ $categories = [
         <x-forms.input label="Name*" name="name" placeholder="Intercooler" />
         <x-forms.input label="Price" name="price" placeholder="489.99" type="number" step="0.01" />
         <x-forms.input label="Part Number" name="part" placeholder="45x215gh6" type="text" />
-        <x-forms.input label="Notes" name="notes" placeholder="any notes about your modification can go here..." type="textarea" />
+        <x-forms.text-area label="Notes" name="notes" placeholder="Add notes here..." />
 
         <x-forms.input label="Images" name="images[]" type="file" multiple />
         <p class="italic text-sm">Max size 10MB</p>

@@ -1,11 +1,11 @@
 <x-layout>
-    <x-page-heading>Edit Note</x-page-heading>
     <x-panel>
         <form action="{{ route('notes.update', $note) }}" method="POST">
             @csrf
             @method('PATCH')
 
-            <textarea label="Note" name="body" class="w-full break-words border rounded-md bg-white/10 border-white/10 px-4 py-2 placeholder:text-white/10 resize-none overflow-hidden">{{ $note->body }}</textarea>
+            <x-forms.text-area label="Edit note" name="body" placeholder="notes..." value="{!! old('notes', $note->body) !!}" />
+
             @error('body')
                 <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
             @enderror
