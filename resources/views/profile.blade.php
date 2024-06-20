@@ -19,7 +19,7 @@
             
             <x-forms.input label="Username" name="name" value="{{ $user->name }}" required />
             <x-forms.input label="Email" name="email" type="email" value="{{ $user->email }}" required />
-            <x-forms.text-area label="Bio" name="bio" value="{{ $user->bio }}" />
+            <x-forms.text-area label="Bio" name="bio" value="{!! $user->bio !!}" />
             <x-forms.input label="Instagram" name="instagram" value="{{ $user->instagram }}" />
             <x-forms.input label="Facebook" name="facebook" value="{{ $user->facebook }}" />
             <x-forms.input label="TikTok" name="tiktok" value="{{ $user->tiktok }}" />
