@@ -11,7 +11,11 @@ class ProfileController extends Controller
 {
     public function show(User $user)
     {
-        return view('profile', compact('user'));
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            return view('profile', compact('user'));
+        }
     }
 
     public function edit(User $user)
