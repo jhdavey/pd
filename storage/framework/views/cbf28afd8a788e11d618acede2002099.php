@@ -1,0 +1,1 @@
+<button <?php echo e($attributes(['class' => 'font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200'])); ?>><?php echo e($slot); ?></button><?php /**PATH C:\Users\jhdav\OneDrive\coding\php\pd\resources\views/components/forms/button.blade.php ENDPATH**/ ?>

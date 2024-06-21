@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ImageUploadController;
 
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
@@ -68,13 +69,13 @@ Route::post('builds/{build}/notes', [NoteController::class, 'store'])->name('not
 Route::get('notes/{note}/edit', [NoteController::class, 'edit'])->name('notes.edit');
 Route::patch('notes/{note}', [NoteController::class, 'update'])->name('notes.update');
 Route::delete('notes/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');
+Route::post('/image-upload', [ImageUploadController::class, 'store'])->name('image.upload');
 
 // Comments
 Route::post('builds/{build}/comments', [CommentController::class, 'store'])->name('comments.store');
 Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
 Route::patch('comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
 Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
-
 
 // Modifications
 Route::get('/mods/{build}/create', [ModificationController::class, 'create'])->middleware('auth');
