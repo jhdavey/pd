@@ -367,7 +367,7 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['class' => 'break-words']); ?>
-                <p><?php echo e($note->body); ?></p>
+                <p><?php echo $note->body; ?></p>
                 <p class="text-sm"><?php echo e($note->updated_at ? 'Edited' : 'Posted'); ?> by <?php echo e($note->user->name); ?> <?php echo e($note->updated_at ? $note->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $note->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A')); ?></p>
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $note)): ?>
                 <a href="<?php echo e(route('notes.edit', $note)); ?>" class="text-blue-500">Edit</a>
@@ -402,14 +402,14 @@
 
             <?php if (isset($component)) { $__componentOriginal55969134f145d87f901b914edda86cfe = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal55969134f145d87f901b914edda86cfe = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.forms.text-area','data' => ['label' => 'Add Note','name' => 'body','rows' => '2','placeholder' => 'made some progress today...','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.forms.text-area','data' => ['label' => 'Add a Note','name' => 'body','placeholder' => 'notes...']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('forms.text-area'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['label' => 'Add Note','name' => 'body','rows' => '2','placeholder' => 'made some progress today...','required' => true]); ?>
+<?php $component->withAttributes(['label' => 'Add a Note','name' => 'body','placeholder' => 'notes...']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal55969134f145d87f901b914edda86cfe)): ?>
@@ -432,7 +432,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
 
-            <button type="submit" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Note</button>
+            <button type="submit" class="mt-4 font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Note</button>
         </form>
         <?php endif; ?>
     </div>
@@ -534,27 +534,7 @@ unset($__errorArgs, $__bag); ?>
         <?php if(auth()->guard()->check()): ?>
         <form action="<?php echo e(route('comments.store', $build)); ?>" method="POST" class="mt-6">
             <?php echo csrf_field(); ?>
-            <?php if (isset($component)) { $__componentOriginal55969134f145d87f901b914edda86cfe = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal55969134f145d87f901b914edda86cfe = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.forms.text-area','data' => ['label' => 'Add Comment','name' => 'body','rows' => '2','placeholder' => 'Love the wheel choice!','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('forms.text-area'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
-<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['label' => 'Add Comment','name' => 'body','rows' => '2','placeholder' => 'Love the wheel choice!','required' => true]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal55969134f145d87f901b914edda86cfe)): ?>
-<?php $attributes = $__attributesOriginal55969134f145d87f901b914edda86cfe; ?>
-<?php unset($__attributesOriginal55969134f145d87f901b914edda86cfe); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal55969134f145d87f901b914edda86cfe)): ?>
-<?php $component = $__componentOriginal55969134f145d87f901b914edda86cfe; ?>
-<?php unset($__componentOriginal55969134f145d87f901b914edda86cfe); ?>
-<?php endif; ?>
-
+            <textarea name="body" rows="2" class="w-full break-words border rounded-md bg-white/10 border-white/10 px-4 py-2 placeholder:text-white/10 resize-none overflow-hidden" placeholder="Love the wheel choice!" required><?php echo e(old('body')); ?></textarea>
             <?php $__errorArgs = ['body'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -565,7 +545,7 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-            <button type="submit" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Comment</button>
+            <button type="submit" class="mt-4 font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Comment</button>
         </form>
         <?php endif; ?>
     </div>

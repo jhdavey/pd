@@ -86,6 +86,26 @@ $categories = [
 <?php $component = $__componentOriginal7041cc63efd62f0450fe4bb37aadf484; ?>
 <?php unset($__componentOriginal7041cc63efd62f0450fe4bb37aadf484); ?>
 <?php endif; ?>
+        <?php if (isset($component)) { $__componentOriginal7041cc63efd62f0450fe4bb37aadf484 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal7041cc63efd62f0450fe4bb37aadf484 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.forms.select','data' => ['label' => 'Category*','name' => 'category','options' => $categories]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('forms.select'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['label' => 'Category*','name' => 'category','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($categories)]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal7041cc63efd62f0450fe4bb37aadf484)): ?>
+<?php $attributes = $__attributesOriginal7041cc63efd62f0450fe4bb37aadf484; ?>
+<?php unset($__attributesOriginal7041cc63efd62f0450fe4bb37aadf484); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal7041cc63efd62f0450fe4bb37aadf484)): ?>
+<?php $component = $__componentOriginal7041cc63efd62f0450fe4bb37aadf484; ?>
+<?php unset($__componentOriginal7041cc63efd62f0450fe4bb37aadf484); ?>
+<?php endif; ?>
         <?php if (isset($component)) { $__componentOriginal4fb6044c7ed6b655352043ff774efcd0 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal4fb6044c7ed6b655352043ff774efcd0 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.forms.input','data' => ['label' => 'Brand*','name' => 'brand','placeholder' => 'Greddy']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
