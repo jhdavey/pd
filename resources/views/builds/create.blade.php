@@ -7,17 +7,18 @@ $build_categories = [
 'Exotic',
 'Hot rod/Rat rod',
 'Lowrider',
-'Luxury/VIP',
+'Mudder',
 'Muscle',
 'Offroad/Overlander',
 'Rally',
 'Restomod',
 'Show',
 'Sleeper',
-'Stanced',
+'Stance',
 'Street/daily',
 'Time attack',
 'Track/circuit/road race',
+'VIP',
 'Other'
 ];
 @endphp

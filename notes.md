@@ -1,7 +1,5 @@
 # TODO
 
-### Add categories - steering, utilities, recovery, etc
-
 ### File uploads
 
 ### Video uploads 

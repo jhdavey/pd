@@ -4,6 +4,7 @@ $categories = [
 'Audio',
 'Body Kits',
 'Brakes',
+'Bushings',
 'Cooling',
 'Electrical',
 'Engine Components',
@@ -11,12 +12,16 @@ $categories = [
 'Exhaust',
 'Exterior',
 'Fuel',
+'Gaskets',
 'Interior',
 'Lighting',
 'Performance',
+'Recovery Gear',
+'Steering',
 'Suspension',
 'Tires & Wheels',
 'Transmission',
+'Utilities',
 'Other'
 ];
 @endphp
