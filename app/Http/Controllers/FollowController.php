@@ -3,11 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Build;
 
 class FollowController extends Controller
 {
+    public function show($user, Build $build)
+    {
+        $user = User::findOrFail($user);
+
+        $followers = $user->followers;
+
+        return view('followers.show', [
+            'user' => $user,
+            'followers' => $followers,
+        ]);
+    }
+
     public function follow(User $user)
     {
         $loggedInUser = Auth::user();

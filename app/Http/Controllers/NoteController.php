@@ -15,12 +15,12 @@ class NoteController extends Controller
     public function store(Request $request, Build $build)
     {
         $request->validate([
-            'body' => ['required', 'string', 'max:10000']
+            'note' => ['required', 'string', 'max:10000']
         ]);
 
         $build->notes()->create([
             'user_id' => Auth::id(),
-            'body' => $request->body
+            'note' => $request->note
         ]);
 
         return redirect()->route('builds.show', $build)->with('status', 'Note added successfully!');
@@ -38,10 +38,10 @@ class NoteController extends Controller
         $this->authorize('update', $note);
 
         $request->validate([
-            'body' => ['required', 'string', 'max:10000']
+            'note' => ['required', 'string', 'max:10000']
         ]);
 
-        $note->update($request->only('body'));
+        $note->update($request->only('note'));
 
         return redirect()->route('builds.show', $note->build)->with('status', 'Note updated successfully!');
     }

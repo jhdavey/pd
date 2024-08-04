@@ -48,6 +48,7 @@ Route::patch('/profile/{user}', [ProfileController::class, 'update'])->name('pro
 // Followers
 Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
 Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+Route::get('/followers/{user}', [FollowController::class, 'show'])->name('followers.show');
 
 // Passwords
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');

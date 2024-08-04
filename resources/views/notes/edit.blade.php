@@ -4,7 +4,9 @@
             @csrf
             @method('PATCH')
 
-            <x-forms.text-area label="Edit note" name="body" placeholder="notes..." value="{!! old('notes', $note->body) !!}" />
+            <input id="x" name="note" type="hidden" value="{!! old('notes', $note->note) !!}" name="content">
+            <trix-editor input="x"></trix-editor>
+
 
             @error('body')
                 <p class="text-red-500 text-sm mt-2">{{ $message }}</p>

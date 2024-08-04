@@ -3,9 +3,9 @@
     <x-status-message />
 
     <div class="md:flex md:justify-between items-center mt-2">
-        <h1 class="text-2xl font-bold">
+        <p class="text-2xl font-bold">
             {{ $build->user->name }}'s {{ $build['year'] }} {{ $build['make'] }} {{ $build['model'] }} {{ $build['trim'] }}
-        </h1>
+        </p>
 
         @can('edit', $build)
         <div class="flex flex-wrap space-x-2">
@@ -143,7 +143,7 @@
                     @endif
 
                     <a href="{{ route('mods.edit', ['build' => $modification->build_id, 'modification' => $modification->id]) }}">
-                    @can('edit', $build)<p class="text-sm text-end mt-4">edit mod</p>@endcan
+                        @can('edit', $build)<p class="text-sm text-end mt-4">edit mod</p>@endcan
                     </a>
                 </x-panel>
                 @endforeach
@@ -164,7 +164,7 @@
         @foreach ($build->notes as $note)
         <div class="mt-4">
             <x-panel class="break-words">
-                <p>{{ $note->body }}</p>
+                <p>{!! $note->note !!}</p>
                 <p class="text-sm">{{ $note->updated_at ? 'Edited' : 'Posted' }} by {{ $note->user->name }} {{ $note->updated_at ? $note->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $note->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}</p>
                 @can('update', $note)
                 <a href="{{ route('notes.edit', $note) }}" class="text-blue-500">Edit</a>
@@ -185,16 +185,16 @@
 
         <!-- Add build note -->
         @can('edit', $build)
-        <form action="{{ route('notes.store', $build) }}" method="POST" class="mt-6">
+        <form action="{{ route('notes.store', $build) }}" method="POST" class="mt-6 p-2 rounded-lg bg-white/15">
             @csrf
 
-            <x-forms.text-area label="Add Note" name="body" rows="2" placeholder="made some progress today..." required />
+            <textarea label="Add Note" name="note" rows="2" placeholder="Made some progress today!..." class="mt-2 w-full break-words border rounded-md bg-white/10 border-white/10 px-4 py-2 placeholder:text-white/10 resize-none overflow-hidden" required></textarea>
 
-            @error('body')
+            @error('note')
             <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
             @enderror
 
-            <button type="submit" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Note</button>
+            <button type="submit" class="mt-2 font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Note</button>
         </form>
         @endcan
     </div>
@@ -276,31 +276,30 @@
 
 <!-- Image modal view -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('image-modal');
-    const modalImage = document.getElementById('modal-image');
-    const closeModalButton = document.getElementById('close-modal');
-    const imageLinks = document.querySelectorAll('.image-link');
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const closeModalButton = document.getElementById('close-modal');
+        const imageLinks = document.querySelectorAll('.image-link');
 
-    imageLinks.forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            const imageUrl = this.getAttribute('data-image-url');
-            modalImage.setAttribute('src', imageUrl);
-            modal.classList.remove('hidden');
+        imageLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const imageUrl = this.getAttribute('data-image-url');
+                modalImage.setAttribute('src', imageUrl);
+                modal.classList.remove('hidden');
+            });
+        });
+
+        closeModalButton.addEventListener('click', function() {
+            modal.classList.add('hidden');
+        });
+
+        // Close modal on clicking outside the image
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
         });
     });
-
-    closeModalButton.addEventListener('click', function () {
-        modal.classList.add('hidden');
-    });
-
-    // Close modal on clicking outside the image
-    modal.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.classList.add('hidden');
-        }
-    });
-});
-
 </script>

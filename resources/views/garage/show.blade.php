@@ -31,7 +31,7 @@ $socialMedia = [
                 </div>
 
                 <div class="text-center md:text-end mt-4 md:mt-0">
-                    <p class="text-sm">{{ $followerCount }} followers</p>
+                    <a href="/followers/{{ $user->id }}"><p class="text-sm">{{ $followerCount }} followers</p></a>
                     @auth
                     @if (Auth::id() !== $user->id)
                     @if (Auth::user()->follows->contains($user->id))
