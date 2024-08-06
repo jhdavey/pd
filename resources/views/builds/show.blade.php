@@ -163,8 +163,11 @@
         @if ($build->notes->isNotEmpty())
         @foreach ($build->notes as $note)
         <div class="mt-4">
-            <x-panel class="break-words">
-                <p>{!! $note->note !!}</p>
+            <x-panel>
+                <div class="prose text-white">
+                        {!! $note->note !!}
+                </div>
+
                 <p class="text-sm">{{ $note->updated_at ? 'Edited' : 'Posted' }} by {{ $note->user->name }} {{ $note->updated_at ? $note->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $note->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}</p>
                 @can('update', $note)
                 <a href="{{ route('notes.edit', $note) }}" class="text-blue-500">Edit</a>
@@ -185,10 +188,10 @@
 
         <!-- Add build note -->
         @can('edit', $build)
-        <form action="{{ route('notes.store', $build) }}" method="POST" class="mt-6 p-2 rounded-lg bg-white/15">
+        <form action="{{ route('notes.store', $build) }}" method="POST" class="mt-6 p-1 rounded-lg bg-white/5">
             @csrf
 
-            <textarea label="Add Note" name="note" rows="2" placeholder="Made some progress today!..." class="mt-2 w-full break-words border rounded-md bg-white/10 border-white/10 px-4 py-2 placeholder:text-white/10 resize-none overflow-hidden" required></textarea>
+            <textarea id="note" name="note" label="Add Note" placeholder="Made some progress today!..." class="w-full break-words rounded-md bg-white/5 p-2 placeholder:text-white/10 overflow-hidden"></textarea>
 
             @error('note')
             <p class="text-red-500 text-sm mt-2">{{ $message }}</p>

@@ -4,8 +4,7 @@
             @csrf
             @method('PATCH')
 
-            <input id="x" name="note" type="hidden" value="{!! old('notes', $note->note) !!}" name="content">
-            <trix-editor input="x"></trix-editor>
+            <textarea id="note" name="note" label="Add Note" placeholder="Made some progress today!..." class="w-full break-words rounded-md bg-white/5 p-2 placeholder:text-white/10 overflow-hidden" value="{!! old('notes', $note->note) !!}"></textarea>
 
 
             @error('body')

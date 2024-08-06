@@ -32,6 +32,22 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
    
+    <!-- TinyMCE Rich Text Editor script -->
+    <script src="https://cdn.tiny.cloud/1/swcectlvcctnntnb8qbjbtqpn40l9x0v8apa51tpbfly3o9c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: '#note',
+        skin: 'oxide-dark',
+        content_css: 'dark',  
+        plugins: 'link table lists advlist',
+        menubar: 'file edit insert format',
+        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+        statusbar: false,
+        height: 300,
+        allow_html_in_named_anchor: true
+      });
+    </script>
+
 </head>
 
 <body class="bg-background text-white font-sans pb-12">
