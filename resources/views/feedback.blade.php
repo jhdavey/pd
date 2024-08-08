@@ -7,7 +7,6 @@
     <p class="my-6">My name is Harley and I am building this project for fun. I am constantly adding and improving features, but there is still a lot of work to do and some bugs to fix. Here are some exciting features I are currently working on:</p>
 
     <ul class="my-6 space-y-3">
-        <li>-Video, and file uploads</li>
         <li>-Improved build notes editor with image and file uploads</li>
         <li>-Build sheet exporting to pdf and excel files</li>
         <li>-Maintenance tracking</li>
