@@ -44,7 +44,7 @@
         toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
         statusbar: false,
         height: 300,
-        allow_html_in_named_anchor: true
+        link_assume_external_targets: 'https',
       });
     </script>
 

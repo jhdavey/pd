@@ -4,7 +4,7 @@
             @csrf
             @method('PATCH')
 
-            <textarea id="note" name="note" label="Add Note" placeholder="Made some progress today!..." class="w-full break-words rounded-md bg-white/5 p-2 placeholder:text-white/10 overflow-hidden" value="{!! old('notes', $note->note) !!}"></textarea>
+            <textarea id="note" name="note" label="Add Note" placeholder="Made some progress today!..." class="w-full rounded-md bg-white/5 p-2 placeholder:text-white/10 overflow-hidden">{!! $note->note !!}</textarea>
 
 
             @error('body')
@@ -15,27 +15,3 @@
         </form>
     </x-panel>
 </x-layout>
-
-<!-- Comment text area auto resize -->
-<style>
-    textarea {
-        overflow-y: hidden;
-    }
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const textarea = document.querySelector('textarea[name="body"]');
-        
-        if (textarea) {
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
-
-            // Initial height setting for pre-filled textarea
-            textarea.style.height = 'auto';
-            textarea.style.height = (textarea.scrollHeight) + 'px';
-        }
-    });
-</script>

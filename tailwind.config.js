@@ -37,6 +37,9 @@ export default {
             },
             a: {
               color: '#ffffff',
+            },
+            'p > a': {
+              color: '#ffffff',
             }
           },
         },
