@@ -1,6 +1,6 @@
 # TODO
 
-### RTE LIST STYLE***
+### RTE IMAGE UPLOAD BUGS -> VIDEO UPLOADS
 
 ### Ability to add builds to multiple categories
 

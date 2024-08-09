@@ -117,8 +117,8 @@ class BuildController extends Controller
         $attributes['featured'] = $request->has('featured');
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/builds');
-            $attributes['image'] = str_replace('public/', '', $imagePath);
+            $imagePath = $request->file('image')->store('builds', 'public');
+            $attributes['image'] = Storage::url($imagePath);
         };
     
         $build = Build::create([
@@ -196,7 +196,7 @@ class BuildController extends Controller
             }
 
             // Store the new image
-            $imagePath = $request->file('image')->store('public/builds');
+            $imagePath = $request->file('image')->store('builds', 'public');
             $validated['image'] = $imagePath;
         }
 

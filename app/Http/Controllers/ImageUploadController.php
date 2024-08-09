@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class ImageUploadController extends Controller
 {
     public function store(Request $request)
@@ -12,9 +12,10 @@ class ImageUploadController extends Controller
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $image = $request->file('file');
-        $path = $image->store('note_images');
+        $path = $request->file('file')->store('notes', 'public');
 
-        return response()->json(['location' => asset('storage/note_images' . $path)]);
+        $url = Storage::url($path);
+
+        return response()->json(['location' => $url]);    
     }
-}
+};

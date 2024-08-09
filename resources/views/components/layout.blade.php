@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Passion Driven</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -31,21 +33,59 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-   
+
     <!-- TinyMCE Rich Text Editor script -->
     <script src="https://cdn.tiny.cloud/1/swcectlvcctnntnb8qbjbtqpn40l9x0v8apa51tpbfly3o9c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
     <script>
-      tinymce.init({
-        selector: '#note',
-        skin: 'oxide-dark',
-        content_css: 'dark',  
-        plugins: 'link table lists advlist',
-        menubar: 'file edit insert format',
-        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
-        statusbar: false,
-        height: 300,
-        link_assume_external_targets: 'https',
-      });
+        tinymce.init({
+            selector: '#note',
+            skin: 'oxide-dark',
+            content_css: 'dark',
+            plugins: 'link table lists advlist image',
+            menubar: 'file edit insert format',
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image',
+            statusbar: false,
+            height: 300,
+            link_assume_external_targets: 'https',
+            image_title: true,
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
+            file_picker_callback: (cb, value, meta) => {
+                const input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+
+                input.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+
+                    const formData = new FormData();
+                    formData.append('file', file);
+
+                    fetch('/image-upload', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            cb(data.location, {
+                                title: file.name
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error uploading image:', error);
+                        });
+                });
+
+                input.click();
+            },
+        });
     </script>
 
 </head>

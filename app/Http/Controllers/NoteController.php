@@ -15,7 +15,7 @@ class NoteController extends Controller
     public function store(Request $request, Build $build)
     {
         $request->validate([
-            'note' => ['required', 'string', 'max:10000']
+            'note' => ['required', 'max:10000']
         ]);
 
         $build->notes()->create([
@@ -38,7 +38,7 @@ class NoteController extends Controller
         $this->authorize('update', $note);
 
         $request->validate([
-            'note' => ['required', 'string', 'max:10000']
+            'note' => ['required', 'max:10000']
         ]);
 
         $note->update($request->only('note'));
