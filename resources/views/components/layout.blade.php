@@ -38,55 +38,58 @@
     <script src="https://cdn.tiny.cloud/1/swcectlvcctnntnb8qbjbtqpn40l9x0v8apa51tpbfly3o9c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
-        tinymce.init({
-            selector: '#note',
-            skin: 'oxide-dark',
-            content_css: 'dark',
-            plugins: 'link table lists advlist image',
-            menubar: 'file edit insert format',
-            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image',
-            statusbar: false,
-            height: 300,
-            link_assume_external_targets: 'https',
-            image_title: true,
-            automatic_uploads: true,
-            file_picker_types: 'image',
-            relative_urls: false,
-            remove_script_host: false,
-            convert_urls: true,
-            file_picker_callback: (cb, value, meta) => {
-                const input = document.createElement('input');
-                input.setAttribute('type', 'file');
+    tinymce.init({
+        selector: '#note',
+        skin: 'oxide-dark',
+        content_css: 'dark',
+        plugins: 'link table lists advlist image media',
+        menubar: 'file edit insert format',
+        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image media',
+        statusbar: false,
+        height: 300,
+        link_assume_external_targets: 'https',
+        image_title: true,
+        automatic_uploads: true,
+        file_picker_types: 'image media',
+        relative_urls: false,
+        remove_script_host: false,
+        convert_urls: true,
+        file_picker_callback: (cb, value, meta) => {
+            const input = document.createElement('input');
+            input.setAttribute('type', 'file');
+
+            if (meta.filetype === 'image') {
                 input.setAttribute('accept', 'image/*');
+            } else if (meta.filetype === 'media') {
+                input.setAttribute('accept', 'video/*,audio/*');
+            }
 
-                input.addEventListener('change', (e) => {
-                    const file = e.target.files[0];
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
 
-                    const formData = new FormData();
-                    formData.append('file', file);
+                const formData = new FormData();
+                formData.append('file', file);
 
-                    fetch('/image-upload', {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            cb(data.location, {
-                                title: file.name
-                            });
-                        })
-                        .catch(error => {
-                            console.error('Error uploading image:', error);
-                        });
+                fetch('/media-upload', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    cb(data.location, { title: file.name });
+                })
+                .catch(error => {
+                    console.error('Error uploading media:', error);
                 });
+            });
 
-                input.click();
-            },
-        });
-    </script>
+            input.click();
+        },
+    });
+</script>
 
 </head>
 
@@ -100,9 +103,8 @@
                     </a>
                     @auth
                     <div class="hidden lg:flex text-lg transition-colors duration-200 space-x-6">
-                        <a href="/" class="hover:text-gray-500">Browse</a>
+                        <a href="/" class="hover:text-gray-500">Home</a>
                         <a href="{{ route('garage.show', $authUser->id) }}" class="hover:text-gray-500">Garage</a>
-                        <a href="/feedback" class="hover:text-gray-500">Beta</a>
                     </div>
                     @endauth
                 </div>

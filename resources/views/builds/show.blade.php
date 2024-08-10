@@ -156,7 +156,7 @@
     <x-forms.divider />
 
     <!-- Build Notes Section -->
-    <div class="mt-6">
+    <div class="my-6">
         <!-- View build notes -->
         <x-section-heading>Build Notes</x-section-heading>
 
@@ -165,7 +165,7 @@
         <div class="mt-4">
             <x-panel>
                 <div class="prose text-white">
-                        {!! $note->note !!}
+                    {!! $note->note !!}
                 </div>
 
                 <p class="text-sm">{{ $note->updated_at ? 'Edited' : 'Posted' }} by {{ $note->user->name }} {{ $note->updated_at ? $note->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $note->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}</p>
@@ -204,53 +204,105 @@
 
     <x-forms.divider />
 
-    <!-- Comments Section -->
+    <!-- Show Files Section -->
     <div class="mt-6">
-        <x-section-heading>Comments</x-section-heading>
+        <x-section-heading>Build Files</x-section-heading>
 
-        @if ($build->comments->isNotEmpty())
-        @foreach ($build->comments as $comment)
-        <div class="mt-4">
-            <x-panel class="break-words">
-                <p>{{ $comment->body }}</p>
-                <p class="text-sm">
-                    {{ $comment->updated_at ? 'Edited' : 'Posted' }} by
-                    <a href="{{ route('garage.show', $comment->user->id) }}" class="text-blue-500">
-                        {{ $comment->user->name }}
-                    </a>
-                    {{ $comment->updated_at ? $comment->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $comment->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}
-                </p>
-                @can('update', $comment)
-                <a href="{{ route('comments.edit', $comment) }}" class="text-blue-500">Edit</a>
-                @endcan
-                @can('delete', $comment)
-                <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="inline">
+        @if ($build->files->isNotEmpty())
+            @foreach($build->files as $file)
+            <div class="my-2 flex items-center p-1 bg-white/5 rounded-xl border border-transparent hover:border-gray-800 group transition-colors duration-200">
+                <p class="m-2">{{ $file->name }}</p>
+
+                <a href="{{ route('files.download', $file) }}" class="text-blue-500 hover:underline flex items-center ml-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 inline-block mr-1">
+
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v4a1 1 0 001 1h14a1 1 0 001-1v-4m-10-4l4 4m0 0l4-4m-4 4V4" />
+
+                    </svg>
+                    Download
+                </a>
+
+                @can('delete', $file)
+                <form action="{{ route('files.destroy', $file) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="text-red-500">Delete</button>
+
+                    <button type="submit" class="text-red-500 ml-2">Delete</button>
                 </form>
                 @endcan
-            </x-panel>
-        </div>
+            </div>
+            @endforeach
 
-        @endforeach
         @else
-        <p>No comments on this build yet...</p>
+        <p>No files for this build yet...</p>
         @endif
 
-        <!-- Add a comment -->
+        <!-- Add Files Section -->
         @auth
-        <form action="{{ route('comments.store', $build) }}" method="POST" class="mt-6">
+        <form action="{{ route('files.store', $build) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <x-forms.text-area label="Add Comment" name="body" rows="2" placeholder="Love the wheel choice!" required />
 
-            @error('body')
+            <input type="file" name="file" class="my-2" />
+
+            @error('file')
             <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
             @enderror
-            <button type="submit" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Comment</button>
+
+            <button type="submit" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">
+                Upload File
+            </button>
         </form>
         @endauth
-    </div>
+
+        <x-forms.divider />
+
+        <!-- Comments Section -->
+        <div class="mt-6">
+            <x-section-heading>Comments</x-section-heading>
+
+            @if ($build->comments->isNotEmpty())
+            @foreach ($build->comments as $comment)
+            <div class="mt-4">
+                <x-panel class="break-words">
+                    <p>{{ $comment->body }}</p>
+                    <p class="text-sm">
+                        {{ $comment->updated_at ? 'Edited' : 'Posted' }} by
+                        <a href="{{ route('garage.show', $comment->user->id) }}" class="text-blue-500">
+                            {{ $comment->user->name }}
+                        </a>
+                        {{ $comment->updated_at ? $comment->updated_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') : $comment->created_at->setTimezone('America/New_York')->format('F j, Y \a\t g:i A') }}
+                    </p>
+                    @can('update', $comment)
+                    <a href="{{ route('comments.edit', $comment) }}" class="text-blue-500">Edit</a>
+                    @endcan
+                    @can('delete', $comment)
+                    <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-500">Delete</button>
+                    </form>
+                    @endcan
+                </x-panel>
+            </div>
+
+            @endforeach
+            @else
+            <p>No comments on this build yet...</p>
+            @endif
+
+            <!-- Add a comment -->
+            @auth
+            <form action="{{ route('comments.store', $build) }}" method="POST" class="mt-6">
+                @csrf
+                <x-forms.text-area label="Add Comment" name="body" rows="2" placeholder="Love the wheel choice!" required />
+
+                @error('body')
+                <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                @enderror
+                <button type="submit" class="font-bold px-5 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Post Comment</button>
+            </form>
+            @endauth
+        </div>
 </x-layout>
 
 <!-- Comment text area auto resize -->

@@ -16,7 +16,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NoteController;
-use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\MediaUploadController;
 
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
@@ -70,7 +71,12 @@ Route::post('builds/{build}/notes', [NoteController::class, 'store'])->name('not
 Route::get('notes/{note}/edit', [NoteController::class, 'edit'])->name('notes.edit');
 Route::patch('notes/{note}', [NoteController::class, 'update'])->name('notes.update');
 Route::delete('notes/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');
-Route::post('/image-upload', [ImageUploadController::class, 'store'])->name('image.upload');
+Route::post('/media-upload', [MediaUploadController::class, 'store'])->name('media.upload');
+
+// Build Files
+Route::post('builds/{build}/files', [FileController::class, 'store'])->name('files.store');
+Route::get('files/{file}/download', [FileController::class, 'download'])->name('files.download');
+Route::delete('files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
 
 // Comments
 Route::post('builds/{build}/comments', [CommentController::class, 'store'])->name('comments.store');
