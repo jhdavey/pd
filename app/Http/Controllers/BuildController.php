@@ -371,7 +371,7 @@ class BuildController extends Controller
     
         // Save the document to a temporary file
         $tempFilePath = storage_path('app/temp/build_' . $build->id . '.docx');
-
+        dd($tempFilePath);
         $phpWord->save($tempFilePath, 'Word2007');
     
         // Create a response with the Word document
