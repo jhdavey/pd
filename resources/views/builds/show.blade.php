@@ -1,5 +1,4 @@
 <x-layout>
-
     <x-status-message />
 
     <div class="md:flex md:justify-between items-center mt-2">
@@ -209,36 +208,36 @@
         <x-section-heading>Build Files</x-section-heading>
 
         @if ($build->files->isNotEmpty())
-            @foreach($build->files as $file)
-            <div class="my-2 flex items-center p-1 bg-white/5 rounded-xl border border-transparent hover:border-gray-800 group transition-colors duration-200">
-                <p class="m-2">{{ $file->name }}</p>
+        @foreach($build->files as $file)
+        <div class="my-2 flex items-center p-1 bg-white/5 rounded-xl border border-transparent hover:border-gray-800 group transition-colors duration-200">
+            <p class="m-2">{{ $file->name }}</p>
 
-                <a href="{{ route('files.download', $file) }}" class="text-blue-500 hover:underline flex items-center ml-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 inline-block mr-1">
+            <a href="{{ route('files.download', $file) }}" class="text-blue-500 hover:underline flex items-center ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 inline-block mr-1">
 
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v4a1 1 0 001 1h14a1 1 0 001-1v-4m-10-4l4 4m0 0l4-4m-4 4V4" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v4a1 1 0 001 1h14a1 1 0 001-1v-4m-10-4l4 4m0 0l4-4m-4 4V4" />
 
-                    </svg>
-                    Download
-                </a>
+                </svg>
+                Download
+            </a>
 
-                @can('delete', $file)
-                <form action="{{ route('files.destroy', $file) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
+            @can('delete', $file)
+            <form action="{{ route('files.destroy', $file) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('DELETE')
 
-                    <button type="submit" class="text-red-500 ml-2">Delete</button>
-                </form>
-                @endcan
-            </div>
-            @endforeach
+                <button type="submit" class="text-red-500 ml-2">Delete</button>
+            </form>
+            @endcan
+        </div>
+        @endforeach
 
         @else
         <p>No files for this build yet...</p>
         @endif
 
         <!-- Add Files Section -->
-        @auth
+        @can('edit', $build)
         <form action="{{ route('files.store', $build) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
@@ -252,7 +251,7 @@
                 Upload File
             </button>
         </form>
-        @endauth
+        @endcan
 
         <x-forms.divider />
 

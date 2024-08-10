@@ -17,9 +17,9 @@ class FilePolicy
         return $user->id === $file->build->user_id;
     }
 
-    public function create(User $user): bool
+    public function create(User $user, File $file): bool
     {
-        return true;
+        return $user->id === $file->build->user_id;
     }
 
     public function update(User $user, File $file): bool
