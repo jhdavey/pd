@@ -11,6 +11,33 @@
             <a href="/mods/{{ $build->id }}/create" class="mt-2 font-bold px-4 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Add mod</a>
 
             <a href="/builds/{{ $build->id }}/edit" class="mt-2 font-bold px-4 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">Edit Build</a>
+
+            <!-- Download build sheet -->
+            <div x-data="{ open: false }" class="relative inline-block text-left">
+                <button @click="open = !open" class="inline-flex justify-center w-full mt-2 font-bold px-4 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">
+                    Download Build Data
+                    <svg class="ml-2 h-5 w-5 transition-transform transform" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="open" x-transition class="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-gray-700 ring-1 ring-black ring-opacity-5">
+                    <div class="py-1">
+                        <form method="POST" action="{{ route('builds.download', ['build' => $build->id, 'format' => 'excel']) }}">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600">Download as Excel</button>
+                        </form>
+                        <form method="POST" action="{{ route('builds.download', ['build' => $build->id, 'format' => 'word']) }}">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600">Download as Word</button>
+                        </form>
+                        <form method="POST" action="{{ route('builds.download', ['build' => $build->id, 'format' => 'txt']) }}">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600">Download as TXT</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
         @endcan
     </div>

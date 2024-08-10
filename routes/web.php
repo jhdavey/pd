@@ -63,6 +63,7 @@ Route::post('/builds', [BuildController::class, 'store'])->middleware('auth');
 Route::get('/builds/{build}', [BuildController::class, 'show'])->name('builds.show');
 Route::get('/builds/{build}/edit', [BuildController::class, 'edit'])->middleware('auth')->can('edit', 'build')->name('builds.edit');
 Route::patch('/builds/{build}', [BuildController::class, 'update'])->middleware('auth');
+Route::post('/builds/{build}/download/{format}', [BuildController::class, 'download'])->name('builds.download');
 Route::delete('/builds/{build}', [BuildController::class, 'destroy'])->middleware('auth');
 Route::delete('/builds/image/{image}', [BuildController::class, 'deleteImage'])->name('builds.deleteImage');
 

@@ -14,4 +14,12 @@ class BuildPolicy
     {
         return $build->user->is($user);
     }
+
+    /**
+     * Determine whether the user can update any models. (For downloading build sheet)
+     */
+    public function update(User $user, Build $build)
+    {
+        return $user->id === $build->user_id;
+    }
 }

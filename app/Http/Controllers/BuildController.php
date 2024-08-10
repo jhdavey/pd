@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Build;
 use App\Models\BuildImage;
 use App\Models\Tag;
+use App\Exports\BuildExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\Storage;
+
 
 class BuildController extends Controller
 {
@@ -52,7 +57,7 @@ class BuildController extends Controller
         // Start with a base query
         $query = Build::query();
 
-        // Apply filters based on the request input
+        // Apply filters only if the corresponding input is filled
         if ($request->filled('year')) {
             $query->where('year', $request->year);
         }
@@ -72,20 +77,22 @@ class BuildController extends Controller
         return view('builds.filtered', compact('builds'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('builds.create');
     }
 
     public function show($buildId)
     {
         $build = Build::with('modifications', 'files')->findOrFail($buildId);
-        
+
         $modificationsByCategory = $build->modifications->groupBy('category')->sortKeys();
-        
+
         return view('builds.show', compact('build', 'modificationsByCategory'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $imagePath = null;
 
         $attributes = request()->validate([
@@ -119,7 +126,7 @@ class BuildController extends Controller
             $imagePath = $request->file('image')->store('builds', 'public');
             $attributes['image'] = Storage::url($imagePath);
         };
-    
+
         $build = Build::create([
             'user_id' => Auth::id(),
             'year' => request('year'),
@@ -153,9 +160,10 @@ class BuildController extends Controller
         return redirect()->route('builds.show', $build)->with('status', 'Build updated successfully!');
     }
 
-    public function edit(Build $build) {
+    public function edit(Build $build)
+    {
         $tags = Tag::all();
-        
+
         return view('builds.edit', compact('build', 'tags'));
     }
 
@@ -242,12 +250,13 @@ class BuildController extends Controller
 
         return redirect()->route('garage.show', ['user' => $build->user_id])->with('status', 'Build deleted successfully!');
     }
-    
-    public function garage() {
+
+    public function garage()
+    {
         $userId = Auth::id();
         $builds = Build::where('user_id', $userId)->get();
         $name = Auth::user()->name;
-            return view('/garage', ['builds' => $builds, 'name' => $name]);
+        return view('/garage', ['builds' => $builds, 'name' => $name]);
     }
 
     public function deleteImage($imageId)
@@ -261,5 +270,76 @@ class BuildController extends Controller
         $image->delete();
 
         return back()->with('status', 'Image deleted successfully!');
+    }
+
+    public function download(Build $build, $format)
+    {
+        // Load necessary relationships
+        $build->load('modifications', 'notes');
+
+        switch ($format) {
+            case 'excel':
+                return $this->downloadExcel($build);
+            case 'word':
+                return $this->downloadWord($build);
+            case 'txt':
+                return $this->downloadTxt($build);
+            default:
+                return redirect()->back()->withErrors('Invalid download format.');
+        }
+    }
+
+    protected function downloadExcel(Build $build)
+    {
+        // Generate Excel file using Laravel Excel
+        return Excel::download(new BuildExport($build), 'build_' . $build->id . '.xlsx');
+    }
+
+    protected function downloadWord(Build $build)
+    {
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+
+        // Add build details to the Word document
+        $section->addText('Build Name: ' . $build->name);
+        $section->addText('Year: ' . $build->year);
+        $section->addText('Make: ' . $build->make);
+        $section->addText('Model: ' . $build->model);
+
+        // Add modifications
+        $section->addText('Modifications:');
+        foreach ($build->modifications as $mod) {
+            $section->addText("Category: {$mod->category}, Brand: {$mod->brand}, Name: {$mod->name}, Price: {$mod->price}, Part Number: {$mod->part_number}, Notes: {$mod->notes}");
+        }
+
+        // Add notes
+        $section->addText('Build Notes:');
+        foreach ($build->notes as $note) {
+            $section->addText($note->content);
+        }
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'word') . '.docx';
+        $phpWord->save($tempFile, 'Word2007', true);
+
+        return response()->download($tempFile, 'build_' . $build->id . '.docx')->deleteFileAfterSend(true);
+    }
+
+    protected function downloadTxt(Build $build)
+    {
+        $txtContent = "Build Name: {$build->name}\nYear: {$build->year}\nMake: {$build->make}\nModel: {$build->model}\n\nModifications:\n";
+
+        foreach ($build->modifications as $mod) {
+            $txtContent .= "Category: {$mod->category}, Brand: {$mod->brand}, Name: {$mod->name}, Price: {$mod->price}, Part Number: {$mod->part_number}, Notes: {$mod->notes}\n";
+        }
+
+        $txtContent .= "\nBuild Notes:\n";
+
+        foreach ($build->notes as $note) {
+            $txtContent .= "{$note->content}\n";
+        }
+
+        return response($txtContent)
+            ->header('Content-Type', 'text/plain')
+            ->header('Content-Disposition', 'attachment; filename="build_' . $build->id . '.txt"');
     }
 }
