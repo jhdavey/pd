@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Build;
 use App\Models\BuildImage;
 use App\Models\Tag;
-use App\Exports\BuildExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\FromArray;
 use PhpOffice\PhpWord\PhpWord;
-use PhpOffice\PhpWord\IOFactory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -291,51 +289,130 @@ class BuildController extends Controller
 
     protected function downloadExcel(Build $build)
     {
-        // Generate Excel file using Laravel Excel
-        return Excel::download(new BuildExport($build), 'build_' . $build->id . '.xlsx');
+        $data = [
+            ['Year', 'Make', 'Model', 'Trim', 'Category'],
+            [$build->year, $build->make, $build->model, $build->trim, $build->build_category]
+        ];
+
+
+        // Add modifications
+        $data[] = ['Modifications'];
+        foreach ($build->modifications as $mod) {
+            $data[] = [
+                $mod->category,
+                $mod->brand,
+                $mod->name,
+                $mod->price,
+                $mod->part_number,
+                $mod->notes
+            ];
+        }
+
+        // Add build notes
+        $data[] = ['Build Notes'];
+        foreach ($build->notes as $note) {
+            $data[] = [$note->content];
+        }
+
+        return Excel::download(new class($data) implements FromArray
+        {
+            private $data;
+
+            public function __construct(array $data)
+            {
+                $this->data = $data;
+            }
+
+            public function array(): array
+            {
+                return $this->data;
+            }
+        }, 'build_' . $build->id . '.xlsx');
     }
 
     protected function downloadWord(Build $build)
     {
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
-
-        // Add build details to the Word document
+    
+        // Add title and details
+        $section->addText('Build Details', ['bold' => true, 'size' => 16]);
         $section->addText('Build Name: ' . $build->name);
         $section->addText('Year: ' . $build->year);
         $section->addText('Make: ' . $build->make);
         $section->addText('Model: ' . $build->model);
-
+    
+        $section->addTextBreak(1);
+    
         // Add modifications
-        $section->addText('Modifications:');
+        $section->addText('Modifications:', ['bold' => true]);
         foreach ($build->modifications as $mod) {
-            $section->addText("Category: {$mod->category}, Brand: {$mod->brand}, Name: {$mod->name}, Price: {$mod->price}, Part Number: {$mod->part_number}, Notes: {$mod->notes}");
+            $section->addText("Category: {$mod->category}");
+            $section->addText("Brand: {$mod->brand}");
+            $section->addText("Name: {$mod->name}");
+            $section->addText("Price: {$mod->price}");
+            $section->addText("Part Number: {$mod->part_number}");
+            $section->addText("Notes: {$mod->notes}");
+            $section->addTextBreak(1);
         }
-
+    
         // Add notes
-        $section->addText('Build Notes:');
+        $section->addText('Build Notes:', ['bold' => true]);
         foreach ($build->notes as $note) {
             $section->addText($note->content);
+            $section->addTextBreak(1);
         }
-
-        $tempFile = tempnam(sys_get_temp_dir(), 'word') . '.docx';
-        $phpWord->save($tempFile, 'Word2007', true);
-
-        return response()->download($tempFile, 'build_' . $build->id . '.docx')->deleteFileAfterSend(true);
+    
+        // Ensure the temp directory exists
+        $tempDirectory = storage_path('app/temp');
+        if (!File::exists($tempDirectory)) {
+            File::makeDirectory($tempDirectory, 0755, true);
+        }
+    
+        // Save the document to a temporary file
+        $tempFilePath = $tempDirectory . '/build_' . $build->id . '.docx';
+        $phpWord->save($tempFilePath, 'Word2007');
+    
+        // Create a response with the Word document
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="build_' . $build->id . '.docx"',
+        ];
+    
+        return response()->stream(
+            function () use ($tempFilePath) {
+                // Output the file contents
+                readfile($tempFilePath);
+                // Optionally delete the file after serving
+                unlink($tempFilePath);
+            },
+            200,
+            $headers
+        );
     }
 
     protected function downloadTxt(Build $build)
     {
-        $txtContent = "Build Name: {$build->name}\nYear: {$build->year}\nMake: {$build->make}\nModel: {$build->model}\n\nModifications:\n";
+        $txtContent = "Build Name: {$build->name}\n";
+        $txtContent .= "Year: {$build->year}\n";
+        $txtContent .= "Make: {$build->make}\n";
+        $txtContent .= "Model: {$build->model}\n\n";
 
+        // Modifications
+        $txtContent .= "Modifications:\n";
         foreach ($build->modifications as $mod) {
-            $txtContent .= "Category: {$mod->category}, Brand: {$mod->brand}, Name: {$mod->name}, Price: {$mod->price}, Part Number: {$mod->part_number}, Notes: {$mod->notes}\n";
+            $txtContent .= "Category: {$mod->category}\n";
+            $txtContent .= "Brand: {$mod->brand}\n";
+            $txtContent .= "Name: {$mod->name}\n";
+            $txtContent .= "Price: {$mod->price}\n";
+            $txtContent .= "Part Number: {$mod->part_number}\n";
+            $txtContent .= "Notes: {$mod->notes}\n\n";
         }
 
-        $txtContent .= "\nBuild Notes:\n";
-
+        // Notes
+        $txtContent .= "Build Notes:\n";
         foreach ($build->notes as $note) {
-            $txtContent .= "{$note->content}\n";
+            $txtContent .= "{$note->content}\n\n";
         }
 
         return response($txtContent)
