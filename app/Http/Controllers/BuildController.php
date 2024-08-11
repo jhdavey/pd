@@ -406,35 +406,44 @@ class BuildController extends Controller
     //         $headers
     //     );
     // }
-    protected function downloadWord(Build $build)
-{
-    $phpWord = new PhpWord();
-    $section = $phpWord->addSection();
-
-    // Add a simple text
-    $section->addText('This is a test document.');
-
-    // Create a temporary in-memory stream
-    $tempStream = fopen('php://temp', 'r+');
-    $phpWord->save($tempStream, 'Word2007');
-
-    // Create a response with the Word document
-    $headers = [
-        'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'Content-Disposition' => 'attachment; filename="test.docx"',
-    ];
-
-    return response()->stream(
-        function () use ($tempStream) {
-            rewind($tempStream);
-            fpassthru($tempStream);
-            fclose($tempStream);
-        },
-        200,
-        $headers
-    );
-}
-
+    protected function downloadWord()
+    {
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+    
+        // Add simple text
+        $section->addText('This is a test document.');
+    
+        // Create a temporary file path
+        $tempFilePath = storage_path('app/temp/test_document.docx');
+    
+        try {
+            // Save the document to the temporary file
+            $phpWord->save($tempFilePath, 'Word2007');
+            Log::info('Word document saved successfully: ' . $tempFilePath);
+        } catch (\Exception $e) {
+            Log::error('Error saving Word document: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to generate document'], 500);
+        }
+    
+        // Create a response with the Word document
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="test_document.docx"',
+        ];
+    
+        return response()->stream(
+            function () use ($tempFilePath) {
+                // Output the file contents
+                readfile($tempFilePath);
+                // Optionally delete the file after serving
+                unlink($tempFilePath);
+            },
+            200,
+            $headers
+        );
+    }
+    
     protected function downloadTxt(Build $build)
     {
         $txtContent = "Build Name: {$build->name}\n";
