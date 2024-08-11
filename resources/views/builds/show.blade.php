@@ -26,10 +26,11 @@
                             @csrf
                             <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600">Download as Excel</button>
                         </form>
-                        <form method="POST" action="{{ route('builds.download', ['build' => $build->id, 'format' => 'word']) }}">
+                        <!-- HAVING ISSUES WITH WORD DOWNLOAD ON PROD... FOR EACH LOOPS CAUSING PROBLEMS BEYOND 1 OR MORE RESULT??? -->
+                        <!-- <form method="POST" action="{{ route('builds.download', ['build' => $build->id, 'format' => 'word']) }}">
                             @csrf
                             <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600">Download as Word</button>
-                        </form>
+                        </form> -->
                         <form method="POST" action="{{ route('builds.download', ['build' => $build->id, 'format' => 'txt']) }}">
                             @csrf
                             <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600">Download as TXT</button>
