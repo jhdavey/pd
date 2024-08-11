@@ -349,13 +349,7 @@ class BuildController extends Controller
         $section->addText('Modifications:', ['bold' => true]);
 
             foreach ($build->modifications as $mod) {
-                    $section->addText("Category: {$mod->category}");
-                    $section->addText("Brand: {$mod->brand}");
-                    $section->addText("Name: {$mod->name}");
-                    $section->addText("Price: {$mod->price}");
-                    $section->addText("Part Number: {$mod->part_number}");
-                    $section->addText("Notes: {$mod->notes}");
-                    $section->addTextBreak(1);
+                    $section->addText("Mods: {$build->modifications}");
             };
 
         // Add notes
