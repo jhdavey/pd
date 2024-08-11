@@ -8,9 +8,10 @@ use App\Models\Tag;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Concerns\FromArray;
 use PhpOffice\PhpWord\PhpWord;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -334,16 +335,16 @@ class BuildController extends Controller
     {
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
-    
+
         // Add title and details
         $section->addText('Build Details', ['bold' => true, 'size' => 16]);
         $section->addText('Build Name: ' . $build->name);
         $section->addText('Year: ' . $build->year);
         $section->addText('Make: ' . $build->make);
         $section->addText('Model: ' . $build->model);
-    
+
         $section->addTextBreak(1);
-    
+
         // Add modifications
         $section->addText('Modifications:', ['bold' => true]);
         foreach ($build->modifications as $mod) {
@@ -355,30 +356,45 @@ class BuildController extends Controller
             $section->addText("Notes: {$mod->notes}");
             $section->addTextBreak(1);
         }
-    
+
         // Add notes
         $section->addText('Build Notes:', ['bold' => true]);
         foreach ($build->notes as $note) {
             $section->addText($note->content);
             $section->addTextBreak(1);
         }
-    
+
         // Ensure the temp directory exists
         $tempDirectory = storage_path('app/temp');
         if (!File::exists($tempDirectory)) {
             File::makeDirectory($tempDirectory, 0755, true);
         }
-    
+
         // Save the document to a temporary file
         $tempFilePath = storage_path('app/temp/build_' . $build->id . '.docx');
-        $phpWord->save($tempFilePath, 'Word2007');
-    
+
+        try {
+            $phpWord->save($tempFilePath, 'Word2007');
+            Log::info('Word document saved successfully: ' . $tempFilePath);
+        } catch (\Exception $e) {
+            Log::error('Error saving Word document: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to generate document'], 500);
+        }
+
+        // Check file size and permissions
+        if (File::exists($tempFilePath) && File::size($tempFilePath) > 0) {
+            Log::info('File exists and size is OK: ' . $tempFilePath);
+        } else {
+            Log::error('File not found or empty: ' . $tempFilePath);
+            return response()->json(['error' => 'File generation issue'], 500);
+        }
+
         // Create a response with the Word document
         $headers = [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'Content-Disposition' => 'attachment; filename="build_' . $build->id . '.docx"',
         ];
-    
+
         return response()->stream(
             function () use ($tempFilePath) {
                 // Output the file contents
