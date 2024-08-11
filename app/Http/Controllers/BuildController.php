@@ -333,6 +333,8 @@ class BuildController extends Controller
 
     protected function downloadWord(Build $build)
     {
+        ini_set('max_execution_time', 300);
+        
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
 
@@ -360,7 +362,6 @@ class BuildController extends Controller
                     $section->addText("Part Number: {$mod->part_number}");
                     $section->addText("Notes: {$mod->notes}");
                     $section->addTextBreak(1);
-                    break;
                 } else {
                     $section->addText('Some modification details are missing.');
                 }
