@@ -334,7 +334,7 @@ class BuildController extends Controller
     protected function downloadWord(Build $build)
     {
         ini_set('max_execution_time', 300);
-        
+
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
 
@@ -354,7 +354,6 @@ class BuildController extends Controller
             $section->addText('No modifications listed.');
         } else {
             foreach ($build->modifications as $mod) {
-                if (!is_null($mod->category) && !is_null($mod->brand) && !is_null($mod->name)) {
                     $section->addText("Category: {$mod->category}");
                     $section->addText("Brand: {$mod->brand}");
                     $section->addText("Name: {$mod->name}");
@@ -362,8 +361,6 @@ class BuildController extends Controller
                     $section->addText("Part Number: {$mod->part_number}");
                     $section->addText("Notes: {$mod->notes}");
                     $section->addTextBreak(1);
-                } else {
-                    $section->addText('Some modification details are missing.');
                 }
             }
         }
