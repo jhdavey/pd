@@ -336,17 +336,17 @@ class BuildController extends Controller
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
 
-        // // Add title and details
-        // $section->addText('Build Details', ['bold' => true, 'size' => 16]);
-        // $section->addText('Build Name: ' . $build->name);
-        // $section->addText('Year: ' . $build->year);
-        // $section->addText('Make: ' . $build->make);
-        // $section->addText('Model: ' . $build->model);
+        // Add title and details
+        $section->addText('Build Details', ['bold' => true, 'size' => 16]);
+        $section->addText('Build Name: ' . $build->name);
+        $section->addText('Year: ' . $build->year);
+        $section->addText('Make: ' . $build->make);
+        $section->addText('Model: ' . $build->model);
 
-        // $section->addTextBreak(1);
+        $section->addTextBreak(1);
 
-        // // Add modifications
-        // $section->addText('Modifications:', ['bold' => true]);
+        // Add modifications
+        $section->addText('Modifications:', ['bold' => true]);
         // foreach ($build->modifications as $mod) {
         //     $section->addText("Category: {$mod->category}");
         //     $section->addText("Brand: {$mod->brand}");
@@ -357,30 +357,12 @@ class BuildController extends Controller
         //     $section->addTextBreak(1);
         // }
 
-        // // Add notes
-        // $section->addText('Build Notes:', ['bold' => true]);
+        // Add notes
+        $section->addText('Build Notes:', ['bold' => true]);
         // foreach ($build->notes as $note) {
         //     $section->addText($note->content);
         //     $section->addTextBreak(1);
         // }
-        // Simplified content for testing
-$section->addText('Build Details', ['bold' => true, 'size' => 16]);
-$section->addText('Build Name: Test Build');
-$section->addText('Year: 2024');
-$section->addText('Make: Test Make');
-$section->addText('Model: Test Model');
-$section->addTextBreak(1);
-$section->addText('Modifications:', ['bold' => true]);
-$section->addText("Category: Test Category");
-$section->addText("Brand: Test Brand");
-$section->addText("Name: Test Name");
-$section->addText("Price: $100");
-$section->addText("Part Number: TEST123");
-$section->addText("Notes: Test notes.");
-$section->addTextBreak(1);
-$section->addText('Build Notes:', ['bold' => true]);
-$section->addText('Test note content.');
-
 
         // Ensure the temp directory exists
         $tempDirectory = storage_path('app/temp');
