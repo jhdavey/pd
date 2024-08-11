@@ -348,9 +348,24 @@ class BuildController extends Controller
         // Add modifications
         $section->addText('Modifications:', ['bold' => true]);
 
+        if ($build->modifications->isEmpty()) {
+            $section->addText('No modifications listed.');
+        } else {
             foreach ($build->modifications as $mod) {
-                    $section->addText("Mods: {$build->modifications}");
-            };
+                if (!is_null($mod->category) && !is_null($mod->brand) && !is_null($mod->name)) {
+                    $section->addText("Category: {$mod->category}");
+                    $section->addText("Brand: {$mod->brand}");
+                    $section->addText("Name: {$mod->name}");
+                    $section->addText("Price: {$mod->price}");
+                    $section->addText("Part Number: {$mod->part_number}");
+                    $section->addText("Notes: {$mod->notes}");
+                    $section->addTextBreak(1);
+                    break;
+                } else {
+                    $section->addText('Some modification details are missing.');
+                }
+            }
+        }
 
         // Add notes
         // $section->addText('Build Notes:', ['bold' => true]);
