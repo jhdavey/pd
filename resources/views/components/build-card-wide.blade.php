@@ -8,7 +8,7 @@
     <a href="/builds/{{ $build['id'] }}">
         <x-panel>
             <div class="md:flex md:space-x-6">
-                <img class="mx-auto w-auto max-h-48 md:max-w-40 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Build Feature Image">                
+                <img class="mx-auto w-auto max-h-48 md:max-w-48 rounded-lg" src="{{ Storage::url($build->image) }}" alt="Build Feature Image">                
 
                 <div class="w-full">
                     <div class="md:flex md:justify-between">
