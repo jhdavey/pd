@@ -347,37 +347,22 @@ class BuildController extends Controller
 
         // Add modifications
         $section->addText('Modifications:', ['bold' => true]);
-
-        if ($build->modifications->isEmpty()) {
-            $section->addText('No modifications listed.');
-        } else {
-            foreach ($build->modifications as $mod) {
-
-                $section->addText("Category: {$mod->category}");
-                $section->addText("Brand: {$mod->brand}");
-                $section->addText("Name: {$mod->name}");
-                $section->addText("Price: {$mod->price}");
-                $section->addText("Part Number: {$mod->part_number}");
-                $section->addText("Notes: {$mod->notes}");
-                $section->addTextBreak(1);
-            }
+        foreach ($build->modifications as $mod) {
+            $section->addText("Category: {$mod->category}");
+            $section->addText("Brand: {$mod->brand}");
+            $section->addText("Name: {$mod->name}");
+            $section->addText("Price: {$mod->price}");
+            $section->addText("Part Number: {$mod->part_number}");
+            $section->addText("Notes: {$mod->notes}");
+            $section->addTextBreak(1);
         }
 
         // Add notes
-        // $section->addText('Build Notes:', ['bold' => true]);
-
-        // if ($build->notes->isEmpty()) {
-        //     $section->addText('No notes found.');
-        // } else {
-        //     foreach ($build->notes as $note) {
-        //         if (!is_null($note->content)) {
-        //             $section->addText($note->content);
-        //             $section->addTextBreak(1);
-        //         } else {
-        //             $section->addText('Note content is missing.');
-        //         }
-        //     }
-        // }
+        $section->addText('Build Notes:', ['bold' => true]);
+        foreach ($build->notes as $note) {
+            $section->addText($note->content);
+            $section->addTextBreak(1);
+        }
 
         // Ensure the temp directory exists
         $tempDirectory = storage_path('app/temp');
@@ -421,7 +406,7 @@ class BuildController extends Controller
             $headers
         );
     }
-
+    
     protected function downloadTxt(Build $build)
     {
         $txtContent = "Build Name: {$build->name}\n";
