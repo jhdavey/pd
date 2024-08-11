@@ -360,7 +360,6 @@ class BuildController extends Controller
                 $section->addText("Part Number: {$mod->part_number}");
                 $section->addText("Notes: {$mod->notes}");
                 $section->addTextBreak(1);
-                break;
             }
         }
 
