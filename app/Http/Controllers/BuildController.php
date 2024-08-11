@@ -367,20 +367,20 @@ class BuildController extends Controller
         }
 
         // Add notes
-        $section->addText('Build Notes:', ['bold' => true]);
+        // $section->addText('Build Notes:', ['bold' => true]);
 
-        if ($build->notes->isEmpty()) {
-            $section->addText('No notes found.');
-        } else {
-            foreach ($build->notes as $note) {
-                if (!is_null($note->content)) {
-                    $section->addText($note->content);
-                    $section->addTextBreak(1);
-                } else {
-                    $section->addText('Note content is missing.');
-                }
-            }
-        }
+        // if ($build->notes->isEmpty()) {
+        //     $section->addText('No notes found.');
+        // } else {
+        //     foreach ($build->notes as $note) {
+        //         if (!is_null($note->content)) {
+        //             $section->addText($note->content);
+        //             $section->addTextBreak(1);
+        //         } else {
+        //             $section->addText('Note content is missing.');
+        //         }
+        //     }
+        // }
 
         // Ensure the temp directory exists
         $tempDirectory = storage_path('app/temp');
