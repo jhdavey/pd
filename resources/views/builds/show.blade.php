@@ -15,7 +15,7 @@
             <!-- Download build sheet -->
             <div x-data="{ open: false }" class="relative inline-block text-left">
                 <button @click="open = !open" class="inline-flex justify-center w-full mt-2 font-bold px-4 py-2 bg-white/10 hover:bg-white/25 rounded-lg transition-colors duration-200">
-                    Download Build Data
+                    Download Build Sheet
                     <svg class="ml-2 h-5 w-5 transition-transform transform" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
