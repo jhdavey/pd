@@ -338,7 +338,6 @@ class BuildController extends Controller
 
         // Add title and details
         $section->addText('Build Details', ['bold' => true, 'size' => 16]);
-        $section->addText('Build Name: ' . $build->name);
         $section->addText('Year: ' . $build->year);
         $section->addText('Make: ' . $build->make);
         $section->addText('Model: ' . $build->model);
@@ -409,7 +408,6 @@ class BuildController extends Controller
     
     protected function downloadTxt(Build $build)
     {
-        $txtContent = "Build Name: {$build->name}\n";
         $txtContent .= "Year: {$build->year}\n";
         $txtContent .= "Make: {$build->make}\n";
         $txtContent .= "Model: {$build->model}\n\n";
