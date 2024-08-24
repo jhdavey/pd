@@ -21,6 +21,9 @@
 
     <x-forms.form action="{{ route('feedback.store') }}" method="POST">
         @csrf
+        <x-forms.input label="Name" name="name" type="textarea" rows="1" placeholder="Name" />
+        <x-forms.input label="Email*" name="email" type="textarea" rows="1" placeholder="email required" required />
+        <x-forms.input label="Phone Number" name="phone" type="textarea" rows="1" placeholder="Phone number" />
         <x-forms.input label="Feedback" name="feedback" type="textarea" rows="4" placeholder="Share your feedback..." required />
         <x-forms.button type="submit">Share Feedback</x-forms.button>
     </x-forms.form>

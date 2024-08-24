@@ -1,4 +1,4 @@
-@props(['label', 'name', 'type' => 'text', 'rows' => 4])
+@props(['label', 'name', 'type' => 'type', 'rows' => 'rows'])
 
 @php
     $defaults = [
