@@ -1,5 +1,5 @@
 <x-layout>
-<x-page-heading>Browse {{ $tag->name }} Builds</x-page-heading>
+<x-page-heading>{{ $tag->name }} Builds</x-page-heading>
 
     <div class="space-y-6">
         @if($builds->isEmpty())
