@@ -38,58 +38,60 @@
     <script src="https://cdn.tiny.cloud/1/swcectlvcctnntnb8qbjbtqpn40l9x0v8apa51tpbfly3o9c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
-    tinymce.init({
-        selector: '#note',
-        skin: 'oxide-dark',
-        content_css: 'dark',
-        plugins: 'link table lists advlist image media',
-        menubar: 'file edit insert format',
-        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image media',
-        statusbar: false,
-        height: 300,
-        link_assume_external_targets: 'https',
-        image_title: true,
-        automatic_uploads: true,
-        file_picker_types: 'image media',
-        relative_urls: false,
-        remove_script_host: false,
-        convert_urls: true,
-        file_picker_callback: (cb, value, meta) => {
-            const input = document.createElement('input');
-            input.setAttribute('type', 'file');
+        tinymce.init({
+            selector: '#note',
+            skin: 'oxide-dark',
+            content_css: 'dark',
+            plugins: 'link table lists advlist image media',
+            menubar: 'file edit insert format',
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image media',
+            statusbar: false,
+            height: 300,
+            link_assume_external_targets: 'https',
+            image_title: true,
+            automatic_uploads: true,
+            file_picker_types: 'image media',
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
+            file_picker_callback: (cb, value, meta) => {
+                const input = document.createElement('input');
+                input.setAttribute('type', 'file');
 
-            if (meta.filetype === 'image') {
-                input.setAttribute('accept', 'image/*');
-            } else if (meta.filetype === 'media') {
-                input.setAttribute('accept', 'video/*,audio/*');
-            }
+                if (meta.filetype === 'image') {
+                    input.setAttribute('accept', 'image/*');
+                } else if (meta.filetype === 'media') {
+                    input.setAttribute('accept', 'video/*,audio/*');
+                }
 
-            input.addEventListener('change', (e) => {
-                const file = e.target.files[0];
+                input.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
 
-                const formData = new FormData();
-                formData.append('file', file);
+                    const formData = new FormData();
+                    formData.append('file', file);
 
-                fetch('/media-upload', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    cb(data.location, { title: file.name });
-                })
-                .catch(error => {
-                    console.error('Error uploading media:', error);
+                    fetch('/media-upload', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            cb(data.location, {
+                                title: file.name
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error uploading media:', error);
+                        });
                 });
-            });
 
-            input.click();
-        },
-    });
-</script>
+                input.click();
+            },
+        });
+    </script>
 
 </head>
 
@@ -173,17 +175,11 @@
                 </svg>
             </div>
             <div x-show="open" x-transition class="mt-4">
-                <p class="my-6">***Image database was reset - PLEASE REUPLOAD IMAGES - <br />We began this project in June 2024. Our goal is to create a platform that allows car enthusiasts of all types to track and share their builds with fellow enthusiasts. We are constantly adding and improving features, but there is still a lot of work to do and some bugs to fix. The platform allows you to:</p>
-                <ul class="my-6 space-y-3">
-                    <li>- Create a profile</li>
-                    <li>- List your builds including specs, performance, and modifications</li>
-                    <li>- Follow your favorite builds</li>
-                    <li>- Explore new builds across any genre</li>
-                    <li>- Share thoughts, questions, and words of encouragement with other builders</li>
-                    <li>- And enjoy a community of gear heads like you!</li>
-                </ul>
-                <p class="my-6">Please share any feedback you have, and let us know what features you would like to see by navigating to the <a href='/feedback' class="text-blue-500 underline italic">Beta Page</a>.</p>
-                <p class="my-6">Thank you for being part of the community!</p>
+                <p class="my-6">***Image database was reset - PLEASE REUPLOAD IMAGES -
+                    <br /><br />I began this project in June 2024. My goal is to create a platform that allows fellow car enthusiasts of all types to track and share builds. I am constantly adding and improving features, but there is still a lot of work to do and some bugs to fix.
+                    <br /><br />Please share any feedback you have, and let us know what features you would like to see by navigating to the <a href='/feedback' class="text-blue-500 underline italic">Beta Page</a>.
+                    <br /><br />Thank you for being part of the community!
+                </p>
             </div>
         </div>
 
